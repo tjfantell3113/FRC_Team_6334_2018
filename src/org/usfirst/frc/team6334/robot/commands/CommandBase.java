@@ -1,7 +1,7 @@
 package org.usfirst.frc.team6334.robot.commands;
 
 import org.usfirst.frc.team6334.robot.OI;
-import org.usfirst.frc.team6334.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team6334.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -13,10 +13,12 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     
     public static DriveTrain driveTrain;
+    public static Vision vision;
 
     
-    public static void init() {
+    public static void init() { 
     	driveTrain = new DriveTrain();
+    	vision = new Vision();
     	
         oi = new OI();
     }

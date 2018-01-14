@@ -30,9 +30,11 @@ public class OI {
 	private JoystickButton rightStickButton = new JoystickButton(xboxStick, RobotMap.xboxRightStickButton);
 	private JoystickButton leftStickButton = new JoystickButton(xboxStick, RobotMap.xboxLeftStickButton);
 	
+	//put button press events here
 	public OI(){
 		
 	}
+	
 	public Joystick getXboxStick(){
 		return xboxStick;
 	}

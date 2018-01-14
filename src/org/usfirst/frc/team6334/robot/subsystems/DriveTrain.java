@@ -21,7 +21,7 @@ public class DriveTrain extends Subsystem {
 		LeftMotor2 = new WPI_TalonSRX(RobotMap.LeftDrive2);
 		LeftMotor3 = new WPI_TalonSRX(RobotMap.LeftDrive3);
 		
-		//Make the extra motors mirror what the first motor
+		//Make the extra motors mirror the first motors
 		RightMotor2.follow(RightMotor1);
 		RightMotor3.follow(RightMotor1);
 		LeftMotor2.follow(LeftMotor1);
@@ -48,7 +48,7 @@ public class DriveTrain extends Subsystem {
 		setMotorValues(right, left);
 	}
 	
-	//true makes the robot enter break mode, false will put it into coast
+	//true makes the robot enter break mode, false will put it i nto coast
 	public void changeBrakeMode(boolean brakeMode) {
 		RightMotor1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
 	}

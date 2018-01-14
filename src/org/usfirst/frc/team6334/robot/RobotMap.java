@@ -15,33 +15,54 @@ package org.usfirst.frc.team6334.robot;
  */
 public class RobotMap {
 	//Controller Ports
-		public final static int xboxPort = 0;
+	public final static int xboxPort = 0;
 
-		//Xbox Axis
-		public final static int xboxLeftXAxis = 0;
-		public final static int xboxLeftYAxis = 1;
-		public final static int xboxLeftTrigger = 2;
-		public final static int xboxRightTrigger = 3;
-		public final static int xboxRightXAxis = 4;
-		public final static int xboxRightYAxis = 5;
+	//Xbox Axis
+	public final static int xboxLeftXAxis = 0;
+	public final static int xboxLeftYAxis = 1;
+	public final static int xboxLeftTrigger = 2;
+	public final static int xboxRightTrigger = 3;
+	public final static int xboxRightXAxis = 4;
+	public final static int xboxRightYAxis = 5;
 
-		//Xbox Buttons
-		public final static int xboxAButton = 1;
-		public final static int xboxBButton = 2;
-		public final static int xboxXButton = 3;
-		public final static int xboxYButton = 4;
-		public final static int xboxLeftBumper = 5;
-		public final static int xboxRightBumper = 6;
-		public final static int xboxViewButton = 7;
-		public final static int xboxMenuButton = 8;
-		public final static int xboxLeftStickButton = 9;
-		public final static int xboxRightStickButton = 10;
-		
-		//PWM
-		public final static int RightDrive1 = 2;
-		public final static int RightDrive2 = 4;
-		public final static int RightDrive3 = 6;
-		public final static int LeftDrive1 = 1;
-		public final static int LeftDrive2 = 3;
-		public final static int LeftDrive3 = 5;
+	//Xbox Buttons
+	public final static int xboxAButton = 1;
+	public final static int xboxBButton = 2;
+	public final static int xboxXButton = 3;
+	public final static int xboxYButton = 4;
+	public final static int xboxLeftBumper = 5;
+	public final static int xboxRightBumper = 6;
+	public final static int xboxViewButton = 7;
+	public final static int xboxMenuButton = 8;
+	public final static int xboxLeftStickButton = 9;
+	public final static int xboxRightStickButton = 10;
+	
+	//TalonSRX ID's
+	public final static int RightDrive1 = 2;
+	public final static int RightDrive2 = 4;
+	public final static int RightDrive3 = 6;
+	public final static int LeftDrive1 = 1;
+	public final static int LeftDrive2 = 3;
+	public final static int LeftDrive3 = 5;
+	
+	//Limelight
+	public final static double L_kPx = 0.07;
+	public final static double L_kPy = 0.05;
+	public final static double L_min_kP = 0.05;
+	public final static int ledOn = 0;
+	public final static int ledOff = 1;
+	public final static int ledBlink = 2;
+	public final static int camVisionProccesor = 0;
+	public final static int camDriver = 1;
+	public final static int pipeline0 = 0;
+	public final static int pipeline1 = 1;
+	public final static int pipeline2 = 2;
+	public final static int pipeline3 = 3;
+	public final static int pipeline4 = 4;
+	public final static int pipeline5 = 5;
+	public final static int pipeline6 = 6;
+	public final static int pipeline7 = 7;
+	public final static int pipeline8 = 8;
+	public final static int pipeline9 = 9;
+	
 }

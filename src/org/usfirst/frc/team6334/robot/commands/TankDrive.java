@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.*;
  */
 public class TankDrive extends CommandBase {
 
-	double left, right;
+	double leftThrottle, rightThrottle;
 	Joystick stick;
 	
     public TankDrive() {
@@ -27,11 +27,11 @@ public class TankDrive extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
     protected void execute(){
 		stick = oi.getXboxStick();
-		left = stick.getRawAxis(RobotMap.xboxLeftYAxis);
-		right = stick.getRawAxis(RobotMap.xboxRightYAxis);
+		leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
+		rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
 		
 		
-		driveTrain.driveWithController(right, left);
+		driveTrain.driveWithController(rightThrottle, leftThrottle);
 	}
 
     // Make this return true when this Command no longer needs to run execute()
