@@ -37,13 +37,13 @@ public class RobotMap {
 	public final static int xboxLeftStickButton = 9;
 	public final static int xboxRightStickButton = 10;
 	
-	//TalonSRX ID's
-	public final static int RightDrive1 = 2;
-	public final static int RightDrive2 = 4;
-	public final static int RightDrive3 = 6;
-	public final static int LeftDrive1 = 1;
-	public final static int LeftDrive2 = 3;
-	public final static int LeftDrive3 = 5;
+	//TalonSRX ID's (Fixed for PWM values, otherwise when using CAN use left = odd and right = even with the range of 1 to 62)
+	public final static int RightDrive1 = 1;
+	public final static int RightDrive2 = 3;
+	public final static int RightDrive3 = 5;
+	public final static int LeftDrive1 = 0;
+	public final static int LeftDrive2 = 2;
+	public final static int LeftDrive3 = 4;
 	
 	//Limelight
 	public final static double L_KpX = 0.07;
@@ -66,7 +66,8 @@ public class RobotMap {
 	public final static int pipeline9 = 9;
 	
 	//Solenoids (I am not sure whether this is pwm or I/O. But that is the point of the robot map, we can easily change it.)
-	public final static int intakeUp = 0;
-	public final static int intakeDown = 1;
-	
+	public final static int leftGearChange = 0;
+	public final static int rightGearChange = 1;
+	public final static int intakeUp = 2;
+	public final static int intakeDown = 3;
 }

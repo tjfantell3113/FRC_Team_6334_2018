@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6334.robot.commands;
 
 import org.usfirst.frc.team6334.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 import edu.wpi.first.wpilibj.*;
@@ -27,16 +28,17 @@ public class TankDrive extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
     protected void execute(){
 		stick = oi.getXboxStick();
-		leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
-		rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
-		
+		//leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
+		//rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
+		leftThrottle = 0.15;
+		rightThrottle = 0.15;
 		
 		driveTrain.driveWithController(rightThrottle, leftThrottle);
 	}
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return false; //Returning false makes this the default command when there are not others.
     }
 
     // Called once after isFinished returns true
