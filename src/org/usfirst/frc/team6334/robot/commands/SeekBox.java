@@ -2,27 +2,13 @@ package org.usfirst.frc.team6334.robot.commands;
 
 import org.usfirst.frc.team6334.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 /**
- *
- *
- *
- *
- *
- *
- *	THIS IS NOT FINISHED BY ANY MEANS, PLEASE DO NOT TOUCH!
- *
- *
- *
- *
- *
  *
  */
 public class SeekBox extends CommandBase {
 
-	double kPx, kPy, min_kP, xError, yError, throttleAdjustTurn, throttleAdjustDistance;
-	
+	double KpX, min_Kp, xError, target, throttleAdjustment;
+
     public SeekBox() {
         requires(driveTrain);
         requires(vision);
@@ -30,28 +16,23 @@ public class SeekBox extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	kPx = RobotMap.L_kPx;
-    	kPy = RobotMap.L_kPy;
-    	min_kP = RobotMap.L_min_kP;
+    	KpX = RobotMap.L_KpX;
+    	min_Kp = RobotMap.L_min_Kp;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	xError = vision.getXOffset();
-    	yError = vision.getYOffset();
-    	throttleAdjustTurn = 0;
-    	throttleAdjustDistance = 0;
-    	
-    	if(xError > 1) {
-    		throttleAdjustTurn = kPx * xError - min_kP;
+    	target = vision.getTarget(); //gives 0 for no target, 1 for target acquired. The issue here will be making sure the robot gets the correct box.
+    	throttleAdjustment = 0;
+
+    	if(target == 0) {
+    		throttleAdjustment = 0.3;
     	}
-    	else if (xError < 1) {
-    		throttleAdjustTurn = kPx * xError + min_kP;
+    	else {
+    		throttleAdjustment = KpX * xError;
     	}
-    	
-    	throttleAdjustDistance = kPy * yError;
-    	
-    	driveTrain.setMotorValues(0.5 - (throttleAdjustTurn + throttleAdjustDistance), 0.5 + (throttleAdjustTurn + throttleAdjustDistance));
+    	driveTrain.setMotorValues(0.1 - throttleAdjustment, 0.1 + throttleAdjustment);
     }
 
     // Make this return true when this Command no longer needs to run execute()

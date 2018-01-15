@@ -46,9 +46,9 @@ public class RobotMap {
 	public final static int LeftDrive3 = 5;
 	
 	//Limelight
-	public final static double L_kPx = 0.07;
-	public final static double L_kPy = 0.05;
-	public final static double L_min_kP = 0.05;
+	public final static double L_KpX = 0.07;
+	public final static double L_KpY = 0.05;
+	public final static double L_min_Kp = 0.05;
 	public final static int ledOn = 0;
 	public final static int ledOff = 1;
 	public final static int ledBlink = 2;

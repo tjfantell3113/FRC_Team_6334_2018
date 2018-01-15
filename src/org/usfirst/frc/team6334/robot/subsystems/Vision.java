@@ -32,7 +32,8 @@ public class Vision extends Subsystem {
 		visionTable.putNumber("pipeline", num);
 	}
 	
-	public int targetAquired() {
+	//returns 0 if there is no target and 1 if there is (it is the box in this case)
+	public int getTarget() {
 		return (int)targetAquired;
 	}
 	public double getXOffset() {
