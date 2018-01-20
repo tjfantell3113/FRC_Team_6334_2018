@@ -2,6 +2,7 @@ package org.usfirst.frc.team6334.robot.subsystems;
 
 //import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -17,7 +18,10 @@ public class DriveTrain extends Subsystem {
 	//WPI_TalonSRX RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
 	Talon RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
 	//Solenoid leftGearChange, rightGearChange;
-		
+	
+	Encoder leftEncoder, rightEncoder;
+	
+	
 	public DriveTrain() {
 		RightMotor1 = new Talon(RobotMap.RightDrive1);
 		RightMotor2 = new Talon(RobotMap.RightDrive2);
@@ -36,6 +40,9 @@ public class DriveTrain extends Subsystem {
 		LeftMotor2.follow(LeftMotor1);
 		LeftMotor3.follow(LeftMotor1);
 		*/
+		
+		leftEncoder = new Encoder(7, 8, false, Encoder.EncodingType.k4X);  //false = don't invert counting direction
+		leftEncoder = new Encoder(9, 10, false, Encoder.EncodingType.k4X); //need to find correct ports
 	}
 	
 	public void setMotorValues(double right, double left){
@@ -51,6 +58,9 @@ public class DriveTrain extends Subsystem {
 		
 		SmartDashboard.putData("Left Motor Power", RightMotor1);
 		SmartDashboard.putData("Right Motor Power", LeftMotor1);
+		
+		SmartDashboard.putData("Left Encoder = ", leftEncoder);
+		SmartDashboard.putData("Right Encoder = ", leftEncoder);
 	}
 	
 	public void driveWithController(double rightStick, double leftStick){
