@@ -10,7 +10,6 @@ package org.usfirst.frc.team6334.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6334.robot.commands.*;
 
@@ -25,7 +24,6 @@ public class Robot extends TimedRobot {
 	
 	public void robotInit() {
 		CommandBase.init();
-		SmartDashboard.putData(Scheduler.getInstance());
 	}
 
 	/**

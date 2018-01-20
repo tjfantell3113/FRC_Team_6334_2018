@@ -32,7 +32,7 @@ public class SeekBox extends CommandBase {
     	else {
     		throttleAdjustment = KpX * xError;
     	}
-    	driveTrain.setMotorValues(0.1 - throttleAdjustment, 0.1 + throttleAdjustment);
+    	driveTrain.setMotorValues(0.25 - throttleAdjustment, 0.25 + throttleAdjustment);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,10 +42,12 @@ public class SeekBox extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+    	driveTrain.setMotorValues(0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	driveTrain.setMotorValues(0, 0);
     }
 }

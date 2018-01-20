@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
-//import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team6334.robot.RobotMap;
 
@@ -9,15 +9,23 @@ import org.usfirst.frc.team6334.robot.RobotMap;
  */
 public class Intake extends Subsystem {
 
-	//private Solenoid intakeUp, intakeDown;
+	private Solenoid intakeSolenoid;
 	
 	public Intake(){
-		//intakeUp = new Solenoid(RobotMap.intakeUp);
-		//intakeDown = new Solenoid(RobotMap.intakeDown);
+		intakeSolenoid = new Solenoid(RobotMap.intakeSolenoid);
 	}
 	
 	public void changePosition() {
-		
+		if(intakeSolenoid.get()) {
+			intakeSolenoid.set(false);
+		}
+		else {
+			intakeSolenoid.set(true);
+		}
+	}
+	
+	public void resetIntake() {
+		intakeSolenoid.set(false);
 	}
 	
     public void initDefaultCommand() {

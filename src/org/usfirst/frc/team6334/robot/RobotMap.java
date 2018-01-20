@@ -65,9 +65,8 @@ public class RobotMap {
 	public final static int pipeline8 = 8;
 	public final static int pipeline9 = 9;
 	
-	//Solenoids (I am not sure whether this is pwm or I/O. But that is the point of the robot map, we can easily change it.)
+	//Solenoids (D I/O slots)
 	public final static int leftGearChange = 0;
 	public final static int rightGearChange = 1;
-	public final static int intakeUp = 2;
-	public final static int intakeDown = 3;
+	public final static int intakeSolenoid = 2;
 }

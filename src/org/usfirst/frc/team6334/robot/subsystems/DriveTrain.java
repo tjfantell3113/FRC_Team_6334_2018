@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
-//import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +16,7 @@ public class DriveTrain extends Subsystem {
 	
 	//WPI_TalonSRX RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
 	Talon RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
-	//Solenoid leftGearChange, rightGearChange;
+	Solenoid leftGearChange, rightGearChange;
 		
 	public DriveTrain() {
 		RightMotor1 = new Talon(RobotMap.RightDrive1);
@@ -26,8 +26,8 @@ public class DriveTrain extends Subsystem {
 		LeftMotor2 = new Talon(RobotMap.LeftDrive2);
 		LeftMotor3 = new Talon(RobotMap.LeftDrive3);
 		
-		//leftGearChange = new Solenoid(RobotMap.leftGearChange);
-		//rightGearChange = new Solenoid(RobotMap.rightGearChange);
+		leftGearChange = new Solenoid(RobotMap.leftGearChange);
+		rightGearChange = new Solenoid(RobotMap.rightGearChange);
 		
 		//Make the extra motors mirror the first motors (CAN only)
 		/*
@@ -49,8 +49,7 @@ public class DriveTrain extends Subsystem {
 		LeftMotor2.set(-left);
 		LeftMotor3.set(-left);
 		
-		SmartDashboard.putData("Left Motor Power", RightMotor1);
-		SmartDashboard.putData("Right Motor Power", LeftMotor1);
+		
 	}
 	
 	public void driveWithController(double rightStick, double leftStick){
@@ -64,7 +63,7 @@ public class DriveTrain extends Subsystem {
 		
 		setMotorValues(right, left);
 	}
-	/*
+
 	public void setLowGear() {
 		leftGearChange.set(true);
 		rightGearChange.set(true);
@@ -74,7 +73,11 @@ public class DriveTrain extends Subsystem {
 		leftGearChange.set(false);
 		rightGearChange.set(false);
 	}
-	*/
+
+	public void updateDash() {
+		SmartDashboard.putData("Left Motor Power", RightMotor1);
+		SmartDashboard.putData("Right Motor Power", LeftMotor1);
+	}
 	
 	//true makes the robot enter break mode, false will put it into coast (This is a CAN only function)
 	/*
