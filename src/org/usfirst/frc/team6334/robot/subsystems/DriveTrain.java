@@ -1,46 +1,57 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.lang.reflect.Array;
+
 import org.usfirst.frc.team6334.robot.RobotMap;
 import org.usfirst.frc.team6334.robot.commands.TankDrive;
 
-// This is CAN only, you will notice a trend from here.
-// import com.ctre.phoenix.motorcontrol.NeutralMode;
-//import com.ctre.phoenix.motorcontrol.can.*;
+//CAN only libraries
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class DriveTrain extends Subsystem {
 	
-	//WPI_TalonSRX RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
-	Talon RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
-	Solenoid leftGearChange, rightGearChange;
+	WPI_TalonSRX RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
+	//Talon RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
+	DoubleSolenoid leftGearChange, rightGearChange;
 	Encoder leftEncoder, rightEncoder;
 	
 	public DriveTrain() {
+		
+		RightMotor1 = new WPI_TalonSRX(RobotMap.RightDrive1);
+		RightMotor2 = new WPI_TalonSRX(RobotMap.RightDrive2);
+		RightMotor3 = new WPI_TalonSRX(RobotMap.RightDrive3);
+		LeftMotor1 = new WPI_TalonSRX(RobotMap.LeftDrive1);
+		LeftMotor2 = new WPI_TalonSRX(RobotMap.LeftDrive2);
+		LeftMotor3 = new WPI_TalonSRX(RobotMap.LeftDrive3);
+		/*
 		RightMotor1 = new Talon(RobotMap.RightDrive1);
 		RightMotor2 = new Talon(RobotMap.RightDrive2);
 		RightMotor3 = new Talon(RobotMap.RightDrive3);
 		LeftMotor1 = new Talon(RobotMap.LeftDrive1);
 		LeftMotor2 = new Talon(RobotMap.LeftDrive2);
 		LeftMotor3 = new Talon(RobotMap.LeftDrive3);
-		
-		leftGearChange = new Solenoid(RobotMap.leftGearChange);
-		rightGearChange = new Solenoid(RobotMap.rightGearChange);
-		
-		//Make the extra motors mirror the first motors (CAN only)
-		/*
-		RightMotor2.follow(RightMotor1);
-		RightMotor3.follow(RightMotor1);
-		LeftMotor2.follow(LeftMotor1);
-		LeftMotor3.follow(LeftMotor1);
 		*/
 		
-		leftEncoder = new Encoder(7, 8, false, Encoder.EncodingType.k4X);  //false = don't invert counting direction
-		leftEncoder = new Encoder(9, 10, false, Encoder.EncodingType.k4X); //need to find correct ports
+		leftGearChange = new DoubleSolenoid(RobotMap.leftGearChange1, RobotMap.leftGearChange2);
+		rightGearChange = new DoubleSolenoid(RobotMap.rightGearChange1, RobotMap.rightGearChange2);
+
+		
+		//Make the extra motors mirror the first motors (CAN only)
+		
+		RightMotor2.follow(RightMotor1);
+		RightMotor3.follow(RightMotor1);
+		LeftMotor1.setInverted(true);
+		LeftMotor2.follow(LeftMotor1);
+		LeftMotor3.follow(LeftMotor1);
+		
+		leftEncoder = new Encoder(RobotMap.encLeftIn, RobotMap.encLeftOut, false, Encoder.EncodingType.k4X);  //false = don't invert counting direction
+		leftEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, false, Encoder.EncodingType.k4X); //need to find correct ports
 	}
 	
 	public void setMotorValues(double right, double left){
@@ -52,9 +63,7 @@ public class DriveTrain extends Subsystem {
 		RightMotor3.set(right);
 		LeftMotor1.set(-left);
 		LeftMotor2.set(-left);
-		LeftMotor3.set(-left);
-		
-		
+		LeftMotor3.set(-left);	
 	}
 	
 	public void driveWithController(double rightStick, double leftStick){
@@ -68,15 +77,47 @@ public class DriveTrain extends Subsystem {
 		
 		setMotorValues(right, left);
 	}
+	
+	public void resetEncoderPos() {
+		leftEncoder.reset();
+		rightEncoder.reset();
+	}
+	
+	public int getLeftEncoderPos() {
+		return leftEncoder.get();
+	}
+	public int getRightEncoderPos() {
+		return rightEncoder.get();
+	}
 
 	public void setLowGear() {
-		leftGearChange.set(true);
-		rightGearChange.set(true);
+		if (leftGearChange.get() == DoubleSolenoid.Value.kReverse) {
+			leftGearChange.set(DoubleSolenoid.Value.kForward);
+		}
+		else {
+			System.out.println("Left gear is already in low gear!");
+		}
+		if (rightGearChange.get() == DoubleSolenoid.Value.kReverse) {
+			rightGearChange.set(DoubleSolenoid.Value.kForward);
+		}
+		else {
+			System.out.println("Right gear is already in low gear!");
+		}
 	}
 	
 	public void setHighGear() {
-		leftGearChange.set(false);
-		rightGearChange.set(false);
+		if (leftGearChange.get() == DoubleSolenoid.Value.kForward) {
+			leftGearChange.set(DoubleSolenoid.Value.kReverse);
+		}
+		else {
+			System.out.println("Left gear is already in high gear!");
+		}
+		if (rightGearChange.get() == DoubleSolenoid.Value.kForward) {
+			rightGearChange.set(DoubleSolenoid.Value.kReverse);
+		}
+		else {
+			System.out.println("Right gear is already in high gear!");
+		}
 	}
 
 	public void updateDash() {
@@ -85,11 +126,9 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	//true makes the robot enter break mode, false will put it into coast (This is a CAN only function)
-	/*
 	public void changeBrakeMode(boolean brakeMode) {
 		RightMotor1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
 	}
-	*/
 
     public void initDefaultCommand() {
     	setDefaultCommand(new TankDrive());

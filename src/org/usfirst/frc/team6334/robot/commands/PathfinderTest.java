@@ -1,9 +1,14 @@
 package org.usfirst.frc.team6334.robot.commands;
 
+import org.usfirst.frc.team6334.robot.Robot;
+import org.usfirst.frc.team6334.robot.RobotMap;
+import org.usfirst.frc.team6334.robot.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
+import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 /**
@@ -20,11 +25,9 @@ public class PathfinderTest extends Command {
     	// Sample Count:        SAMPLES_HIGH (100 000)
     	//    	                SAMPLES_LOW  (10 000)
     	//    	                SAMPLES_FAST (1 000)
-    	// Time Step:           0.05 Seconds
-    	// Max Velocity:        1.7 m/s
-    	// Max Acceleration:    2.0 m/s/s
-    	// Max Jerk:            60.0 m/s/s/s
-    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+    	Trajectory.Config config = new Trajectory.Config(
+    			Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH,
+    			RobotMap.timeStep, RobotMap.maxVel, RobotMap.maxAccel, RobotMap.maxJerk);
     	
         Waypoint[] points = new Waypoint[] {
                 new Waypoint(0, 0, 0), //Waypoints take a x, a y, and an angle.
@@ -32,14 +35,19 @@ public class PathfinderTest extends Command {
                 new Waypoint(2, 1, 0)
         };
 
+        //wheel diameter = 6 inches
         Trajectory trajectory = Pathfinder.generate(points, config);
-
-        // Wheelbase Width = 0.5m (Distance between wheels)
-        TankModifier modifier = new TankModifier(trajectory).modify(0.5);
-
-        // Do something with the new Trajectories...
+        TankModifier modifier = new TankModifier(trajectory).modify(RobotMap.wheelBase);
         Trajectory left = modifier.getLeftTrajectory();
         Trajectory right = modifier.getRightTrajectory();
+        
+        EncoderFollower efl = new EncoderFollower(left);
+        EncoderFollower efr = new EncoderFollower(right);
+        efr.configurePIDVA(RobotMap.kp, RobotMap.ki, RobotMap.kd, RobotMap.kv, RobotMap.ka);
+        efl.configurePIDVA(RobotMap.kp, RobotMap.ki, RobotMap.kd, RobotMap.kv, RobotMap.ka);
+        
+        
+        // Do something with the new Trajectories...
     }
 
     // Called just before this Command runs the first time

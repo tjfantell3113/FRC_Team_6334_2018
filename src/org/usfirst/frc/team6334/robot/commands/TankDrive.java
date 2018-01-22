@@ -29,7 +29,15 @@ public class TankDrive extends CommandBase {
 		leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
 		rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
 		
-		driveTrain.driveWithController(rightThrottle, leftThrottle);
+		if (stick.getRawButton(RobotMap.xboxAButton)) {
+			driveTrain.setHighGear();
+		}
+		else if(stick.getRawButton(RobotMap.xboxBButton)) {
+			driveTrain.setLowGear();
+		}
+		else{
+			driveTrain.driveWithController(rightThrottle, leftThrottle);
+		}
 		driveTrain.updateDash();
 	}
 
