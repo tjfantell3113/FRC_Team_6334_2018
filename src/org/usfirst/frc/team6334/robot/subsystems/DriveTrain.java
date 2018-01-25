@@ -1,12 +1,10 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.lang.reflect.Array;
-
 import org.usfirst.frc.team6334.robot.RobotMap;
 import org.usfirst.frc.team6334.robot.commands.TankDrive;
 
@@ -19,6 +17,7 @@ public class DriveTrain extends Subsystem {
 	WPI_TalonSRX RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
 	//Talon RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
 	DoubleSolenoid leftGearChange, rightGearChange;
+	Compressor compressor;
 	Encoder leftEncoder, rightEncoder;
 	
 	public DriveTrain() {
@@ -40,6 +39,8 @@ public class DriveTrain extends Subsystem {
 		
 		leftGearChange = new DoubleSolenoid(RobotMap.leftGearChange1, RobotMap.leftGearChange2);
 		rightGearChange = new DoubleSolenoid(RobotMap.rightGearChange1, RobotMap.rightGearChange2);
+		compressor = new Compressor(0);
+		compressor.setClosedLoopControl(true);
 
 		
 		//Make the extra motors mirror the first motors (CAN only)
@@ -47,6 +48,8 @@ public class DriveTrain extends Subsystem {
 		RightMotor2.follow(RightMotor1);
 		RightMotor3.follow(RightMotor1);
 		LeftMotor1.setInverted(true);
+		LeftMotor2.setInverted(true);
+		LeftMotor3.setInverted(true);
 		LeftMotor2.follow(LeftMotor1);
 		LeftMotor3.follow(LeftMotor1);
 		
@@ -61,9 +64,9 @@ public class DriveTrain extends Subsystem {
 		RightMotor1.set(right);
 		RightMotor2.set(right);
 		RightMotor3.set(right);
-		LeftMotor1.set(-left);
-		LeftMotor2.set(-left);
-		LeftMotor3.set(-left);	
+		LeftMotor1.set(left);
+		LeftMotor2.set(left);
+		LeftMotor3.set(left);	
 	}
 	
 	public void driveWithController(double rightStick, double leftStick){
@@ -91,33 +94,17 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setLowGear() {
-		if (leftGearChange.get() == DoubleSolenoid.Value.kReverse) {
 			leftGearChange.set(DoubleSolenoid.Value.kForward);
-		}
-		else {
-			System.out.println("Left gear is already in low gear!");
-		}
-		if (rightGearChange.get() == DoubleSolenoid.Value.kReverse) {
 			rightGearChange.set(DoubleSolenoid.Value.kForward);
-		}
-		else {
-			System.out.println("Right gear is already in low gear!");
-		}
 	}
 	
 	public void setHighGear() {
-		if (leftGearChange.get() == DoubleSolenoid.Value.kForward) {
 			leftGearChange.set(DoubleSolenoid.Value.kReverse);
-		}
-		else {
-			System.out.println("Left gear is already in high gear!");
-		}
-		if (rightGearChange.get() == DoubleSolenoid.Value.kForward) {
 			rightGearChange.set(DoubleSolenoid.Value.kReverse);
-		}
-		else {
-			System.out.println("Right gear is already in high gear!");
-		}
+	}
+	
+	public boolean testCompressor() {
+		return compressor.enabled();
 	}
 
 	public void updateDash() {
