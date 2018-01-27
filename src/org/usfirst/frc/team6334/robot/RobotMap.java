@@ -14,18 +14,20 @@ package org.usfirst.frc.team6334.robot;
  * floating around.
  */
 public class RobotMap {
-	//Controller Ports
+	// Controller Ports
 	public final static int xboxPort = 0;
+	public final static int mainStickPort = 1; // Mainstick and auxstick in preparation for switch over to joystick tank drive
+	public final static int auxStickPort = 2;
 
-	//Xbox Axis
+	// Xbox Axis
 	public final static int xboxLeftXAxis = 0;
 	public final static int xboxLeftYAxis = 1;
-	public final static int xboxLeftTrigger = 2;
+	public final static int xboxLeftTrigger = 2; // Joystick buttons must be mapped out.
 	public final static int xboxRightTrigger = 3;
 	public final static int xboxRightXAxis = 4;
 	public final static int xboxRightYAxis = 5;
 
-	//Xbox Buttons
+	// Xbox Buttons
 	public final static int xboxAButton = 1;
 	public final static int xboxBButton = 2;
 	public final static int xboxXButton = 3;
@@ -36,16 +38,17 @@ public class RobotMap {
 	public final static int xboxMenuButton = 8;
 	public final static int xboxLeftStickButton = 9;
 	public final static int xboxRightStickButton = 10;
-	
-	//TalonSRX ID's (Fixed for PWM values, otherwise when using CAN use left = odd and right = even with the range of 1 to 62)
+
+	// TalonSRX ID's (Fixed for PWM values, otherwise when using CAN use left = odd
+	// and right = even with the range of 1 to 62)
 	public final static int RightDrive1 = 0;
 	public final static int RightDrive2 = 1;
 	public final static int RightDrive3 = 2;
 	public final static int LeftDrive1 = 9;
 	public final static int LeftDrive2 = 8;
 	public final static int LeftDrive3 = 7;
-	
-	//Limelight
+
+	// Limelight
 	public final static double L_KpX = 0.07;
 	public final static double L_KpY = 0.05;
 	public final static double L_min_Kp = 0.05;
@@ -64,22 +67,22 @@ public class RobotMap {
 	public final static int pipeline7 = 7;
 	public final static int pipeline8 = 8;
 	public final static int pipeline9 = 9;
-	
-	//Encoders
+
+	// Encoders
 	public final static int encLeftIn = 6;
 	public final static int encLeftOut = 7;
 	public final static int encRightIn = 8;
 	public final static int encRightOut = 9;
 	public final static int encDriveTicks = 360;
-	
-	//Solenoids (D I/O slots)
+
+	// Solenoids (D I/O slots)
 	public final static int leftGearChange1 = 0;
 	public final static int leftGearChange2 = 1;
-	public final static int rightGearChange1 =2;
+	public final static int rightGearChange1 = 2;
 	public final static int rightGearChange2 = 3;
 	public final static int intakeSolenoid = 2;
-	
-	//Pathfinder constants
+
+	// Pathfinder constants
 	public final static double timeStep = 0.05;
 	public final static double maxVel = 1;
 	public final static double maxAccel = 2;
@@ -88,7 +91,7 @@ public class RobotMap {
 	public final static double kp = 1;
 	public final static double ki = 0;
 	public final static double kd = 1;
-	public final static double kv = 1/maxAccel;
+	public final static double kv = 1 / maxAccel;
 	public final static double ka = 0;
-	
+
 }

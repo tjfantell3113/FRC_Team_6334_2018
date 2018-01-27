@@ -58,7 +58,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void setMotorValues(double right, double left){
-		if(Math.abs(left) < 0.09) left = 0;
+		if(Math.abs(left) < 0.09) left = 0; // comment these two if statements out when we move to dual joysticks
 		if(Math.abs(right) < 0.09) right = 0;
 		
 		RightMotor1.set(right);

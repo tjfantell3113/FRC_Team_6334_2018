@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-	private Joystick xboxStick = new Joystick(RobotMap.xboxPort);
-	
-	//Xbox Buttons
+	private Joystick xboxStick = new Joystick(RobotMap.xboxPort); // TODO when we get button ID maps: adapt functions to take joystick buttons
+	private Joystick mainStick = new Joystick(RobotMap.mainStickPort);
+	private Joystick auxStick = new Joystick(RobotMap.auxStickPort);
+
+	// Xbox Buttons
 	private JoystickButton aButton = new JoystickButton(xboxStick, RobotMap.xboxAButton);
 	private JoystickButton bButton = new JoystickButton(xboxStick, RobotMap.xboxBButton);
 	private JoystickButton xButton = new JoystickButton(xboxStick, RobotMap.xboxXButton);
@@ -29,43 +31,61 @@ public class OI {
 	private JoystickButton menuButton = new JoystickButton(xboxStick, RobotMap.xboxMenuButton);
 	private JoystickButton rightStickButton = new JoystickButton(xboxStick, RobotMap.xboxRightStickButton);
 	private JoystickButton leftStickButton = new JoystickButton(xboxStick, RobotMap.xboxLeftStickButton);
-	
-	//put button press events here
-	public OI(){
-		
+
+	// put button press events here
+	public OI() {
+
 	}
-	
-	public Joystick getXboxStick(){
+
+	public Joystick getXboxStick() {
 		return xboxStick;
 	}
-	public JoystickButton getAButton(){
+
+	public Joystick getMainStick() {
+		return mainStick;
+	}
+
+	public Joystick getAuxStick() {
+		return auxStick;
+	}
+
+	public JoystickButton getAButton() {
 		return aButton;
 	}
-	public JoystickButton getBButton(){
+
+	public JoystickButton getBButton() {
 		return bButton;
 	}
-	public JoystickButton getXButton(){
+
+	public JoystickButton getXButton() {
 		return xButton;
 	}
-	public JoystickButton getYButton(){
+
+	public JoystickButton getYButton() {
 		return yButton;
 	}
-	public JoystickButton getLeftBumper(){
+
+	public JoystickButton getLeftBumper() {
 		return leftBumper;
 	}
-	public JoystickButton getRightBumper(){
+
+	public JoystickButton getRightBumper() {
 		return rightBumper;
 	}
-	public JoystickButton getLeftStickButton(){
+
+	public JoystickButton getLeftStickButton() {
 		return leftStickButton;
 	}
-	public JoystickButton getRightStickButton(){
+
+	public JoystickButton getRightStickButton() {
 		return rightStickButton;
 	}
-	public JoystickButton getviewButton(){
+
+	public JoystickButton getviewButton() {
 		return viewButton;
 	}
-	public JoystickButton getMenuButton(){
+
+	public JoystickButton getMenuButton() {
 		return menuButton;
 	}
 
