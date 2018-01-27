@@ -15,9 +15,9 @@ package org.usfirst.frc.team6334.robot;
  */
 public class RobotMap {
 	// Controller Ports
-	public final static int xboxPort = 0;
-	public final static int mainStickPort = 1; // Mainstick and auxstick in preparation for switch over to joystick tank drive
-	public final static int auxStickPort = 2;
+	public final static int xboxPort = 2;
+	public final static int leftStickPort = 1; // Mainstick and auxstick in preparation for switch over to joystick tank drive
+	public final static int rightStickPort = 0;
 
 	// Xbox Axis
 	public final static int xboxLeftXAxis = 0;
@@ -39,14 +39,15 @@ public class RobotMap {
 	public final static int xboxLeftStickButton = 9;
 	public final static int xboxRightStickButton = 10;
 
-	// TalonSRX ID's (Fixed for PWM values, otherwise when using CAN use left = odd
+	// TalonSRX ID's and values (Fixed for PWM values, otherwise when using CAN use left = odd
 	// and right = even with the range of 1 to 62)
-	public final static int RightDrive1 = 0;
-	public final static int RightDrive2 = 1;
-	public final static int RightDrive3 = 2;
-	public final static int LeftDrive1 = 9;
-	public final static int LeftDrive2 = 8;
-	public final static int LeftDrive3 = 7;
+	public final static int RightDrive1 = 9;
+	public final static int RightDrive2 = 8;
+	public final static int RightDrive3 = 7;
+	public final static int LeftDrive1 = 0;
+	public final static int LeftDrive2 = 1;
+	public final static int LeftDrive3 = 2;
+	public final static int kTimeoutMs = 10;
 
 	// Limelight
 	public final static double L_KpX = 0.07;
@@ -74,6 +75,7 @@ public class RobotMap {
 	public final static int encRightIn = 8;
 	public final static int encRightOut = 9;
 	public final static int encDriveTicks = 360;
+	public final static double automaticShiftValue = 1000;
 
 	// Solenoids (D I/O slots)
 	public final static int leftGearChange1 = 0;
@@ -88,6 +90,7 @@ public class RobotMap {
 	public final static double maxAccel = 2;
 	public final static double maxJerk = 5;
 	public final static double wheelBase = 0.643;
+	public final static double wheelDiameter = 0.1524; //6 inches
 	public final static double kp = 1;
 	public final static double ki = 0;
 	public final static double kd = 1;

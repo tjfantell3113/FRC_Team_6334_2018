@@ -1,10 +1,6 @@
 package org.usfirst.frc.team6334.robot.commands;
 
-import org.usfirst.frc.team6334.robot.Robot;
 import org.usfirst.frc.team6334.robot.RobotMap;
-import org.usfirst.frc.team6334.robot.subsystems.DriveTrain;
-
-import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -14,7 +10,7 @@ import jaci.pathfinder.modifiers.TankModifier;
 /**
  *
  */
-public class PathfinderTest extends Command {
+public class PathfinderTest extends CommandBase {
 
     @SuppressWarnings("unused")
 	public PathfinderTest() {
@@ -43,6 +39,8 @@ public class PathfinderTest extends Command {
         
         EncoderFollower efl = new EncoderFollower(left);
         EncoderFollower efr = new EncoderFollower(right);
+        efl.configureEncoder(driveTrain.getLeftEncoderPos(), RobotMap.encDriveTicks, RobotMap.wheelDiameter);
+        efl.configureEncoder(driveTrain.getRightEncoderPos(), RobotMap.encDriveTicks, RobotMap.wheelDiameter);
         efr.configurePIDVA(RobotMap.kp, RobotMap.ki, RobotMap.kd, RobotMap.kv, RobotMap.ka);
         efl.configurePIDVA(RobotMap.kp, RobotMap.ki, RobotMap.kd, RobotMap.kv, RobotMap.ka);
         

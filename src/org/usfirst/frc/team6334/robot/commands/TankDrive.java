@@ -7,10 +7,12 @@ import edu.wpi.first.wpilibj.Joystick;
 /**
  *
  */
+@SuppressWarnings("unused")
 public class TankDrive extends CommandBase {
 
 	double leftThrottle, rightThrottle;
-	Joystick stick, mainStick, auxStick;
+	Joystick stick, leftStick, rightStick;
+	boolean automaticShift, coastModeEnabled;
 
 	public TankDrive() {
 		super("TankDrive");
@@ -19,21 +21,22 @@ public class TankDrive extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-
+		automaticShift = true;
+		leftStick = oi.getLeftStick();
+		rightStick = oi.getRightStick();
+		coastModeEnabled = false;
+		//stick = oi.getXboxStick();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		leftThrottle = leftStick.getY();
+		rightThrottle = rightStick.getY();
 
-		mainStick = oi.getMainStick();
-		auxStick = oi.getAuxStick();
-		// leftThrottle = auxStick.getX();
-		// rightThrottle = mainStick.getX();
+		//leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
+		//rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
 
-		stick = oi.getXboxStick();
-		leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
-		rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
-
+		/*
 		if (stick.getRawButtonPressed(RobotMap.xboxXButton)) {
 			driveTrain.changeBrakeMode(false);
 		} else if (stick.getRawButton(RobotMap.xboxYButton)) {
@@ -47,6 +50,13 @@ public class TankDrive extends CommandBase {
 		} else {
 			driveTrain.driveWithController(rightThrottle, leftThrottle);
 		}
+		*/
+		if (leftStick.getRawButtonPressed(3)) {
+			driveTrain.changeBrakeMode(coastModeEnabled);
+			coastModeEnabled = !coastModeEnabled;
+		}
+		
+		driveTrain.driveWithController(rightThrottle, leftThrottle);
 		driveTrain.updateDash();
 	}
 

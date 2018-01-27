@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 
 	private Joystick xboxStick = new Joystick(RobotMap.xboxPort); // TODO when we get button ID maps: adapt functions to take joystick buttons
-	private Joystick mainStick = new Joystick(RobotMap.mainStickPort);
-	private Joystick auxStick = new Joystick(RobotMap.auxStickPort);
+	private Joystick leftStick = new Joystick(RobotMap.leftStickPort);
+	private Joystick rightStick = new Joystick(RobotMap.rightStickPort);
 
 	// Xbox Buttons
 	private JoystickButton aButton = new JoystickButton(xboxStick, RobotMap.xboxAButton);
@@ -41,12 +41,12 @@ public class OI {
 		return xboxStick;
 	}
 
-	public Joystick getMainStick() {
-		return mainStick;
+	public Joystick getLeftStick() {
+		return leftStick;
 	}
 
-	public Joystick getAuxStick() {
-		return auxStick;
+	public Joystick getRightStick() {
+		return rightStick;
 	}
 
 	public JoystickButton getAButton() {
