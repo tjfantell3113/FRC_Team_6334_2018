@@ -68,19 +68,22 @@ public class TankDrive extends CommandBase {
 		if (leftStick.getRawButtonPressed(RobotMap.resetEncoders) || rightStick.getRawButtonPressed(RobotMap.resetEncoders)) {
 			driveTrain.resetEncoderPos();
 		}
-		System.out.println(driveTrain.getLeftEncoderRate());
-		System.out.println(driveTrain.getRightEncoderRate());
-		/*
+		
 		if (automaticShift) {
-			if (driveTrain.getLeftEncoderRate() > 700 && !shifted) {
+			if (Math.abs(driveTrain.getLeftEncoderRate()) > 4.0 && !shifted) { // TODO: get right encoder values and change gears on that too.
 				driveTrain.setHighGear();
-			} else if (driveTrain.getLeftEncoderRate() < 650 && shifted) {
+				shifted = true;
+			} else if (Math.abs(driveTrain.getLeftEncoderRate()) < 2.5 && shifted) {
 				driveTrain.setLowGear();
+				shifted = false;
 			}
 		}
-		*/
+		
 		driveTrain.driveWithController(rightThrottle, leftThrottle);
 		driveTrain.updateDash();
+		System.out.println("Values:");
+		System.out.println(driveTrain.getLeftEncoderRate());
+		System.out.println(driveTrain.getRightEncoderRate());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
