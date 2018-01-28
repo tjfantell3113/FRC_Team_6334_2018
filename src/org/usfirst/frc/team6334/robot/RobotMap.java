@@ -28,8 +28,10 @@ public class RobotMap {
 	public final static int xboxRightYAxis = 5;
 	
 	// Joystick Buttons
-	public final static int shiftUp = 3;
 	public final static int shiftDown = 2;
+	public final static int shiftUp = 3;
+	public final static int coastMode = 4;
+	public final static int resetEncoders = 5;
 	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;

@@ -63,7 +63,10 @@ public class DriveTrain extends Subsystem {
 		
 		//Encoders require two D/IO ports, whether the encoder is inverted or not, and the k#X is the accuracy that is obtained (4 times is the most)
 		leftEncoder = new Encoder(RobotMap.encLeftIn, RobotMap.encLeftOut, false, Encoder.EncodingType.k4X);
-		leftEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, false, Encoder.EncodingType.k4X);
+		rightEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, false, Encoder.EncodingType.k4X);
+		
+		leftEncoder.setDistancePerPulse(0.01308); // Rodi's math
+		rightEncoder.setDistancePerPulse(0.01308); // 700
 	}
 	
 	public void setMotorValues(double right, double left){
@@ -107,7 +110,7 @@ public class DriveTrain extends Subsystem {
 		return rightEncoder.get();
 	}
 	
-	public double getRightEcnoderRate() {
+	public double getRightEncoderRate() {
 		return rightEncoder.getRate();
 	}
 	

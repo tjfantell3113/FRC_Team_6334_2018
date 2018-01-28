@@ -12,7 +12,7 @@ public class TankDrive extends CommandBase {
 
 	double leftThrottle, rightThrottle;
 	Joystick stick, leftStick, rightStick;
-	boolean automaticShift, coastModeEnabled;
+	boolean automaticShift, coastModeEnabled, shifted;
 
 	public TankDrive() {
 		super("TankDrive");
@@ -22,6 +22,7 @@ public class TankDrive extends CommandBase {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		automaticShift = true;
+		shifted = false;
 		leftStick = oi.getLeftStick();
 		rightStick = oi.getRightStick();
 		coastModeEnabled = false;
@@ -51,26 +52,33 @@ public class TankDrive extends CommandBase {
 			driveTrain.driveWithController(rightThrottle, leftThrottle);
 		}
 		*/
-		if (leftStick.getRawButtonPressed(2)) {
+		if (leftStick.getRawButtonPressed(RobotMap.shiftDown) || rightStick.getRawButtonPressed(RobotMap.shiftDown)) {
 			driveTrain.setLowGear();
-		} else if (leftStick.getRawButtonPressed(3)) {
-			driveTrain.setHighGear();
 		}
 		
-		if (rightStick.getRawButtonPressed(2)) {
+		if (rightStick.getRawButtonPressed(RobotMap.shiftUp) || rightStick.getRawButtonPressed(RobotMap.shiftUp)) {
 			driveTrain.setLowGear();
-		} else if (rightStick.getRawButtonPressed(3)) {
-			driveTrain.setHighGear();
 		}
 		
-		if (leftStick.getRawButtonPressed(4)) {
-			driveTrain.changeBrakeMode(coastModeEnabled);
-			coastModeEnabled = !coastModeEnabled;
-		} else if (rightStick.getRawButtonPressed(4)) {
+		if (leftStick.getRawButtonPressed(RobotMap.coastMode) || rightStick.getRawButtonPressed(RobotMap.coastMode)) {
 			driveTrain.changeBrakeMode(coastModeEnabled);
 			coastModeEnabled = !coastModeEnabled;
 		}
-
+		
+		if (leftStick.getRawButtonPressed(RobotMap.resetEncoders) || rightStick.getRawButtonPressed(RobotMap.resetEncoders)) {
+			driveTrain.resetEncoderPos();
+		}
+		System.out.println(driveTrain.getLeftEncoderRate());
+		System.out.println(driveTrain.getRightEncoderRate());
+		/*
+		if (automaticShift) {
+			if (driveTrain.getLeftEncoderRate() > 700 && !shifted) {
+				driveTrain.setHighGear();
+			} else if (driveTrain.getLeftEncoderRate() < 650 && shifted) {
+				driveTrain.setLowGear();
+			}
+		}
+		*/
 		driveTrain.driveWithController(rightThrottle, leftThrottle);
 		driveTrain.updateDash();
 	}
