@@ -51,11 +51,26 @@ public class TankDrive extends CommandBase {
 			driveTrain.driveWithController(rightThrottle, leftThrottle);
 		}
 		*/
-		if (leftStick.getRawButtonPressed(3)) {
+		if (leftStick.getRawButtonPressed(2)) {
+			driveTrain.setLowGear();
+		} else if (leftStick.getRawButtonPressed(3)) {
+			driveTrain.setHighGear();
+		}
+		
+		if (rightStick.getRawButtonPressed(2)) {
+			driveTrain.setLowGear();
+		} else if (rightStick.getRawButtonPressed(3)) {
+			driveTrain.setHighGear();
+		}
+		
+		if (leftStick.getRawButtonPressed(4)) {
+			driveTrain.changeBrakeMode(coastModeEnabled);
+			coastModeEnabled = !coastModeEnabled;
+		} else if (rightStick.getRawButtonPressed(4)) {
 			driveTrain.changeBrakeMode(coastModeEnabled);
 			coastModeEnabled = !coastModeEnabled;
 		}
-		
+
 		driveTrain.driveWithController(rightThrottle, leftThrottle);
 		driveTrain.updateDash();
 	}
