@@ -61,14 +61,16 @@ public class DriveTrain extends Subsystem {
 		LeftMotor3.follow(LeftMotor1);
 		
 		
-		//Encoders require two D/IO ports, whether the encoder is inverted or not, and the k#X is the accuracy that is obtained (4 times is the most)
-		leftEncoder = new Encoder(RobotMap.encLeftIn, RobotMap.encLeftOut, false, Encoder.EncodingType.k4X);
-		rightEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, false, Encoder.EncodingType.k4X);
-		
-		leftEncoder.setDistancePerPulse(0.01308); // Rodi's math
-		rightEncoder.setDistancePerPulse(0.01308); // 700
+		//Encoders require two D/IO ports, whether the encoder is inverted or not, and the k#X is the accuracy that is obtained (4 times is the most)		
+		leftEncoder = new Encoder(RobotMap.encLeftIn, RobotMap.encLeftOut, false, Encoder.EncodingType.k4X);  //false = don't invert counting direction
+		rightEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, false, Encoder.EncodingType.k4X); //need to find correct ports
 	}
 	
+	/**
+	 * Set acceleration on a value up to one.
+	 * @param right Value for right motors.
+	 * @param left Value for left motors.
+	 */
 	public void setMotorValues(double right, double left){
 		if(Math.abs(left) < 0.07) left = 0; // comment these two if statements out when we move to dual joysticks
 		if(Math.abs(right) < 0.07) right = 0;
@@ -102,6 +104,10 @@ public class DriveTrain extends Subsystem {
 		rightEncoder.reset();
 	}
 	
+	/**
+	 * Returns the left encoders position.
+	 * @return int
+	 */
 	public int getLeftEncoderPos() {
 		return leftEncoder.get();
 	}

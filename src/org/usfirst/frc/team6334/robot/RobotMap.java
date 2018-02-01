@@ -15,7 +15,7 @@ package org.usfirst.frc.team6334.robot;
  */
 public class RobotMap {
 	// Controller Ports
-	public final static int xboxPort = 2;
+	public final static int auxStickPort = 2;
 	public final static int leftStickPort = 1; // Mainstick and auxstick in preparation for switch over to joystick tank drive
 	public final static int rightStickPort = 0;
 
@@ -32,6 +32,9 @@ public class RobotMap {
 	public final static int shiftUp = 3;
 	public final static int coastMode = 4;
 	public final static int resetEncoders = 5;
+	
+	// Aux-Joystick Buttons
+	public final static int Lift =  0;         //PCM Port
 	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;
@@ -80,6 +83,8 @@ public class RobotMap {
 	public final static int encLeftOut = 7;
 	public final static int encRightIn = 8;
 	public final static int encRightOut = 9;
+	public final static int liftEncIn = 10;          //check these
+	public final static int liftEncOut = 11;         //check these
 	public final static int encDriveTicks = 360;
 	public final static double automaticShiftValue = 1000;
 
