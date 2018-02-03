@@ -12,12 +12,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Lift extends Subsystem {
 	
-	WPI_TalonSRX LiftMotor;
+	WPI_TalonSRX liftMotor1, liftMotor2;
 	Encoder liftEncoder;
 	int kP, kI;
 	
     public Lift() {
-    	LiftMotor = new WPI_TalonSRX(RobotMap.Lift);
+    	liftMotor1 = new WPI_TalonSRX(RobotMap.liftMotor1);
+    	liftMotor2 = new WPI_TalonSRX(RobotMap.liftMotor2);
     	
     	liftEncoder = new Encoder(RobotMap.liftEncIn, RobotMap.liftEncOut, false, Encoder.EncodingType.k4X);
     }
@@ -27,7 +28,8 @@ public class Lift extends Subsystem {
 	position for the scale and low position for switches. */
     
 	public void setLiftPower(double throttle){         
-		LiftMotor.set(throttle);
+		liftMotor1.set(throttle);
+		liftMotor2.set(throttle);
 	}
 
 	public void resetEncoderPos() {

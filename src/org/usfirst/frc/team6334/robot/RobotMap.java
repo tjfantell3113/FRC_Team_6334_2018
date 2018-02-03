@@ -52,7 +52,8 @@ public class RobotMap {
 	public final static int LeftDrive1 = 0;
 	public final static int LeftDrive2 = 1;
 	public final static int LeftDrive3 = 2;
-	public final static int Lift =  60;
+	public final static int liftMotor1 =  59;
+	public final static int liftMotor2 =  60;
 	public final static int intakeRight =  61;
 	public final static int intakeLeft =  62;
 	
