@@ -16,12 +16,14 @@ public abstract class CommandBase extends Command {
     public static DriveTrain driveTrain;
     public static Vision vision;
     public static Intake intake;
+    public static Lift lift;
 
     
     public static void init() { 
     	driveTrain = new DriveTrain();
     	vision = new Vision();
     	intake = new Intake();
+    	lift = new Lift();
     	
     	
         oi = new OI();

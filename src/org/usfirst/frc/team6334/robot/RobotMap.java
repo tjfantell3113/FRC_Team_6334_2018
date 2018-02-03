@@ -33,9 +33,6 @@ public class RobotMap {
 	public final static int coastMode = 4;
 	public final static int resetEncoders = 5;
 	
-	// Aux-Joystick Buttons
-	public final static int Lift =  0;         //PCM Port
-	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;
 	public final static int xboxBButton = 2;
@@ -48,15 +45,17 @@ public class RobotMap {
 	public final static int xboxLeftStickButton = 9;
 	public final static int xboxRightStickButton = 10;
 
-	// TalonSRX ID's and values (Fixed for PWM values, otherwise when using CAN use left = odd
-	// and right = even with the range of 1 to 62)
+	// TalonSRX ID's and values (CAN range is 1 to 62)
 	public final static int RightDrive1 = 9;
 	public final static int RightDrive2 = 8;
 	public final static int RightDrive3 = 7;
 	public final static int LeftDrive1 = 0;
 	public final static int LeftDrive2 = 1;
 	public final static int LeftDrive3 = 2;
-	public final static int kTimeoutMs = 10;
+	public final static int Lift =  60;
+	public final static int intakeRight =  61;
+	public final static int intakeLeft =  62;
+	
 
 	// Limelight
 	public final static double L_KpX = 0.07;
@@ -86,7 +85,7 @@ public class RobotMap {
 	public final static int liftEncIn = 10;          //check these
 	public final static int liftEncOut = 11;         //check these
 	public final static int encDriveTicks = 360;
-	public final static double automaticShiftValue = 1000;
+	public final static double automaticShiftValue = 3.5;
 
 	// Solenoids (D I/O slots)
 	public final static int leftGearChange1 = 0;
@@ -100,12 +99,21 @@ public class RobotMap {
 	public final static double maxVel = 1;
 	public final static double maxAccel = 2;
 	public final static double maxJerk = 5;
-	public final static double wheelBase = 0.643;
-	public final static double wheelDiameter = 0.1524; //6 inches
 	public final static double kp = 1;
 	public final static double ki = 0;
 	public final static double kd = 1;
 	public final static double kv = 1 / maxAccel;
 	public final static double ka = 0;
 
+	//Drive Train constants
+	public final static double wheelBase = 0.643;
+	public final static double wheelDiameter = 0.1524; //6 inches
+	public final static double deadzone = 0;
+	
+	//Lift Constants
+	public static final int ejectBox = 1;
+	public static final int liftPos1 = 100;
+	public static final int liftPos2 = 200;
+	public static final int lift_kP = 4;
+	public static final int lift_kI= 1;
 }

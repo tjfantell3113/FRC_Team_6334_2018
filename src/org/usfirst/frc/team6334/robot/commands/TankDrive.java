@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class TankDrive extends CommandBase {
 
 	double leftThrottle, rightThrottle;
-	Joystick stick, leftStick, rightStick;
+	Joystick leftStick, rightStick;
 	boolean automaticShift, coastModeEnabled, shifted;
 
 	public TankDrive() {

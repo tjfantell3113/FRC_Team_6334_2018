@@ -14,40 +14,33 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class DriveTrain extends Subsystem {
 	
 	WPI_TalonSRX RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
-	//Talon RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
 	DoubleSolenoid leftGearChange, rightGearChange;
 	Compressor compressor;
 	Encoder leftEncoder, rightEncoder;
 	
 	public DriveTrain() {
 		
+		//Initialize the Talon SRX's using CTRE's WPI class.
 		RightMotor1 = new WPI_TalonSRX(RobotMap.RightDrive1);
 		RightMotor2 = new WPI_TalonSRX(RobotMap.RightDrive2);
 		RightMotor3 = new WPI_TalonSRX(RobotMap.RightDrive3);
 		LeftMotor1 = new WPI_TalonSRX(RobotMap.LeftDrive1);
 		LeftMotor2 = new WPI_TalonSRX(RobotMap.LeftDrive2);
 		LeftMotor3 = new WPI_TalonSRX(RobotMap.LeftDrive3);
-		/*
-		RightMotor1 = new Talon(RobotMap.RightDrive1);
-		RightMotor2 = new Talon(RobotMap.RightDrive2);
-		RightMotor3 = new Talon(RobotMap.RightDrive3);
-		LeftMotor1 = new Talon(RobotMap.LeftDrive1);
-		LeftMotor2 = new Talon(RobotMap.LeftDrive2);
-		LeftMotor3 = new Talon(RobotMap.LeftDrive3);
-		*/
 		
+		//Initialize the pneumatic system (solenoids and compressor).
 		leftGearChange = new DoubleSolenoid(RobotMap.leftGearChange1, RobotMap.leftGearChange2);
 		rightGearChange = new DoubleSolenoid(RobotMap.rightGearChange1, RobotMap.rightGearChange2);
 		compressor = new Compressor(0);
 		compressor.setClosedLoopControl(true);
 
 		
-		//Make the extra motors mirror the first motors (CAN only)
-		
+		//Invert the left side motor controllers so inputs do not have to be opposite for each side.
 		LeftMotor1.setInverted(true);
 		LeftMotor2.setInverted(true);
 		LeftMotor3.setInverted(true);
 		
+		//Set Talon control modes to break for autonomous so trajectories are correct.
 		RightMotor1.setNeutralMode(NeutralMode.Brake);
 		RightMotor2.setNeutralMode(NeutralMode.Brake);
 		RightMotor3.setNeutralMode(NeutralMode.Brake);
@@ -55,6 +48,7 @@ public class DriveTrain extends Subsystem {
 		LeftMotor2.setNeutralMode(NeutralMode.Brake);
 		LeftMotor3.setNeutralMode(NeutralMode.Brake);
 		
+		//Set the two extra Talons to mirror the main Talon (on each side).
 		RightMotor2.follow(RightMotor1);
 		RightMotor3.follow(RightMotor1);
 		LeftMotor2.follow(LeftMotor1);
@@ -72,8 +66,9 @@ public class DriveTrain extends Subsystem {
 	 * @param left Value for left motors.
 	 */
 	public void setMotorValues(double right, double left){
-		if(Math.abs(left) < 0.07) left = 0; // comment these two if statements out when we move to dual joysticks
-		if(Math.abs(right) < 0.07) right = 0;
+		//Sets a deadzone for the controllers (whether this is xBox or joystick)
+		if(Math.abs(left) < RobotMap.deadzone) left = 0;
+		if(Math.abs(right) < RobotMap.deadzone) right = 0;
 		
 		RightMotor1.set(right);
 		LeftMotor1.set(left);
@@ -83,18 +78,16 @@ public class DriveTrain extends Subsystem {
 		double right = rightStick;
 		double left = leftStick;
 		
-		if(Math.abs(right) <= 0.05)
-			right = 0;
-		if(right > 1)
-			right = 0.98;
-		if(right < -1)
-			right = -0.98;
-		if(Math.abs(left) <= 0.05)
-			left = 0;
-		if(left > 1)
-			left = 0.98;
-		if(left < -1)
-			left = -0.98;
+		//Makes sure the percentage of power is not under or over the Talon's limits.
+		if(Math.abs(right) <= 0.05) right = 0;
+		
+		if(right > 1) right = 0.99;
+		if(right < -1) right = -0.99;
+		
+		if(Math.abs(left) <= 0.05) left = 0;
+		
+		if(left > 1) left = 0.99;
+		if(left < -1) left = -0.99;
 		
 		setMotorValues(right, left);
 	}

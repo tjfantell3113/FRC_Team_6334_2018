@@ -1,10 +1,10 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
 import org.usfirst.frc.team6334.robot.RobotMap;
+import org.usfirst.frc.team6334.robot.commands.LiftDrive;
 
-import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -12,32 +12,23 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Lift extends Subsystem {
 	
-	VictorSP LiftMotor;
+	WPI_TalonSRX LiftMotor;
 	Encoder liftEncoder;
+	int kP, kI;
 	
-    public void initDefaultCommand() {
-    	LiftMotor = new VictorSP(RobotMap.Lift);
+    public Lift() {
+    	LiftMotor = new WPI_TalonSRX(RobotMap.Lift);
     	
     	liftEncoder = new Encoder(RobotMap.liftEncIn, RobotMap.liftEncOut, false, Encoder.EncodingType.k4X);
     }
     
-  /** Use y-axis of aux-stick to test positions. We can add buttons to control up 
-      and down functions of the lift, or just set certain positions of the lift with buttons, such as high
-      position for the scale and low position for switches.
-     **/
+	/* Use y-axis of aux-stick to test positions. We can add buttons to control up 
+	and down functions of the lift, or just set certain positions of the lift with buttons, such as high
+	position for the scale and low position for switches. */
     
-	public void setLiftValue(double auxStick){         
-		LiftMotor.set(auxStick);
+	public void setLiftPower(double throttle){         
+		LiftMotor.set(throttle);
 	}
-	
-    public void liftMechanism(double auxStick){
-    	
-    	if(Math.abs(auxStick) > 1){
-    		auxStick = 0.98;	
-    	}
-    	if(Math.abs(auxStick) <= -1)
-    		auxStick = -0.98;
-    }
 
 	public void resetEncoderPos() {
 		liftEncoder.reset();
@@ -50,5 +41,19 @@ public class Lift extends Subsystem {
 	public double getEncoderRate() {
 		return liftEncoder.getRate();
 	}
+	
+	public void liftPos1(){   	
+    	if(getEncoderPos() < RobotMap.liftPos1) {
+    		setLiftPower(1);
+    	} else if (getEncoderPos() > RobotMap.liftPos1) {
+    		setLiftPower(-1);
+    	} else {
+    		setLiftPower(0);
+    	}
+    }
+	
+	public void initDefaultCommand() {
+        setDefaultCommand(new LiftDrive());
+    }
 	
 }
