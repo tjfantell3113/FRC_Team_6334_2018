@@ -21,8 +21,6 @@ public class TankDrive extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		automaticShift = true;
-		shifted = false;
 		leftStick = oi.getLeftStick();
 		rightStick = oi.getRightStick();
 		coastModeEnabled = false;
@@ -57,7 +55,7 @@ public class TankDrive extends CommandBase {
 		}
 		
 		if (rightStick.getRawButtonPressed(RobotMap.shiftUp) || rightStick.getRawButtonPressed(RobotMap.shiftUp)) {
-			driveTrain.setLowGear();
+			driveTrain.setHighGear();
 		}
 		
 		if (leftStick.getRawButtonPressed(RobotMap.coastMode) || rightStick.getRawButtonPressed(RobotMap.coastMode)) {
@@ -69,21 +67,8 @@ public class TankDrive extends CommandBase {
 			driveTrain.resetEncoderPos();
 		}
 		
-		if (automaticShift) {
-			if (Math.abs(driveTrain.getLeftEncoderRate()) > 4.0 && !shifted) { // TODO: get right encoder values and change gears on that too.
-				driveTrain.setHighGear();
-				shifted = true;
-			} else if (Math.abs(driveTrain.getLeftEncoderRate()) < 2.5 && shifted) {
-				driveTrain.setLowGear();
-				shifted = false;
-			}
-		}
-		
 		driveTrain.driveWithController(rightThrottle, leftThrottle);
 		driveTrain.updateDash();
-		System.out.println("Values:");
-		System.out.println(driveTrain.getLeftEncoderRate());
-		System.out.println(driveTrain.getRightEncoderRate());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
