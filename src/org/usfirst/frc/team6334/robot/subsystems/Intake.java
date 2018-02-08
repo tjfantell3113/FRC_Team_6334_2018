@@ -1,7 +1,6 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-//import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team6334.robot.RobotMap;
 import org.usfirst.frc.team6334.robot.commands.IntakeDrive;
@@ -38,6 +37,11 @@ public class Intake extends Subsystem {
     	} else {
     		intakeSolenoid.set(DoubleSolenoid.Value.kForward);
     	}
+    	solenoidState = !solenoidState;
+    }
+	
+    public void initDefaultCommand() {
+        //setDefaultCommand(new IntakeDrive());
     }
 }
 

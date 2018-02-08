@@ -39,8 +39,8 @@ public class PathfinderTest extends CommandBase {
         
         EncoderFollower efl = new EncoderFollower(left);
         EncoderFollower efr = new EncoderFollower(right);
-        efl.configureEncoder(driveTrain.getLeftEncoderPos(), RobotMap.encDriveTicks, RobotMap.wheelDiameter);
-        efl.configureEncoder(driveTrain.getRightEncoderPos(), RobotMap.encDriveTicks, RobotMap.wheelDiameter);
+        efl.configureEncoder(driveTrain.getLeftEncoderPos(), RobotMap.driveEncTicks, RobotMap.wheelDiameter);
+        efl.configureEncoder(driveTrain.getRightEncoderPos(), RobotMap.driveEncTicks, RobotMap.wheelDiameter);
         efr.configurePIDVA(RobotMap.kp, RobotMap.ki, RobotMap.kd, RobotMap.kv, RobotMap.ka);
         efl.configurePIDVA(RobotMap.kp, RobotMap.ki, RobotMap.kd, RobotMap.kv, RobotMap.ka);
         
