@@ -89,9 +89,8 @@ public class RobotMap {
 	public final static double automaticShiftValue = 3.5;
 
 	// Solenoids (D I/O slots)
-	public final static int leftGearChange1 = 0;
-	public final static int leftGearChange2 = 1;
-	public final static int intakeSolenoid = 2;
+	public final static int gearChange1 = 0;
+	public final static int gearChange2 = 1;
 	public final static int intakeRevert = 2;
 	public final static int intakeExpand = 3;
 

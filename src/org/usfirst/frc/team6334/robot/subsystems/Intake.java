@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 //import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team6334.robot.RobotMap;
+import org.usfirst.frc.team6334.robot.commands.IntakeDrive;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -28,7 +29,7 @@ public class Intake extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-        //setDefaultCommand(new IntakeDrive());
+        setDefaultCommand(new IntakeDrive());
     }
     
     public void changeSolenoidState() {

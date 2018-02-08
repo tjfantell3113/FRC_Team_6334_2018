@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class DriveTrain extends Subsystem {
 	
 	WPI_TalonSRX RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
-	DoubleSolenoid leftGearChange, rightGearChange;
+	DoubleSolenoid gearChange;
 	Compressor compressor;
 	Encoder leftEncoder, rightEncoder;
 	
@@ -29,8 +29,7 @@ public class DriveTrain extends Subsystem {
 		LeftMotor3 = new WPI_TalonSRX(RobotMap.LeftDrive3);
 		
 		//Initialize the pneumatic system (solenoids and compressor).
-		leftGearChange = new DoubleSolenoid(RobotMap.leftGearChange1, RobotMap.leftGearChange2);
-		rightGearChange = new DoubleSolenoid(RobotMap.rightGearChange1, RobotMap.rightGearChange2);
+		gearChange = new DoubleSolenoid(RobotMap.gearChange1, RobotMap.gearChange2);
 		compressor = new Compressor(0);
 		compressor.setClosedLoopControl(true);
 
@@ -124,13 +123,11 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setLowGear() {
-			leftGearChange.set(DoubleSolenoid.Value.kForward);
-			rightGearChange.set(DoubleSolenoid.Value.kForward);
+			gearChange.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void setHighGear() {
-			leftGearChange.set(DoubleSolenoid.Value.kReverse);
-			rightGearChange.set(DoubleSolenoid.Value.kReverse);
+			gearChange.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void automaticShift(boolean enabled) {

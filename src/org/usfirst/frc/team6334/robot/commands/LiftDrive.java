@@ -20,6 +20,7 @@ public class LiftDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	/*//
     	if(auxStick.getRawButtonPressed(1)){
     		lift.setLiftPower(0.25);
     	} else if (auxStick.getRawButtonPressed(2)) {
@@ -30,6 +31,11 @@ public class LiftDrive extends CommandBase {
     		lift.setLiftPower(0.99);
     	} else if (auxStick.getRawButtonPressed(5)) {
     		lift.setLiftPower(-0.5);
+    	}
+    	*/
+    	double throttle = auxStick.getY();
+    	if (Math.abs(throttle) > 0.05) {
+    		lift.setLiftPower(throttle);
     	} else {
     		lift.setLiftPower(0);
     	}
