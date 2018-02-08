@@ -28,8 +28,16 @@ public class Lift extends Subsystem {
 	position for the scale and low position for switches. */
     
 	public void setLiftPower(double throttle){         
-		liftMotor1.set(throttle);
-		liftMotor2.set(throttle);
+		if(getEncoderPos() < RobotMap.liftLowerBound) {
+			liftMotor1.set(0.25);
+			liftMotor2.set(0.25);
+		} else if (getEncoderPos() > RobotMap.liftUpperBound) {
+			liftMotor1.set(-0.25);
+			liftMotor2.set(-0.25);
+		} else {
+			liftMotor1.set(throttle);
+			liftMotor2.set(throttle);
+		}
 	}
 
 	public void resetEncoderPos() {
@@ -38,6 +46,15 @@ public class Lift extends Subsystem {
 	
 	public int getEncoderPos() {
 		return liftEncoder.get();
+	}
+	
+	public boolean inBoundaries() {
+		int pos = getEncoderPos();
+		if (pos > RobotMap.liftUpperBound || pos < RobotMap.liftLowerBound) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public double getEncoderRate() {

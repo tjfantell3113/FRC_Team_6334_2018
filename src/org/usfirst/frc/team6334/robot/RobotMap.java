@@ -116,4 +116,6 @@ public class RobotMap {
 	public static final int liftPos2 = 200;
 	public static final int lift_kP = 4;
 	public static final int lift_kI= 1;
+	public static int liftUpperBound = 10000;
+	public static int liftLowerBound = 10;
 }

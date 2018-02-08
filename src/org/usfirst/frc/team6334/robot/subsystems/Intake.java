@@ -26,10 +26,6 @@ public class Intake extends Subsystem {
 		right.set(throttle);
 		left.set(throttle);
 	}
-	
-    public void initDefaultCommand() {
-        setDefaultCommand(new IntakeDrive());
-    }
     
     public void changeSolenoidState() {
     	if (solenoidState) {
@@ -39,9 +35,10 @@ public class Intake extends Subsystem {
     	}
     	solenoidState = !solenoidState;
     }
-	
+    
     public void initDefaultCommand() {
-        //setDefaultCommand(new IntakeDrive());
+        setDefaultCommand(new IntakeDrive());
     }
+	
 }
 
