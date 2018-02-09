@@ -17,7 +17,8 @@ public class OI {
 
 	private Joystick leftStick = new Joystick(RobotMap.leftStickPort);
 	private Joystick rightStick = new Joystick(RobotMap.rightStickPort);
-	private Joystick auxStick = new Joystick(RobotMap.auxStickPort);
+	private Joystick elevatorStick = new Joystick(RobotMap.elevatorStick);
+	private Joystick intakeStick = new Joystick(RobotMap.intakeStick);
 
 	// put button press events here
 	public OI() {
@@ -33,8 +34,12 @@ public class OI {
 		return rightStick;
 	}
 
-	public Joystick getAuxStick() {
-		return auxStick;
+	public Joystick getElevatorStick() {
+		return elevatorStick;
+	}
+	
+	public Joystick getIntakeStick() {
+		return intakeStick;
 	}
 
 }

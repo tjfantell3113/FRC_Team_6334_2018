@@ -35,8 +35,10 @@ public class Intake extends Subsystem {
     public void changeSolenoidState() {
     	if (solenoidState) {
     		intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+    		solenoidState = !solenoidState;
     	} else {
     		intakeSolenoid.set(DoubleSolenoid.Value.kForward);
+    		solenoidState = !solenoidState;
     	}
     }
 }

@@ -15,7 +15,8 @@ package org.usfirst.frc.team6334.robot;
  */
 public class RobotMap {
 	// Controller Ports
-	public final static int auxStickPort = 2;
+	public final static int intakeStick = 3;
+	public final static int elevatorStick = 2;
 	public final static int leftStickPort = 1; // Mainstick and auxstick in preparation for switch over to joystick tank drive
 	public final static int rightStickPort = 0;
 

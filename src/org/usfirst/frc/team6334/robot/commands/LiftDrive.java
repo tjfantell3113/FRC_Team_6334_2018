@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class LiftDrive extends CommandBase {
 	
-	Joystick auxStick;
+	Joystick elevatorStick;
 	
     public LiftDrive() {
         requires(lift);
@@ -15,30 +15,18 @@ public class LiftDrive extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	auxStick = oi.getAuxStick();
+    	elevatorStick = oi.getElevatorStick();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	/*//
-    	if(auxStick.getRawButtonPressed(1)){
-    		lift.setLiftPower(0.25);
-    	} else if (auxStick.getRawButtonPressed(2)) {
-    		lift.setLiftPower(0.5);
-    	} else if (auxStick.getRawButtonPressed(3)) {
-    		lift.setLiftPower(0.75);
-    	} else if (auxStick.getRawButtonPressed(4)) {
-    		lift.setLiftPower(0.99);
-    	} else if (auxStick.getRawButtonPressed(5)) {
-    		lift.setLiftPower(-0.5);
-    	}
-    	*/
-    	double throttle = auxStick.getY();
+    	double throttle = elevatorStick.getY();
     	if (Math.abs(throttle) > 0.05) {
     		lift.setLiftPower(throttle);
     	} else {
     		lift.setLiftPower(0);
     	}
+
     		
         	
     }
