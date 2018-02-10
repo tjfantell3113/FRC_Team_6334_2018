@@ -29,7 +29,7 @@ public class DriveTrain extends Subsystem {
 		LeftMotor3 = new WPI_TalonSRX(RobotMap.LeftDrive3);
 		
 		//Initialize the pneumatic system (solenoids and compressor).
-		gearChange = new DoubleSolenoid(RobotMap.gearChange1, RobotMap.gearChange2);
+		gearChange = new DoubleSolenoid(RobotMap.gearChange1, RobotMap.gearChange2); 
 		compressor = new Compressor(0);
 		compressor.setClosedLoopControl(true);
 
@@ -122,12 +122,37 @@ public class DriveTrain extends Subsystem {
 		return average;
 	}
 
-	public void setLowGear() {
+	public void setLowGear() {                     // high gear - more speed, less power
 			gearChange.set(DoubleSolenoid.Value.kForward);
 	}
 	
-	public void setHighGear() {
+	public void setHighGear() {                   // low gear - more power, less speed
 			gearChange.set(DoubleSolenoid.Value.kReverse);
+	}
+	
+	public void automaticTransmission(double rightStick, double leftStick) {
+		setLowGear();      
+		
+		double SF1 = .6;    // 'SF' stands for scaling factor
+		double SF2 = .17;
+		double SF3 = .11;
+		double SF4 = 2.5;
+		
+		double power = (rightStick + leftStick)/2;
+		
+		if(/*setHighGear() ||*/ power > SF1) {
+			setHighGear();
+			power = (power - SF1) * SF4 + SF2;
+		}
+		else if(power < SF3) {
+			setLowGear();
+			power = getEncoderRateAvg();
+		}
+		else if(getEncoderRateAvg() < 1 && power > SF2){
+			setLowGear();
+			power = getEncoderRateAvg();
+		}
+			
 	}
 	
 	public void automaticShift(boolean enabled) {
