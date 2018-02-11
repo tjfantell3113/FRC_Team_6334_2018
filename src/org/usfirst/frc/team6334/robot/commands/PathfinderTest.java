@@ -26,9 +26,9 @@ public class PathfinderTest extends CommandBase {
     			RobotMap.timeStep, RobotMap.maxVel, RobotMap.maxAccel, RobotMap.maxJerk);
     	
         Waypoint[] points = new Waypoint[] {
-                new Waypoint(0, 0, 0), //Waypoints take a x, a y, and an angle.
-                new Waypoint(1, 0, Pathfinder.d2r(45)), //d2r is degrees to radians
-                new Waypoint(2, 1, 0)
+                new Waypoint(1.625, 4.0, 0),
+                new Waypoint(14, 4, 0),
+                new Waypoint(23.375, 6.5, 0)
         };
 
         //wheel diameter = 6 inches
@@ -46,6 +46,16 @@ public class PathfinderTest extends CommandBase {
         
         
         // Do something with the new Trajectories...
+        double l = efl.calculate(driveTrain.getLeftEncoderPos());
+        double r = efr.calculate(driveTrain.getRightEncoderPos());
+
+        double gyro_heading = driveTrain.getChassisBearing(); // Assuming the gyro is giving a value in degrees
+        double desired_heading = Pathfinder.r2d(efl.getHeading());  // Should also be in degrees
+
+        double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+        double turn = 0.8 * (-1.0/80.0) * angleDifference;
+
+        driveTrain.setMotorValues(r - turn, l - turn);
     }
 
     // Called just before this Command runs the first time

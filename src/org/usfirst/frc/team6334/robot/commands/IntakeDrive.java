@@ -23,15 +23,13 @@ public class IntakeDrive extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
       double throttle = intakeStick.getY();
+      
       if (intakeStick.getRawButton(RobotMap.ejectBox)) { // rawButton over rawButtonPressed because rawButton will continue to return true as long as the button is held down
         intake.setIntakePower(1);
       } else if (Math.abs(throttle) > 0.05) {
         intake.setIntakePower(throttle);
       } else {
         intake.setIntakePower(0);
-      }
-      if (intakeStick.getRawButtonPressed(2)) { // IMPORTANT: Use Extreme controller for this one, button where your thumb goes.
-        intake.changeSolenoidState();
       }
     }
  

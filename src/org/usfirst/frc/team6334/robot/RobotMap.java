@@ -92,31 +92,30 @@ public class RobotMap {
 	// Solenoids (D I/O slots)
 	public final static int gearChange1 = 0;
 	public final static int gearChange2 = 1;
-	public final static int intakeRevert = 2;
-	public final static int intakeExpand = 3;
 
 	// Pathfinder constants
-	public final static double timeStep = 0.05;
-	public final static double maxVel = 1;
-	public final static double maxAccel = 2;
-	public final static double maxJerk = 5;
-	public final static double kp = 1;
+	public final static double timeStep = 0.05; //larger time for steps means faster calculation, however lower accuracy. 5ms is a good standard.
+	public final static double maxVel = 4;
+	public final static double maxAccel = 3;
+	public final static double maxJerk = 10;
+	public final static double kp = 0;
 	public final static double ki = 0;
-	public final static double kd = 1;
-	public final static double kv = 1 / maxAccel; //might be maxVel
+	public final static double kd = 0;
+	public final static double kv = 1 / maxVel;
 	public final static double ka = 0;
 
 	//Drive Train constants
-	public final static double wheelBase = 0.643;
-	public final static double wheelDiameter = 0.1524; //6 inches (I overheard someone and they might be 8 inches)
+	public final static double wheelBase = 2.375;
+	public final static double middleOfWheelbase = 19.25;
+	public final static double wheelDiameter = 0.5; //6 inches
 	public final static double deadzone = 0;
 	
 	//Lift Constants
 	public static final int ejectBox = 1;
 	public static final int liftPos1 = 100;
 	public static final int liftPos2 = 200;
-	public static final int lift_kP = 4;
-	public static final int lift_kI= 1;
+	public static final int lift_kP = 0;
+	public static final int lift_kI= 0;
 	public static int liftUpperBound = 10000;
 	public static int liftLowerBound = 10;
 }

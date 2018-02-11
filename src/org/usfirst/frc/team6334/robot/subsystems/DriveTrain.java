@@ -3,6 +3,8 @@ package org.usfirst.frc.team6334.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SerialPort;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6334.robot.RobotMap;
@@ -17,6 +19,7 @@ public class DriveTrain extends Subsystem {
 	DoubleSolenoid gearChange;
 	Compressor compressor;
 	Encoder leftEncoder, rightEncoder;
+	//AHRS navx;
 	
 	public DriveTrain() {
 		
@@ -57,6 +60,9 @@ public class DriveTrain extends Subsystem {
 		//Encoders require two D/IO ports, whether the encoder is inverted or not, and the k#X is the accuracy that is obtained (4 times is the most)		
 		leftEncoder = new Encoder(RobotMap.encLeftIn, RobotMap.encLeftOut, false, Encoder.EncodingType.k4X);  //false = don't invert counting direction
 		rightEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, false, Encoder.EncodingType.k4X); //need to find correct ports
+		
+		//navx = new AHRS(SerialPort.Port.kMXP);
+		//navx.reset();
 	}
 	
 	/**
@@ -69,7 +75,7 @@ public class DriveTrain extends Subsystem {
 		if(Math.abs(left) < RobotMap.deadzone) left = 0;
 		if(Math.abs(right) < RobotMap.deadzone) right = 0;
 		
-		RightMotor1.set(right);
+		RightMotor2.set(right);
 		LeftMotor1.set(left);
 	}
 	
@@ -123,11 +129,11 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setLowGear() {                     // high gear - more speed, less power
-			gearChange.set(DoubleSolenoid.Value.kForward);
+		gearChange.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void setHighGear() {                   // low gear - more power, less speed
-			gearChange.set(DoubleSolenoid.Value.kReverse);
+		gearChange.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void automaticTransmission(double rightStick, double leftStick) {
@@ -140,7 +146,7 @@ public class DriveTrain extends Subsystem {
 		
 		double power = (rightStick + leftStick)/2;
 		
-		if(/*setHighGear() ||*/ power > SF1) {
+		if( power > SF1) { //setHighGear() ||
 			setHighGear();
 			power = (power - SF1) * SF4 + SF2;
 		}
@@ -168,7 +174,7 @@ public class DriveTrain extends Subsystem {
 	public boolean testCompressor() {
 		return compressor.enabled();
 	}
-
+	
 	public void updateDash() {
 		SmartDashboard.putNumber("Right Motor Master Voltage", RightMotor1.getMotorOutputVoltage());
 		SmartDashboard.putNumber("Right Motor Follower 1 Voltage", RightMotor2.getMotorOutputVoltage());
@@ -186,6 +192,11 @@ public class DriveTrain extends Subsystem {
 		LeftMotor1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
 		LeftMotor2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
 		LeftMotor3.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
+	}
+	
+	public double getChassisBearing() {
+		//return navx.getAngle();
+		return 1;
 	}
 
     public void initDefaultCommand() {

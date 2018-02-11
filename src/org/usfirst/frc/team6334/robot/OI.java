@@ -39,5 +39,6 @@ public class OI {
   }
   
   public Joystick getIntakeStick() {
-commit:36db3c
-add 4th stick for intake and lift drive compatibility
+	return intakeStick;  
+  }
+  }

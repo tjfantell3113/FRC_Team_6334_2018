@@ -3,8 +3,9 @@ package org.usfirst.frc.team6334.robot.subsystems;
 import org.usfirst.frc.team6334.robot.RobotMap;
 import org.usfirst.frc.team6334.robot.commands.LiftDrive;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,14 +14,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Lift extends Subsystem {
 	
 	WPI_TalonSRX liftMotor1, liftMotor2;
-	Encoder liftEncoder;
 	int kP, kI;
 	
     public Lift() {
     	liftMotor1 = new WPI_TalonSRX(RobotMap.liftMotor1);
     	liftMotor2 = new WPI_TalonSRX(RobotMap.liftMotor2);
     	
-    	liftEncoder = new Encoder(RobotMap.liftEncIn, RobotMap.liftEncOut, false, Encoder.EncodingType.k4X);
+    	liftMotor2.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
+		liftMotor2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
     }
     
 	/* Use y-axis of aux-stick to test positions. We can add buttons to control up 
@@ -28,24 +29,29 @@ public class Lift extends Subsystem {
 	position for the scale and low position for switches. */
     
 	public void setLiftPower(double throttle){         
-		if(getEncoderPos() < RobotMap.liftLowerBound) {
-			liftMotor1.set(0.25);
-			liftMotor2.set(0.25);
-		} else if (getEncoderPos() > RobotMap.liftUpperBound) {
+		
+		
+		/*if(getEncoderPos() < RobotMap.liftLowerBound) {
 			liftMotor1.set(-0.25);
 			liftMotor2.set(-0.25);
+		} else if (getEncoderPos() > RobotMap.liftUpperBound) {
+			liftMotor1.set(0.25);
+			liftMotor2.set(0.25);
 		} else {
 			liftMotor1.set(throttle);
 			liftMotor2.set(throttle);
-		}
+		}*/
+		
+		liftMotor1.set(-throttle);
+		liftMotor2.set(-throttle);
 	}
 
 	public void resetEncoderPos() {
-		liftEncoder.reset();
+		liftMotor2.setSelectedSensorPosition(0, 0, 10);
 	}
 	
 	public int getEncoderPos() {
-		return liftEncoder.get();
+		return liftMotor2.getSelectedSensorPosition(0);
 	}
 	
 	public boolean inBoundaries() {
@@ -58,7 +64,7 @@ public class Lift extends Subsystem {
 	}
 	
 	public double getEncoderRate() {
-		return liftEncoder.getRate();
+		return liftMotor2.getSelectedSensorVelocity(0);
 	}
 	
 	public void liftPos1(){   	
