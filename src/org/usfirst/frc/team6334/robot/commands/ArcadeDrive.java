@@ -12,7 +12,7 @@ public class ArcadeDrive extends CommandBase {
 
 	double leftThrottle, rightThrottle;
 	Joystick leftStick, rightStick, arcadeStick;
-	boolean automaticShift, coastModeEnabled, shifted;
+	boolean automaticShift, coastModeEnabled, shifted, turboMode;
 
 	public ArcadeDrive() {
 		super("ArcadeDrive");
@@ -22,34 +22,12 @@ public class ArcadeDrive extends CommandBase {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		arcadeStick = oi.getArcadeStick();
-		//leftStick = oi.getLeftStick();
-		//rightStick = oi.getRightStick();
 		coastModeEnabled = false;
-		//stick = oi.getXboxStick();
+		turboMode = true;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		//leftThrottle = leftStick.getY();
-		//rightThrottle = rightStick.getY();
-
-		//leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
-		//rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
-		/*
-		if (stick.getRawButtonPressed(RobotMap.xboxXButton)) {
-			driveTrain.changeBrakeMode(false);
-		} else if (stick.getRawButton(RobotMap.xboxYButton)) {
-			System.out.println(driveTrain.testCompressor());
-		}
-		
-		if (stick.getRawButtonPressed(RobotMap.xboxRightBumper)) {
-			driveTrain.setHighGear();
-		} else if (stick.getRawButtonPressed(RobotMap.xboxLeftBumper)) {
-			driveTrain.setLowGear();
-		} else {
-			driveTrain.driveWithController(rightThrottle, leftThrottle);
-		}
-		*/
 		if (arcadeStick.getRawButtonPressed(RobotMap.shiftDown)) {
 			driveTrain.setLowGear();
 		}
@@ -62,7 +40,12 @@ public class ArcadeDrive extends CommandBase {
 			driveTrain.changeBrakeMode(coastModeEnabled);
 			coastModeEnabled = !coastModeEnabled;
 		}
-		driveTrain.driveWithController(arcadeStick.getX(), arcadeStick.getY());
+		
+		if(arcadeStick.getRawButtonPressed(RobotMap.changeTurbo)) {
+			turboMode = !turboMode;
+		}
+		
+		driveTrain.driveWithController(arcadeStick.getX(), arcadeStick.getY(), turboMode);
 		driveTrain.updateDash();
 	}
 

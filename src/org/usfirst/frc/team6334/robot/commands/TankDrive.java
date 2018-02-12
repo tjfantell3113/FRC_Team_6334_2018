@@ -28,12 +28,14 @@ public class TankDrive extends CommandBase {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {/*
+	protected void execute() {
 		//leftThrottle = leftStick.getY();
 		//rightThrottle = rightStick.getY();
-
-		//leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
-		//rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
+		
+		/*
+		leftThrottle = stick.getRawAxis(RobotMap.xboxLeftYAxis);
+		rightThrottle = stick.getRawAxis(RobotMap.xboxRightYAxis);
+		
 		if (stick.getRawButtonPressed(RobotMap.xboxXButton)) {
 			driveTrain.changeBrakeMode(false);
 		} else if (stick.getRawButton(RobotMap.xboxYButton)) {
@@ -46,7 +48,8 @@ public class TankDrive extends CommandBase {
 			driveTrain.setLowGear();
 		} else {
 			driveTrain.driveWithController(rightThrottle, leftThrottle);
-		}
+		}*/
+		
 		if (leftStick.getRawButtonPressed(RobotMap.shiftDown) || rightStick.getRawButtonPressed(RobotMap.shiftDown)) {
 			driveTrain.setLowGear();
 		}
@@ -64,8 +67,8 @@ public class TankDrive extends CommandBase {
 			driveTrain.resetEncoderPos();
 		}
 		
-		driveTrain.driveWithController(rightThrottle, leftThrottle);
-		driveTrain.updateDash();*/
+		driveTrain.driveWithControllers(rightThrottle, leftThrottle);
+		driveTrain.updateDash();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

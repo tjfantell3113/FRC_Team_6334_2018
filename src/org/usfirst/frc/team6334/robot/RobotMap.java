@@ -18,6 +18,8 @@ public class RobotMap {
 	public final static int intakeStick = 2;
 	public final static int elevatorStick = 1;
 	public final static int arcadeStickPort = 0;
+	public final static int leftStick = 1;
+	public final static int rightStick = 0;
 
 	// Xbox Axis
 	public final static int xboxLeftXAxis = 0;
@@ -32,6 +34,7 @@ public class RobotMap {
 	public final static int shiftUp = 5;
 	public final static int coastMode = 9;
 	public final static int resetEncoders = 7;
+	public final static int changeTurbo = 8;
 	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;

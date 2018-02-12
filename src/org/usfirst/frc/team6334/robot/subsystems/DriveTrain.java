@@ -3,12 +3,12 @@ package org.usfirst.frc.team6334.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SerialPort;
-// import com.kauailabs.navx.frc.AHRS;
+//import edu.wpi.first.wpilibj.SerialPort;
+//import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6334.robot.RobotMap;
-import org.usfirst.frc.team6334.robot.commands.TankDrive;
+import org.usfirst.frc.team6334.robot.commands.ArcadeDrive;
 //CAN only libraries
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -79,7 +79,8 @@ public class DriveTrain extends Subsystem {
 		LeftMotor1.set(left);
 	}
 	
-	public void driveWithController(double rightStick, double leftStick){
+	//Tank Drive Method
+	public void driveWithControllers(double rightStick, double leftStick){
 		double right = rightStick;
 		double left = leftStick;
 		
@@ -93,6 +94,47 @@ public class DriveTrain extends Subsystem {
 		
 		if(left > 1) left = 0.99;
 		if(left < -1) left = -0.99;
+		
+		setMotorValues(right, left);
+	}
+	
+	//Arcade Drive Method
+	public void driveWithController(double xAxis, double yAxis, boolean turboMode) {
+		double right = 0;
+		double left = 0;
+		if(turboMode) {
+			left = (-xAxis*2-1)*yAxis;
+			right = (-xAxis*2-1)*yAxis;
+		} else {
+			if((-xAxis*2+1)*yAxis > 1)
+			{
+				right = 0.5;
+			}
+		
+			else if((-xAxis*2+1)*yAxis < -1)
+			{
+				right = -0.5;
+			}
+				
+			else {
+				right = ((-xAxis*2+1)*yAxis)/2;
+			}
+			
+			
+			if((-xAxis*2-1)*yAxis > 1)
+			{
+				left = 0.5;
+			}
+		
+			else if((-xAxis*2-1)*yAxis < -1)
+			{
+				left = -0.5;
+			}
+				
+			else {
+				left = ((-xAxis*2-1)*yAxis)/2;
+			}
+		}
 		
 		setMotorValues(right, left);
 	}
@@ -200,7 +242,7 @@ public class DriveTrain extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new TankDrive());
+    	setDefaultCommand(new ArcadeDrive());
     }
 
 }
