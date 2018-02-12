@@ -15,10 +15,9 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
  
-  private Joystick leftStick = new Joystick(RobotMap.leftStickPort);
-  private Joystick rightStick = new Joystick(RobotMap.rightStickPort);
   private Joystick elevatorStick = new Joystick(RobotMap.elevatorStick);
   private Joystick intakeStick = new Joystick(RobotMap.intakeStick);
+  private Joystick arcadeStick = new Joystick(RobotMap.arcadeStickPort);
  
   // put button press events here
   public OI() {
@@ -26,19 +25,14 @@ public class OI {
   }
  
  
-  public Joystick getLeftStick() {
-    return leftStick;
-  }
- 
-  public Joystick getRightStick() {
-    return rightStick;
-  }
- 
   public Joystick getElevatorStick() {
     return elevatorStick;
   }
   
   public Joystick getIntakeStick() {
 	return intakeStick;  
+  }
+  public Joystick getArcadeStick() {
+	  return arcadeStick;
   }
   }

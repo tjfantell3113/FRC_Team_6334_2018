@@ -17,7 +17,7 @@ public class IntakeDrive extends CommandBase {
  
     // Called just before this Command runs the first time
     protected void initialize() {
-      intakeStick = oi.getIntakeStick();
+     intakeStick = oi.getIntakeStick();
     }
  
     // Called repeatedly when this Command is scheduled to run
@@ -31,6 +31,7 @@ public class IntakeDrive extends CommandBase {
       } else {
         intake.setIntakePower(0);
       }
+      
     }
  
     // Make this return true when this Command no longer needs to run execute()
