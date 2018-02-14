@@ -3,8 +3,8 @@ package org.usfirst.frc.team6334.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-//import edu.wpi.first.wpilibj.SerialPort;
-//import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6334.robot.RobotMap;
@@ -19,7 +19,7 @@ public class DriveTrain extends Subsystem {
 	DoubleSolenoid gearChange;
 	Compressor compressor;
 	Encoder leftEncoder, rightEncoder;
-	//AHRS navx;
+	AHRS navx;
 	
 	public DriveTrain() {
 		
@@ -61,8 +61,8 @@ public class DriveTrain extends Subsystem {
 		leftEncoder = new Encoder(RobotMap.encLeftIn, RobotMap.encLeftOut, false, Encoder.EncodingType.k4X);  //false = don't invert counting direction
 		rightEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, false, Encoder.EncodingType.k4X); //need to find correct ports
 		
-		//navx = new AHRS(SerialPort.Port.kMXP);
-		//navx.reset();
+		navx = new AHRS(SPI.Port.kMXP);
+		navx.reset();
 	}
 	
 	/**
@@ -75,15 +75,6 @@ public class DriveTrain extends Subsystem {
 		if(Math.abs(left) < RobotMap.deadzone) left = 0;
 		if(Math.abs(right) < RobotMap.deadzone) right = 0;
 		
-		RightMotor2.set(right);
-		LeftMotor1.set(left);
-	}
-	
-	//Tank Drive Method
-	public void driveWithControllers(double rightStick, double leftStick){
-		double right = rightStick;
-		double left = leftStick;
-		
 		//Makes sure the percentage of power is not under or over the Talon's limits.
 		if(Math.abs(right) <= 0.05) right = 0;
 		
@@ -95,47 +86,39 @@ public class DriveTrain extends Subsystem {
 		if(left > 1) left = 0.99;
 		if(left < -1) left = -0.99;
 		
+		RightMotor1.set(right);
+		LeftMotor1.set(left);
+	}
+	
+	//Tank Drive Method
+	public void driveWithControllers(double rightStick, double leftStick){
+		double right = rightStick;
+		double left = leftStick;
+		
 		setMotorValues(right, left);
 	}
 	
 	//Arcade Drive Method
-	public void driveWithController(double xAxis, double yAxis, boolean turboMode) {
-		double right = 0;
-		double left = 0;
-		if(turboMode) {
-			left = (-xAxis*2-1)*yAxis;
-			right = (-xAxis*2-1)*yAxis;
+	public void driveWithController(double throttle, double turn) {
+		double right = throttle;
+		double left = throttle;
+		double turningThrottleScale;
+		
+		turningThrottleScale = Math.abs(throttle) * 2;
+
+		if(Math.abs(right) <= 0.05)
+			right = 0;
+		if(Math.abs(left) <= 0.05)
+			left = 0;
+		
+		if(throttle <= 0) {
+			right += turn * turningThrottleScale;  
+			left -= turn * turningThrottleScale;
 		} else {
-			if((-xAxis*2+1)*yAxis > 1)
-			{
-				right = 0.5;
-			}
-		
-			else if((-xAxis*2+1)*yAxis < -1)
-			{
-				right = -0.5;
-			}
-				
-			else {
-				right = ((-xAxis*2+1)*yAxis)/2;
-			}
-			
-			
-			if((-xAxis*2-1)*yAxis > 1)
-			{
-				left = 0.5;
-			}
-		
-			else if((-xAxis*2-1)*yAxis < -1)
-			{
-				left = -0.5;
-			}
-				
-			else {
-				left = ((-xAxis*2-1)*yAxis)/2;
-			}
+			right -= turn * turningThrottleScale;  
+			left += turn * turningThrottleScale;
 		}
-		
+
 		setMotorValues(right, left);
 	}
 	
@@ -237,8 +220,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public double getChassisBearing() {
-		//return navx.getAngle();
-		return 1;
+		return navx.getAngle();
 	}
 
     public void initDefaultCommand() {

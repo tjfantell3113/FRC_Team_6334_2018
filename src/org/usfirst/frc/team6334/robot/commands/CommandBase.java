@@ -4,11 +4,11 @@ import org.usfirst.frc.team6334.robot.OI;
 import org.usfirst.frc.team6334.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
+@SuppressWarnings("unused")
 public abstract class CommandBase extends Command {
 
     public static OI oi;

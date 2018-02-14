@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.Joystick;
 @SuppressWarnings("unused")
 public class ArcadeDrive extends CommandBase {
 
-	double leftThrottle, rightThrottle;
+	double throttle, turn, modifier;
 	Joystick leftStick, rightStick, arcadeStick;
-	boolean automaticShift, coastModeEnabled, shifted, turboMode;
+	boolean automaticShift, coastModeEnabled, shifted;
 
 	public ArcadeDrive() {
 		super("ArcadeDrive");
@@ -23,11 +23,22 @@ public class ArcadeDrive extends CommandBase {
 	protected void initialize() {
 		arcadeStick = oi.getArcadeStick();
 		coastModeEnabled = false;
-		turboMode = true;
+		shifted = false;
+		modifier = 1;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
+		if (arcadeStick.getRawButtonPressed(RobotMap.changeTurbo)) {
+			modifier = RobotMap.throttleModifier;
+		} else if (arcadeStick.getRawButtonReleased(RobotMap.changeTurbo)){
+			modifier = 1;
+		}
+		
+		throttle = arcadeStick.getY()* modifier;
+		turn = arcadeStick.getX() * modifier;
+		
 		if (arcadeStick.getRawButtonPressed(RobotMap.shiftDown)) {
 			driveTrain.setLowGear();
 		}
@@ -41,11 +52,7 @@ public class ArcadeDrive extends CommandBase {
 			coastModeEnabled = !coastModeEnabled;
 		}
 		
-		if(arcadeStick.getRawButtonPressed(RobotMap.changeTurbo)) {
-			turboMode = !turboMode;
-		}
-		
-		driveTrain.driveWithController(arcadeStick.getX(), arcadeStick.getY(), turboMode);
+		driveTrain.driveWithController(throttle, turn);
 		driveTrain.updateDash();
 	}
 

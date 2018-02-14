@@ -30,11 +30,11 @@ public class RobotMap {
 	public final static int xboxRightYAxis = 5;
 	
 	// Joystick Buttons
-	public final static int shiftDown = 3;
-	public final static int shiftUp = 5;
-	public final static int coastMode = 9;
-	public final static int resetEncoders = 7;
-	public final static int changeTurbo = 8;
+	public final static int shiftDown = 8;
+	public final static int shiftUp = 7;
+	public final static int coastMode = 4;
+	public final static int resetEncoders = 11;
+	public final static int changeTurbo = 3;
 	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;
@@ -105,12 +105,13 @@ public class RobotMap {
 	public final static double kd = 0;
 	public final static double kv = 1 / maxVel;
 	public final static double ka = 0;
-
+6
 	//Drive Train constants
 	public final static double wheelBase = 2.375;
 	public final static double middleOfWheelbase = 19.25;
 	public final static double wheelDiameter = 0.5; //6 inches
 	public final static double deadzone = 0;
+	public final static double throttleModifier = 0.5;
 	
 	//Lift Constants
 	public static final int ejectBox = 1;

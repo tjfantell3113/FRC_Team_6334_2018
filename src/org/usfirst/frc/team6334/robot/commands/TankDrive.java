@@ -73,7 +73,7 @@ public class TankDrive extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false; // Returning false makes this the default command when there are not others.
+		return true; // Returning false makes this the default command when there are not others.
 	}
 
 	// Called once after isFinished returns true
