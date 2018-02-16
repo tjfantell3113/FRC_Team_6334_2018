@@ -9,6 +9,7 @@ package org.usfirst.frc.team6334.robot;
 
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 import org.usfirst.frc.team6334.robot.commands.*;
@@ -21,6 +22,8 @@ import org.usfirst.frc.team6334.robot.commands.*;
  * project.
  */
 public class Robot extends TimedRobot {
+	
+	Command autoCommand;
 	
 	public void robotInit() {
 		CommandBase.init();
@@ -54,7 +57,47 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-
+		CommandBase.autoChooser.grabGameData();
+		CommandBase.driveTrain.resetEncoders();
+		CommandBase.driveTrain.resetGyro();
+		int choice = CommandBase.autoChooser.chooseAuto(RobotMap.currentSide);
+		
+		switch (choice) {
+			case 9: autoCommand = new PathfinderTest();
+				break; /*
+			case 2: autoCommand = new PathfinderTest();
+				break;
+			case 3: autoCommand = new PathfinderTest();
+				break;
+			case 4: autoCommand = new PathfinderTest();
+				break;
+			case 5: autoCommand = new PathfinderTest();
+				break;
+			case 6: autoCommand = new PathfinderTest();
+				break;
+			case 7: autoCommand = new PathfinderTest();
+				break;
+			case 8: autoCommand = new PathfinderTest();
+				break;
+			case 9: autoCommand = new PathfinderTest();
+				break;
+			case 10: autoCommand = new PathfinderTest();
+				break;
+			case 11: autoCommand = new PathfinderTest();
+				break;
+			case 12: autoCommand = new PathfinderTest();
+				break;
+			case 0: autoCommand = new PathfinderTest();
+				break; */
+		}
+		
+		System.out.println(choice);
+		
+		if (autoCommand != null) {
+			autoCommand.start();
+			System.out.println("started");
+		}
+		
 	}
 
 	/**
@@ -67,7 +110,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-
+		if (autoCommand != null) autoCommand.cancel();
+		CommandBase.driveTrain.resetEncoders();
+		CommandBase.driveTrain.resetGyro();
 	}
 
 	/**

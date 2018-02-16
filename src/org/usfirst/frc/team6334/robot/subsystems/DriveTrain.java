@@ -59,7 +59,7 @@ public class DriveTrain extends Subsystem {
 		
 		//Encoders require two D/IO ports, whether the encoder is inverted or not, and the k#X is the accuracy that is obtained (4 times is the most)		
 		leftEncoder = new Encoder(RobotMap.encLeftIn, RobotMap.encLeftOut, false, Encoder.EncodingType.k4X);  //false = don't invert counting direction
-		rightEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, false, Encoder.EncodingType.k4X); //need to find correct ports
+		rightEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, true, Encoder.EncodingType.k4X); //need to find correct ports
 		
 		navx = new AHRS(SPI.Port.kMXP);
 		navx.reset();
@@ -99,7 +99,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	//Arcade Drive Method
-	public void driveWithController(double throttle, double turn) {
+	public void driveWithController(double throttle, double turn, boolean turboEnabled) {
 		double right = throttle;
 		double left = throttle;
 		double turningThrottleScale;
@@ -118,11 +118,15 @@ public class DriveTrain extends Subsystem {
 			right -= turn * turningThrottleScale;  
 			left += turn * turningThrottleScale;
 		}
-
-		setMotorValues(right, left);
+		
+		if (!turboEnabled) {
+			setMotorValues(right * RobotMap.throttleModifier, left * RobotMap.throttleModifier);
+		} else {
+			setMotorValues(right, left);
+		}
 	}
 	
-	public void resetEncoderPos() {
+	public void resetEncoders() {
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
@@ -144,7 +148,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public double getLeftEncoderRate() {
-		return leftEncoder.getRate();
+		return -leftEncoder.getRate();
 	}
 	
 	public double getEncoderRateAvg() {
@@ -186,20 +190,6 @@ public class DriveTrain extends Subsystem {
 			
 	}
 	
-	public void automaticShift(boolean enabled) {
-		if(enabled) {
-			if (getEncoderRateAvg() > RobotMap.automaticShiftValue) {
-				setHighGear();
-			} else {
-				setLowGear();
-			}
-		}
-	}
-	
-	public boolean testCompressor() {
-		return compressor.enabled();
-	}
-	
 	public void updateDash() {
 		SmartDashboard.putNumber("Right Motor Master Voltage", RightMotor1.getMotorOutputVoltage());
 		SmartDashboard.putNumber("Right Motor Follower 1 Voltage", RightMotor2.getMotorOutputVoltage());
@@ -207,6 +197,11 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Left Motor Master Voltage", LeftMotor1.getMotorOutputVoltage());
 		SmartDashboard.putNumber("Left Motor Follower 1 Voltage", LeftMotor2.getMotorOutputVoltage());
 		SmartDashboard.putNumber("Left Motor Follower 2 Voltage", LeftMotor3.getMotorOutputVoltage());
+		SmartDashboard.putNumber("Left Motor Follower 2 Voltage", LeftMotor3.getMotorOutputVoltage());
+		SmartDashboard.putNumber("Left Encoder Pos", getLeftEncoderPos());
+		SmartDashboard.putNumber("Right Encoder Pos", getRightEncoderPos());
+		SmartDashboard.putNumber("Left Encoder Rate", getLeftEncoderRate());
+		SmartDashboard.putNumber("Right Encoder Rate", getRightEncoderRate());
 	}
 	
 	//true makes the robot enter break mode, false will put it into coast (This is a CAN only function)
@@ -221,6 +216,28 @@ public class DriveTrain extends Subsystem {
 	
 	public double getChassisBearing() {
 		return navx.getAngle();
+	}
+	
+	public void resetGyro() {
+		navx.reset();
+	}
+	
+	public void moveX(double distanceNeeded) {
+		//one revolution move the robot about 18.849555... inches
+		resetEncoders();
+		int rightPos = 0; 
+		int leftPos = 0;
+		
+		int ticksToMoveX = (int) ((distanceNeeded * 360)/(Math.PI * 6 * 3));
+		
+		do {
+			setMotorValues(-0.2, -0.2);
+			rightPos = Math.abs(getRightEncoderPos());
+			leftPos = Math.abs(getLeftEncoderPos());
+			updateDash();
+		}while((rightPos < ticksToMoveX) && (leftPos < ticksToMoveX));
+		
+		setMotorValues(0, 0);	
 	}
 
     public void initDefaultCommand() {

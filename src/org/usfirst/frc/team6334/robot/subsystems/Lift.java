@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Lift extends Subsystem {
     	liftMotor2 = new WPI_TalonSRX(RobotMap.liftMotor2);
     	
     	liftMotor2.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
-		liftMotor2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		liftMotor2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
     }
     
 	/* Use y-axis of aux-stick to test positions. We can add buttons to control up 
@@ -31,19 +32,16 @@ public class Lift extends Subsystem {
 	public void setLiftPower(double throttle){         
 		
 		
-		/*if(getEncoderPos() < RobotMap.liftLowerBound) {
-			liftMotor1.set(-0.25);
-			liftMotor2.set(-0.25);
-		} else if (getEncoderPos() > RobotMap.liftUpperBound) {
+		if(getEncoderPos() < RobotMap.liftLowerBound) {
 			liftMotor1.set(0.25);
 			liftMotor2.set(0.25);
+		} else if (getEncoderPos() > RobotMap.liftUpperBound) {
+			liftMotor1.set(-0.25);
+			liftMotor2.set(-0.25);
 		} else {
-			liftMotor1.set(throttle);
-			liftMotor2.set(throttle);
-		}*/
-		
-		liftMotor1.set(-throttle);
-		liftMotor2.set(-throttle);
+			liftMotor1.set(-throttle);
+			liftMotor2.set(-throttle);
+		}
 	}
 
 	public void resetEncoderPos() {
@@ -67,15 +65,29 @@ public class Lift extends Subsystem {
 		return liftMotor2.getSelectedSensorVelocity(0);
 	}
 	
-	public void liftPos1(){   	
-    	if(getEncoderPos() < RobotMap.liftPos1) {
+	public void liftPosMin(){   	
+    	if(getEncoderPos() < RobotMap.liftPosMin) {
     		setLiftPower(1);
-    	} else if (getEncoderPos() > RobotMap.liftPos1) {
+    	} else if (getEncoderPos() > RobotMap.liftPosMin) {
     		setLiftPower(-1);
     	} else {
     		setLiftPower(0);
     	}
     }
+	
+	public void liftPosMax(){   	
+    	if(getEncoderPos() < RobotMap.liftPosMax) {
+    		setLiftPower(1);
+    	} else if (getEncoderPos() > RobotMap.liftPosMax) {
+    		setLiftPower(-1);
+    	} else {
+    		setLiftPower(0);
+    	}
+    }
+	
+	public void updateDash() {
+		SmartDashboard.putNumber("LiftEncoder Position", getEncoderPos());
+	}
 	
 	public void initDefaultCommand() {
         setDefaultCommand(new LiftDrive());

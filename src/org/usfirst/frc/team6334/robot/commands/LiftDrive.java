@@ -26,9 +26,7 @@ public class LiftDrive extends CommandBase {
       } else {
         lift.setLiftPower(0);
       }
- 
-        
-          
+      lift.updateDash();
     }
  
     // Make this return true when this Command no longer needs to run execute()

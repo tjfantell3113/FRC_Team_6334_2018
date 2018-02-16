@@ -16,12 +16,14 @@ public abstract class CommandBase extends Command {
     public static DriveTrain driveTrain;
     public static Intake intake;
     public static Lift lift;
+    public static AutoChooser autoChooser;
 
     
     public static void init() { 
     	driveTrain = new DriveTrain();
     	intake = new Intake();
     	lift = new Lift();
+    	autoChooser = new AutoChooser();
     	
     	
         oi = new OI();

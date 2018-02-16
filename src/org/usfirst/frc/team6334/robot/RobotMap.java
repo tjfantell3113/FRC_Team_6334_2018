@@ -14,6 +14,9 @@ package org.usfirst.frc.team6334.robot;
  * floating around.
  */
 public class RobotMap {
+	
+	public final static char currentSide = 'R';
+	
 	// Controller Ports
 	public final static int intakeStick = 2;
 	public final static int elevatorStick = 1;
@@ -88,7 +91,7 @@ public class RobotMap {
 	public final static int encRightOut = 9;
 	public final static int liftEncIn = 0;
 	public final static int liftEncOut = 1;
-	public final static int driveEncTicks = 360;
+	public final static int driveEncTicks = 360/3;
 	public final static double automaticShiftValue = 3.5;
 
 	// Solenoids (D I/O slots)
@@ -105,20 +108,20 @@ public class RobotMap {
 	public final static double kd = 0;
 	public final static double kv = 1 / maxVel;
 	public final static double ka = 0;
-6
+
 	//Drive Train constants
 	public final static double wheelBase = 2.375;
 	public final static double middleOfWheelbase = 19.25;
 	public final static double wheelDiameter = 0.5; //6 inches
 	public final static double deadzone = 0;
-	public final static double throttleModifier = 0.5;
+	public final static double throttleModifier = 0.4;
 	
 	//Lift Constants
 	public static final int ejectBox = 1;
-	public static final int liftPos1 = 100;
-	public static final int liftPos2 = 200;
+	public static final int liftPosMin = -950;
+	public static final int liftPosMax = 30000;
 	public static final int lift_kP = 0;
 	public static final int lift_kI= 0;
-	public static int liftUpperBound = 10000;
-	public static int liftLowerBound = 10;
+	public static int liftUpperBound = 31000;
+	public static int liftLowerBound = -1000;
 }

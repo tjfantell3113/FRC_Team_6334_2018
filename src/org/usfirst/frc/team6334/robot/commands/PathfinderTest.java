@@ -12,6 +12,9 @@ import jaci.pathfinder.modifiers.TankModifier;
  */
 public class PathfinderTest extends CommandBase {
 
+	EncoderFollower efr, efl;
+	Trajectory right, left;
+	
     @SuppressWarnings("unused")
 	public PathfinderTest() {
     	// Create the Trajectory Configuration
@@ -26,26 +29,33 @@ public class PathfinderTest extends CommandBase {
     			RobotMap.timeStep, RobotMap.maxVel, RobotMap.maxAccel, RobotMap.maxJerk);
     	
         Waypoint[] points = new Waypoint[] {
-                new Waypoint(1.625, 4.0, 0),
-                new Waypoint(14, 4, 0),
-                new Waypoint(23.375, 6.5, 0)
+                new Waypoint(0, 4, 0),
+                new Waypoint(27, 4, 0)
         };
 
         //wheel diameter = 6 inches
         Trajectory trajectory = Pathfinder.generate(points, config);
         TankModifier modifier = new TankModifier(trajectory).modify(RobotMap.wheelBase);
-        Trajectory left = modifier.getLeftTrajectory();
-        Trajectory right = modifier.getRightTrajectory();
+        left = modifier.getLeftTrajectory();
+        right = modifier.getRightTrajectory();
         
-        EncoderFollower efl = new EncoderFollower(left);
-        EncoderFollower efr = new EncoderFollower(right);
+        efl = new EncoderFollower(left);
+        efr = new EncoderFollower(right);
         efl.configureEncoder(driveTrain.getLeftEncoderPos(), RobotMap.driveEncTicks, RobotMap.wheelDiameter);
         efl.configureEncoder(driveTrain.getRightEncoderPos(), RobotMap.driveEncTicks, RobotMap.wheelDiameter);
         efr.configurePIDVA(RobotMap.kp, RobotMap.ki, RobotMap.kd, RobotMap.kv, RobotMap.ka);
         efl.configurePIDVA(RobotMap.kp, RobotMap.ki, RobotMap.kd, RobotMap.kv, RobotMap.ka);
-        
-        
-        // Do something with the new Trajectories...
+    }
+
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    	
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
+    	// Do something with the new Trajectories...
+    	System.out.println("testing");
         double l = efl.calculate(driveTrain.getLeftEncoderPos());
         double r = efr.calculate(driveTrain.getRightEncoderPos());
 
@@ -56,15 +66,6 @@ public class PathfinderTest extends CommandBase {
         double turn = 0.8 * (-1.0/80.0) * angleDifference;
 
         driveTrain.setMotorValues(r - turn, l - turn);
-    }
-
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
     }
 
     // Make this return true when this Command no longer needs to run execute()

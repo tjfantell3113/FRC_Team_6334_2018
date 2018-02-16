@@ -64,7 +64,7 @@ public class TankDrive extends CommandBase {
 		}
 		
 		if (leftStick.getRawButtonPressed(RobotMap.resetEncoders) || rightStick.getRawButtonPressed(RobotMap.resetEncoders)) {
-			driveTrain.resetEncoderPos();
+			driveTrain.resetEncoders();
 		}
 		
 		driveTrain.driveWithControllers(rightThrottle, leftThrottle);
