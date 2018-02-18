@@ -57,15 +57,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		CommandBase.autoChooser.grabGameData();
-		CommandBase.driveTrain.resetEncoders();
-		CommandBase.driveTrain.resetGyro();
-		autoCommand = CommandBase.autoChooser.chooseAuto(RobotMap.currentSide);
-		
-		if (autoCommand != null) {
-			autoCommand.start();
-		}
-		
+		CommandBase.autoChooser.chooseAuto(RobotMap.currentSide);
 	}
 
 	/**
@@ -78,7 +70,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (autoCommand != null) autoCommand.cancel();
+		CommandBase.autoChooser.cancelAuto();
 		CommandBase.driveTrain.resetEncoders();
 	}
 

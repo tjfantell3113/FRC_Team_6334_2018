@@ -23,11 +23,16 @@ public class autoIntake extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(ejectBox) {
-    		intake.setIntakePower(1);
+    		int sign = 1;
+    		for(int i = 0; i < 10; i++) {
+    			intake.setIntakePower(-sign);
+    			sign *= -1;
+    			Timer.delay(runTime/10);
+    		}
     	} else {
+    		Timer.delay(runTime);
     		intake.setIntakePower(-1);
     	}
-    	Timer.delay(runTime);
     	finished = true;
     }
 

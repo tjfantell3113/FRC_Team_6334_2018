@@ -15,7 +15,7 @@ package org.usfirst.frc.team6334.robot;
  */
 public class RobotMap {
 	
-	public final static char currentSide = 'R';
+	public final static char currentSide = 'L';
 	
 	// Controller Ports
 	public final static int intakeStick = 2;
@@ -104,16 +104,16 @@ public class RobotMap {
 	public final static double wheelDiameter = 0.5; //6 inches
 	public final static double deadzone = 0;
 	public final static double throttleModifier = 0.25;
-	public final static int kP = 1;
-	public final static int kI = 1;
-	public final static int kD = 1;
+	public final static double gyro_kP = 0.03;
+	public final static double gyro_kI = 0.1;
+	public final static double gyro_kD = 0;
 	
 	//Lift Constants
 	public static final int ejectBox = 1;
 	public static final int liftPosMin = -950;
-	public static final int liftPosMax = 30000;
+	public static final int liftPosMax = 31250;
 	public static final int lift_kP = 0;
 	public static final int lift_kI= 0;
 	public static int liftUpperBound = 31000;
-	public static int liftLowerBound = -1000;
+	public static int liftLowerBound = 0;
 }

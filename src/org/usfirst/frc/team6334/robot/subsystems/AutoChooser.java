@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class AutoChooser extends Subsystem {
 
 	String gameData;
+	Command choice;
 
     public AutoChooser() {
     	gameData = null;
+    	choice = null;
     }
     
     public void grabGameData() {
@@ -22,7 +24,7 @@ public class AutoChooser extends Subsystem {
     	
     	//I'm apprehensive about this loop cause loops in loops suck.
     	do {
-    		if(gameData.isEmpty()) {
+    		if(gameData == null) {
     			dataCorrect = false;
     			gameData = DriverStation.getInstance().getGameSpecificMessage();
     		} else {
@@ -30,55 +32,62 @@ public class AutoChooser extends Subsystem {
     		}
     		System.out.println("in loop");
     	} while(dataCorrect == false);
+    	System.out.println("out of loop");
     }
     
-    public Command chooseAuto(char currentSide) {
+    public void chooseAuto(char currentSide) {
     	grabGameData();
-    	Command choice = null; //Default auto, just move forward.
-    	/*
+    	
     	if(currentSide == 'C') {
     		switch (gameData) {
-    			case "LLL": choice = new autoCenterLLL();
+    			case "LLL": //choice = new autoCenterLLL();
     				break;
     				
-    			case "LRL": choice = new autoCenterLRL();
+    			case "LRL": //choice = new autoCenterLRL();
     				break;
     				
-    			case "RLR": choice = new autoCenterRLR();
+    			case "RLR": //choice = new autoCenterRLR();
     				break;
     				
-    			case "RRR": choice = new autoCenterRRR();
+    			case "RRR": //choice = new autoCenterRRR();
     		}
     	} else if (currentSide == 'L') {
     		switch (gameData) {
-				case "LLL": choice = new autoLeftLLL();
+				case "LLL": choice = new autoLeftToScaleSameSide();
+							System.out.println("correct");
 					break;
 					
-				case "LRL": choice = new autoLeftLRL();
+				case "LRL": //choice = new autoLeftLRL();
 					break;
 					
-				case "RLR": choice = new autoLeftRLR();
+				case "RLR": //choice = new autoLeftRLR();
 					break;
 					
-				case "RRR": choice = new autoLrftRRR();
+				case "RRR": //choice = new autoLeftRRR();
     		}
     	} else if (currentSide == 'R') {
     		switch (gameData) {
-				case "LLL": choice = new autoRightLLL();
+				case "LLL": //choice = new autoRightLLL();
 					break;
 					
-				case "LRL": choice = new autoRightLRL();
+				case "LRL": //choice = new autoRightLRL();
 					break;
 					
-				case "RLR": choice = new autoRightRLR();
+				case "RLR": //choice = new autoRightRLR();
 					break;
 					
-				case "RRR": choice = new autoRightRRR();
+				case "RRR": //choice = new autoRightRRR();
 			}
     	}
-    	*/
     	
-    	return new autoLeftToScaleSameSide();
+    	if(choice != null) { 
+    		choice.start();
+    		System.out.println("auto chosen and started");
+    	}
+    }
+    
+    public void cancelAuto() {
+    	if(choice != null) choice.cancel();
     }
     
     public void initDefaultCommand() {

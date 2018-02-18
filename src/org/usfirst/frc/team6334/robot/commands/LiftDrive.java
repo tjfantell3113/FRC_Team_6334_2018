@@ -22,10 +22,17 @@ public class LiftDrive extends CommandBase {
     protected void execute() {
       double throttle = elevatorStick.getY();
       if (Math.abs(throttle) > 0.05) {
-        lift.setLiftPower(throttle);
+        lift.setLiftPower(throttle, false);
       } else {
-        lift.setLiftPower(0);
+        lift.setLiftPower(0, false);
       }
+      
+      //override
+      if (elevatorStick.getRawButton(2)) {
+    	 lift.setLiftPower(throttle, true);
+    	 lift.updateBoundries();
+      }
+      
       lift.updateDash();
     }
  
@@ -41,7 +48,7 @@ public class LiftDrive extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	lift.setLiftPower(0);
+    	lift.setLiftPower(0, false);
     }
 }
  
