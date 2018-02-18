@@ -52,10 +52,6 @@ public class ArcadeDrive extends CommandBase {
 			coastModeEnabled = !coastModeEnabled;
 		}
 		
-		if (arcadeStick.getRawButtonPressed(12)) {
-			driveTrain.moveX(50);
-		}
-		
 		driveTrain.driveWithController(throttle, turn, turboEnabled);
 		driveTrain.updateDash();
 	}

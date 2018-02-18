@@ -1,6 +1,9 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
+import org.usfirst.frc.team6334.robot.commands.autoLeftToScaleSameSide;
+
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -11,7 +14,7 @@ public class AutoChooser extends Subsystem {
 	String gameData;
 
     public AutoChooser() {
-    	gameData = "";
+    	gameData = null;
     }
     
     public void grabGameData() {
@@ -29,55 +32,53 @@ public class AutoChooser extends Subsystem {
     	} while(dataCorrect == false);
     }
     
-    public int chooseAuto(char currentSide) {
+    public Command chooseAuto(char currentSide) {
     	grabGameData();
-    	int choice = 0; //Default auto, just move forward.
-    	
+    	Command choice = null; //Default auto, just move forward.
+    	/*
     	if(currentSide == 'C') {
     		switch (gameData) {
-    			case "LLL": choice = 1;
+    			case "LLL": choice = new autoCenterLLL();
     				break;
     				
-    			case "LRL": choice = 2;
+    			case "LRL": choice = new autoCenterLRL();
     				break;
     				
-    			case "RLR": choice = 3;
+    			case "RLR": choice = new autoCenterRLR();
     				break;
     				
-    			case "RRR": choice = 4;
+    			case "RRR": choice = new autoCenterRRR();
     		}
     	} else if (currentSide == 'L') {
     		switch (gameData) {
-				case "LLL": choice = 5;
+				case "LLL": choice = new autoLeftLLL();
 					break;
 					
-				case "LRL": choice = 6;
+				case "LRL": choice = new autoLeftLRL();
 					break;
 					
-				case "RLR": choice = 7;
+				case "RLR": choice = new autoLeftRLR();
 					break;
 					
-				case "RRR": choice = 8;
+				case "RRR": choice = new autoLrftRRR();
     		}
     	} else if (currentSide == 'R') {
     		switch (gameData) {
-				case "LLL": choice = 9;
+				case "LLL": choice = new autoRightLLL();
 					break;
 					
-				case "LRL": choice = 10;
+				case "LRL": choice = new autoRightLRL();
 					break;
 					
-				case "RLR": choice = 11;
+				case "RLR": choice = new autoRightRLR();
 					break;
 					
-				case "RRR": choice = 12;
+				case "RRR": choice = new autoRightRRR();
 			}
-    	} else {
-    		choice = 0;
     	}
+    	*/
     	
-    	System.out.println(choice);
-    	return choice;
+    	return new autoLeftToScaleSameSide();
     }
     
     public void initDefaultCommand() {

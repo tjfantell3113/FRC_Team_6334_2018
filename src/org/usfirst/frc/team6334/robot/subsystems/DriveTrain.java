@@ -119,7 +119,7 @@ public class DriveTrain extends Subsystem {
 			left += turn * turningThrottleScale;
 		}
 		
-		if (!turboEnabled) {
+		if (turboEnabled) {
 			setMotorValues(right * RobotMap.throttleModifier, left * RobotMap.throttleModifier);
 		} else {
 			setMotorValues(right, left);
@@ -222,24 +222,6 @@ public class DriveTrain extends Subsystem {
 		navx.reset();
 	}
 	
-	public void moveX(double distanceNeeded) {
-		//one revolution move the robot about 18.849555... inches
-		resetEncoders();
-		int rightPos = 0; 
-		int leftPos = 0;
-		
-		int ticksToMoveX = (int) ((distanceNeeded * 360)/(Math.PI * 6 * 3));
-		
-		do {
-			setMotorValues(-0.2, -0.2);
-			rightPos = Math.abs(getRightEncoderPos());
-			leftPos = Math.abs(getLeftEncoderPos());
-			updateDash();
-		}while((rightPos < ticksToMoveX) && (leftPos < ticksToMoveX));
-		
-		setMotorValues(0, 0);	
-	}
-
     public void initDefaultCommand() {
     	setDefaultCommand(new ArcadeDrive());
     }

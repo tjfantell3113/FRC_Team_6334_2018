@@ -60,42 +60,10 @@ public class Robot extends TimedRobot {
 		CommandBase.autoChooser.grabGameData();
 		CommandBase.driveTrain.resetEncoders();
 		CommandBase.driveTrain.resetGyro();
-		int choice = CommandBase.autoChooser.chooseAuto(RobotMap.currentSide);
-		
-		switch (choice) {
-			case 9: autoCommand = new PathfinderTest();
-				break; /*
-			case 2: autoCommand = new PathfinderTest();
-				break;
-			case 3: autoCommand = new PathfinderTest();
-				break;
-			case 4: autoCommand = new PathfinderTest();
-				break;
-			case 5: autoCommand = new PathfinderTest();
-				break;
-			case 6: autoCommand = new PathfinderTest();
-				break;
-			case 7: autoCommand = new PathfinderTest();
-				break;
-			case 8: autoCommand = new PathfinderTest();
-				break;
-			case 9: autoCommand = new PathfinderTest();
-				break;
-			case 10: autoCommand = new PathfinderTest();
-				break;
-			case 11: autoCommand = new PathfinderTest();
-				break;
-			case 12: autoCommand = new PathfinderTest();
-				break;
-			case 0: autoCommand = new PathfinderTest();
-				break; */
-		}
-		
-		System.out.println(choice);
+		autoCommand = CommandBase.autoChooser.chooseAuto(RobotMap.currentSide);
 		
 		if (autoCommand != null) {
 			autoCommand.start();
-			System.out.println("started");
 		}
 		
 	}
@@ -112,7 +80,6 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		if (autoCommand != null) autoCommand.cancel();
 		CommandBase.driveTrain.resetEncoders();
-		CommandBase.driveTrain.resetGyro();
 	}
 
 	/**

@@ -98,23 +98,15 @@ public class RobotMap {
 	public final static int gearChange1 = 0;
 	public final static int gearChange2 = 1;
 
-	// Pathfinder constants
-	public final static double timeStep = 0.05; //larger time for steps means faster calculation, however lower accuracy. 5ms is a good standard.
-	public final static double maxVel = 4;
-	public final static double maxAccel = 3;
-	public final static double maxJerk = 10;
-	public final static double kp = 0;
-	public final static double ki = 0;
-	public final static double kd = 0;
-	public final static double kv = 1 / maxVel;
-	public final static double ka = 0;
-
 	//Drive Train constants
 	public final static double wheelBase = 2.375;
 	public final static double middleOfWheelbase = 19.25;
 	public final static double wheelDiameter = 0.5; //6 inches
 	public final static double deadzone = 0;
-	public final static double throttleModifier = 0.4;
+	public final static double throttleModifier = 0.25;
+	public final static int kP = 1;
+	public final static int kI = 1;
+	public final static int kD = 1;
 	
 	//Lift Constants
 	public static final int ejectBox = 1;

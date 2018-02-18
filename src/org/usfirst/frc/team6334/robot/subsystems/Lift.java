@@ -23,6 +23,7 @@ public class Lift extends Subsystem {
     	
     	liftMotor2.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
 		liftMotor2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+		liftMotor2.setSelectedSensorPosition(0, 0, 10);
     }
     
 	/* Use y-axis of aux-stick to test positions. We can add buttons to control up 
