@@ -58,6 +58,9 @@ public class RobotMap {
 	public final static int LeftDrive1 = 0;
 	public final static int LeftDrive2 = 1;
 	public final static int LeftDrive3 = 2;
+	public final static int climberLift1 = 56;
+	public final static int climberLift2 = 57;
+	public final static int hookPivot = 58;
 	public final static int liftMotor1 =  59;
 	public final static int liftMotor2 =  60;
 	public final static int intakeRight =  61;
@@ -116,4 +119,8 @@ public class RobotMap {
 	public static final int lift_kI= 0;
 	public static int liftUpperBound = 31000;
 	public static int liftLowerBound = 0;
+	
+	//Climb Constants
+	public static final int climberButton = 6; // on intake stick
+	public static final int pivotButton = 7;
 }

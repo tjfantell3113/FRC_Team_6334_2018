@@ -17,6 +17,7 @@ public abstract class CommandBase extends Command {
     public static Intake intake;
     public static Lift lift;
     public static AutoChooser autoChooser;
+    public static Climber climber;
 
     
     public static void init() { 
@@ -24,7 +25,7 @@ public abstract class CommandBase extends Command {
     	intake = new Intake();
     	lift = new Lift();
     	autoChooser = new AutoChooser();
-    	
+    	climber = new Climber();
     	
         oi = new OI();
     }
