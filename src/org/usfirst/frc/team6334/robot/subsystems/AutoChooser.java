@@ -1,7 +1,9 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
+import org.usfirst.frc.team6334.robot.RobotMap;
 import org.usfirst.frc.team6334.robot.commands.autoLeftToScaleSameSide;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -13,10 +15,14 @@ public class AutoChooser extends Subsystem {
 
 	String gameData;
 	Command choice;
+	DigitalInput auto0, auto1;
 
     public AutoChooser() {
     	gameData = null;
     	choice = null;
+    	
+    	auto0 = new DigitalInput(RobotMap.auto0);
+    	auto1 = new DigitalInput(RobotMap.auto1);
     }
     
     public void grabGameData() {

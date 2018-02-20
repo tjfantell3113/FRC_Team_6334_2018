@@ -40,6 +40,7 @@ public class RobotMap {
 	public final static int changeTurbo = 3;
 	public final static int openIntake = 11;
 	public final static int closeIntake = 10;
+	public final static int changeCameraSource = 6;
 	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;
@@ -127,4 +128,11 @@ public class RobotMap {
 	//Climb Constants
 	public static final int climberButton = 6; // on intake stick
 	public static final int pivotButton = 7;
+	
+	//Camera Constants
+	public static final int frontFacingCamera = 0;
+	
+	//DIO Constants
+	public static final int auto0 = 0;
+	public static final int auto1 = 1;
 }
