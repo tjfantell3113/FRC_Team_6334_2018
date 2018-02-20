@@ -18,6 +18,8 @@ public class Climber extends Subsystem {
 	
 	WPI_TalonSRX lift1, lift2, pivot;
 	
+	Double climbThrottle, pivotThrottle;
+	
 	public Climber() {
 		lift1 = new WPI_TalonSRX(RobotMap.climberLift1);
 		lift2 = new WPI_TalonSRX(RobotMap.climberLift2);
@@ -28,19 +30,15 @@ public class Climber extends Subsystem {
 		pivot.setNeutralMode(NeutralMode.Coast);
 	}
 	
-	public void raiseClimber(double throttle) {
-		throttle = Math.abs(throttle);
-		if (throttle > 0.05) {
-			lift1.set(throttle);
-			lift2.set(throttle);
-		}
+	public void raiseClimber(double val) {
+		climbThrottle = -Math.abs(val);
+		lift1.set(climbThrottle);
+		lift2.set(climbThrottle);
 	}
 	
-	public void raisePivot(double throttle) {
-		throttle = Math.abs(throttle);
-		if (throttle > 0.05) {
-			pivot.set(throttle);
-		}
+	public void raisePivot(double val) {
+		pivotThrottle = Math.abs(val);
+		pivot.set(pivotThrottle);
 	}
 
     public void initDefaultCommand() {

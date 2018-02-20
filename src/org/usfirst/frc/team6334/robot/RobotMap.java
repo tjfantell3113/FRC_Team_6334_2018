@@ -38,6 +38,8 @@ public class RobotMap {
 	public final static int coastMode = 4;
 	public final static int resetEncoders = 11;
 	public final static int changeTurbo = 3;
+	public final static int openIntake = 11;
+	public final static int closeIntake = 10;
 	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;
@@ -100,6 +102,8 @@ public class RobotMap {
 	// Solenoids (D I/O slots)
 	public final static int gearChange1 = 0;
 	public final static int gearChange2 = 1;
+	public final static int intakeState1 = 2;
+	public final static int intakeState2 = 3;
 
 	//Drive Train constants
 	public final static double wheelBase = 2.375;
