@@ -28,12 +28,12 @@ public class IntakeDrive extends CommandBase {
 																// continue to return true as long as the button is held
 																// down
 				intake.setIntakePower(1);
-			} else if (Math.abs(throttle) > 0.05) {
-				intake.setIntakePower(throttle);
-			} else if (intakeStick.getRawButtonPressed(2)) {
+			}  else if (intakeStick.getRawButtonPressed(2)) {
 				intake.openIntake();
 			} else if (intakeStick.getRawButtonPressed(3)) {
 				intake.closeIntake();
+			} else if (Math.abs(throttle) > 0.05) {
+				intake.setIntakePower(throttle);
 			} else {
 				intake.setIntakePower(0);
 			}

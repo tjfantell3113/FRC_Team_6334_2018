@@ -53,6 +53,7 @@ public class ArcadeDrive extends CommandBase {
 		}
 		
 		driveTrain.driveWithController(throttle, turn, turboEnabled);
+		//driveTrain.automaticTransmission(throttle);
 		driveTrain.updateDash();
 	}
 

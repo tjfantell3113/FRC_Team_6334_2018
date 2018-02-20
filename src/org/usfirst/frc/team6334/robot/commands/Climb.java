@@ -33,6 +33,7 @@ public class Climb extends CommandBase {
     		climber.raisePivot(throttle);
     	} else {
     		climber.raiseClimber(0);
+    		climber.raisePivot(0);
     	}
     }
 

@@ -20,6 +20,8 @@ public class DriveTrain extends Subsystem {
 	Compressor compressor;
 	Encoder leftEncoder, rightEncoder;
 	AHRS navx;
+	Double SF1, SF2, SF3, SF4;
+	Boolean shifted;
 	
 	public DriveTrain() {
 		
@@ -63,6 +65,13 @@ public class DriveTrain extends Subsystem {
 		
 		navx = new AHRS(SPI.Port.kMXP);
 		navx.reset();
+		
+		SF1 = .6;    // 'SF' stands for scaling factor
+		SF2 = .17;
+		SF3 = .11;
+		SF4 = 2.5;
+		
+		shifted = true;
 	}
 	
 	/**
@@ -165,29 +174,23 @@ public class DriveTrain extends Subsystem {
 		gearChange.set(DoubleSolenoid.Value.kReverse);
 	}
 	
-	public void automaticTransmission(double rightStick, double leftStick) {
-		setLowGear();      
-		
-		double SF1 = .6;    // 'SF' stands for scaling factor
-		double SF2 = .17;
-		double SF3 = .11;
-		double SF4 = 2.5;
-		
-		double power = (rightStick + leftStick)/2;
-		
-		if( power > SF1) { //setHighGear() ||
+	public void automaticTransmission(double stick) {
+		double power = stick;
+	
+		if(shifted || power > SF1) { //setHighGear() ||
 			setHighGear();
 			power = (power - SF1) * SF4 + SF2;
 		}
 		else if(power < SF3) {
 			setLowGear();
-			power = getEncoderRateAvg();
+			power = stick;
 		}
 		else if(getEncoderRateAvg() < 1 && power > SF2){
 			setLowGear();
-			power = getEncoderRateAvg();
+			power = stick;
 		}
-			
+		
+		
 	}
 	
 	public void updateDash() {

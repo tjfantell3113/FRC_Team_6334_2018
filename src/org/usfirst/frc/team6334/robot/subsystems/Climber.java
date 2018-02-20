@@ -27,7 +27,7 @@ public class Climber extends Subsystem {
 		
 		lift1.setNeutralMode(NeutralMode.Brake);
 		lift2.setNeutralMode(NeutralMode.Brake);
-		pivot.setNeutralMode(NeutralMode.Coast);
+		pivot.setNeutralMode(NeutralMode.Brake);
 	}
 	
 	public void raiseClimber(double val) {
@@ -37,7 +37,7 @@ public class Climber extends Subsystem {
 	}
 	
 	public void raisePivot(double val) {
-		pivotThrottle = Math.abs(val);
+		pivotThrottle = val;
 		pivot.set(pivotThrottle);
 	}
 
