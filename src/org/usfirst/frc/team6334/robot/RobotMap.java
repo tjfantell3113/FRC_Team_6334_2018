@@ -135,4 +135,5 @@ public class RobotMap {
 	//DIO Constants
 	public static final int auto0 = 0;
 	public static final int auto1 = 1;
+	public static final int irBeam = 2;
 }

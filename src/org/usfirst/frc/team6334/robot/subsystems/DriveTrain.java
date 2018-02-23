@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class DriveTrain extends Subsystem {
 	
-	WPI_TalonSRX RightMotor1, RightMotor2, RightMotor3, LeftMotor1, LeftMotor2, LeftMotor3;
+	WPI_TalonSRX RightMotor1, RightMotor2, LeftMotor1, LeftMotor2;
 	DoubleSolenoid gearChange;
 	Compressor compressor;
 	Encoder leftEncoder, rightEncoder;
@@ -28,10 +28,8 @@ public class DriveTrain extends Subsystem {
 		//Initialize the Talon SRX's using CTRE's WPI class.
 		RightMotor1 = new WPI_TalonSRX(RobotMap.RightDrive1);
 		RightMotor2 = new WPI_TalonSRX(RobotMap.RightDrive2);
-		RightMotor3 = new WPI_TalonSRX(RobotMap.RightDrive3);
 		LeftMotor1 = new WPI_TalonSRX(RobotMap.LeftDrive1);
 		LeftMotor2 = new WPI_TalonSRX(RobotMap.LeftDrive2);
-		LeftMotor3 = new WPI_TalonSRX(RobotMap.LeftDrive3);
 		
 		//Initialize the pneumatic system (solenoids and compressor).
 		gearChange = new DoubleSolenoid(RobotMap.gearChange1, RobotMap.gearChange2); 
@@ -42,21 +40,16 @@ public class DriveTrain extends Subsystem {
 		//Invert the left side motor controllers so inputs do not have to be opposite for each side.
 		LeftMotor1.setInverted(true);
 		LeftMotor2.setInverted(true);
-		LeftMotor3.setInverted(true);
 		
 		//Set Talon control modes to break for autonomous so trajectories are correct.
 		RightMotor1.setNeutralMode(NeutralMode.Brake);
 		RightMotor2.setNeutralMode(NeutralMode.Brake);
-		RightMotor3.setNeutralMode(NeutralMode.Brake);
 		LeftMotor1.setNeutralMode(NeutralMode.Brake);
 		LeftMotor2.setNeutralMode(NeutralMode.Brake);
-		LeftMotor3.setNeutralMode(NeutralMode.Brake);
 		
 		//Set the two extra Talons to mirror the main Talon (on each side).
 		RightMotor2.follow(RightMotor1);
-		RightMotor3.follow(RightMotor1);
 		LeftMotor2.follow(LeftMotor1);
-		LeftMotor3.follow(LeftMotor1);
 		
 		
 		//Encoders require two D/IO ports, whether the encoder is inverted or not, and the k#X is the accuracy that is obtained (4 times is the most)		
@@ -196,11 +189,8 @@ public class DriveTrain extends Subsystem {
 	public void updateDash() {
 		SmartDashboard.putNumber("Right Motor Master Voltage", RightMotor1.getMotorOutputVoltage());
 		SmartDashboard.putNumber("Right Motor Follower 1 Voltage", RightMotor2.getMotorOutputVoltage());
-		SmartDashboard.putNumber("Right Motor Follower 2 Voltage", RightMotor3.getMotorOutputVoltage());
 		SmartDashboard.putNumber("Left Motor Master Voltage", LeftMotor1.getMotorOutputVoltage());
 		SmartDashboard.putNumber("Left Motor Follower 1 Voltage", LeftMotor2.getMotorOutputVoltage());
-		SmartDashboard.putNumber("Left Motor Follower 2 Voltage", LeftMotor3.getMotorOutputVoltage());
-		SmartDashboard.putNumber("Left Motor Follower 2 Voltage", LeftMotor3.getMotorOutputVoltage());
 		SmartDashboard.putNumber("Left Encoder Pos", getLeftEncoderPos());
 		SmartDashboard.putNumber("Right Encoder Pos", getRightEncoderPos());
 		SmartDashboard.putNumber("Left Encoder Rate", getLeftEncoderRate());

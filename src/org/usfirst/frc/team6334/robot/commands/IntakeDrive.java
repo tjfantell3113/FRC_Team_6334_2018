@@ -22,6 +22,7 @@ public class IntakeDrive extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		System.out.println(intake.getRawIR());
 		double throttle = intakeStick.getY();
 		if (!intakeStick.getRawButton(RobotMap.climberButton) && !intakeStick.getRawButton(RobotMap.pivotButton)) {
 			if (intakeStick.getRawButton(RobotMap.ejectBox)) { // rawButton over rawButtonPressed because rawButton will

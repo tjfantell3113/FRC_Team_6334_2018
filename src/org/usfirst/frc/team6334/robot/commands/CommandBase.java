@@ -19,6 +19,7 @@ public abstract class CommandBase extends Command {
     public static AutoChooser autoChooser;
     public static Climber climber;
     public static Camera camera;
+    public static Vision vision;
 
     
     public static void init() { 
@@ -28,6 +29,7 @@ public abstract class CommandBase extends Command {
     	autoChooser = new AutoChooser();
     	climber = new Climber();
     	camera = new Camera();
+    	vision = new Vision();
     	
         oi = new OI();
     }
