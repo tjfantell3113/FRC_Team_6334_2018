@@ -201,10 +201,8 @@ public class DriveTrain extends Subsystem {
 	public void changeBrakeMode(boolean brakeMode) {
 		RightMotor1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
 		RightMotor2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
-		RightMotor3.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
 		LeftMotor1.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
 		LeftMotor2.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
-		LeftMotor3.setNeutralMode(brakeMode ? NeutralMode.Brake : NeutralMode.Coast);
 	}
 	
 	public double getChassisBearing() {
