@@ -3,6 +3,8 @@ package org.usfirst.frc.team6334.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team6334.robot.RobotMap;
 import org.usfirst.frc.team6334.robot.commands.IntakeDrive;
  
@@ -44,6 +46,10 @@ public class Intake extends Subsystem {
     
     public boolean getRawIR() {
     	return irBeam.get();
+    }
+    
+    public void updateDash() {
+    	SmartDashboard.putBoolean("Has Cube", hasCube());
     }
     
     public void initDefaultCommand() {

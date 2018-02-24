@@ -42,6 +42,7 @@ public class IntakeDrive extends CommandBase {
 		} else {
 			intake.setIntakePower(0);
 		}
+		intake.updateDash();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

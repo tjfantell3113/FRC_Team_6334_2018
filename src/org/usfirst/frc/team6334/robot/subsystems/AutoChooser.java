@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
 import org.usfirst.frc.team6334.robot.RobotMap;
+import org.usfirst.frc.team6334.robot.commands.LimelightTest;
 import org.usfirst.frc.team6334.robot.commands.autoLeftToScaleSameSide;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -59,8 +60,8 @@ public class AutoChooser extends Subsystem {
     		}
     	} else if (currentSide == 'L') {
     		switch (gameData) {
-				case "LLL": choice = new autoLeftToScaleSameSide();
-							System.out.println("correct");
+				case "LLL": //choice = new autoLeftToScaleSameSide();
+							//System.out.println("correct");
 					break;
 					
 				case "LRL": //choice = new autoLeftLRL();
@@ -90,6 +91,11 @@ public class AutoChooser extends Subsystem {
     		choice.start();
     		System.out.println("auto chosen and started");
     	}
+    }
+    
+    public void testSeek() {
+    	Command LimelightTest = new LimelightTest();
+    	LimelightTest.start();
     }
     
     public void cancelAuto() {
