@@ -30,7 +30,7 @@ public class SeekBox extends CommandBase {
 
     	if(target == 0) {
     		throttleAdjustment = 0.3;
-    		driveTrain.driveWithControllers(0.1 - throttleAdjustment, 0.1 + throttleAdjustment);
+    		driveTrain.driveWithControllers(-throttleAdjustment, throttleAdjustment);
     	}
     	else if (target == 1 && !intake.hasCube()) {
     		throttleAdjustment = KpX * xError;
@@ -45,7 +45,7 @@ public class SeekBox extends CommandBase {
     		//intake.closeIntake();
     		targetLocked = false;
     	}
-    	// TODO: Add code that uses the area of the target acquired to adjust throttle
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

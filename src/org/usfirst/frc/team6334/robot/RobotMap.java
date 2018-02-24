@@ -57,10 +57,8 @@ public class RobotMap {
 	// TalonSRX ID's and values (CAN range is 1 to 62)
 	public final static int RightDrive1 = 9;
 	public final static int RightDrive2 = 8;
-	public final static int RightDrive3 = 7;
-	public final static int LeftDrive1 = 0;
-	public final static int LeftDrive2 = 1;
-	public final static int LeftDrive3 = 2;
+	public final static int LeftDrive1 = 1;
+	public final static int LeftDrive2 = 2;
 	public final static int climberLift1 = 56;
 	public final static int climberLift2 = 57;
 	public final static int hookPivot = 58;
