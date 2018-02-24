@@ -9,49 +9,51 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
+@SuppressWarnings("static-access")
 public class Vision extends Subsystem {
 	NetworkTable visionTable;
+	NetworkTableEntry tx, ty, ta, tv, ts;
 	double xOffset, yOffset, targetArea, targetSkew, targetAquired;
 	
 	public Vision() {
 		visionTable = NetworkTableInstance.getDefault().getTable("limelight");
-		NetworkTableEntry tx = visionTable.getEntry("tx");
-		NetworkTableEntry ty = visionTable.getEntry("ty");
-		NetworkTableEntry ta = visionTable.getEntry("ta");
-		NetworkTableEntry tv = visionTable.getEntry("tv");
-		NetworkTableEntry ts = visionTable.getEntry("ts");
-		xOffset = tx.getDouble(0);
-		yOffset = ty.getDouble(0);
-		targetAquired = tv.getDouble(0);
-		targetArea = ta.getDouble(0);
-		targetSkew = ts.getDouble(0);
+		tx = visionTable.getInstance().getDefault().getTable("limelight").getEntry("tx");
+		ty = visionTable.getInstance().getDefault().getTable("limelight").getEntry("ty");
+		ta = visionTable.getInstance().getDefault().getTable("limelight").getEntry("ta");
+		tv = visionTable.getInstance().getDefault().getTable("limelight").getEntry("tv");
+		ts = visionTable.getInstance().getDefault().getTable("limelight").getEntry("ts");
 	}
 	
 	public void changeLedMode(int num) {
-		visionTable.getEntry("ledMode").setDouble(num);
+		visionTable.getInstance().getDefault().getTable("limelight").getEntry("ledMode").setNumber(num);
 	}
 	
 	public void changeVisionMode(int num) {
-		visionTable.getEntry("camMode").setDouble(num);
+		visionTable.getInstance().getDefault().getTable("limelight").getEntry("camMode").setNumber(num);
 	}
 	
 	public void changePipeline(int num) {
-		visionTable.getEntry("pipeline").setDouble(num);
+		visionTable.getInstance().getDefault().getTable("limelight").getEntry("pipeline").setNumber(num);
 	}
 	
 	public double targetAcquired() {
+		targetAquired = tv.getDouble(0);
 		return targetAquired;
 	}
 	public double getXOffset() {
+		xOffset = tx.getDouble(0);
 		return xOffset;
 	}
 	public double getYOffset() {
+		yOffset = ty.getDouble(0);
 		return yOffset;
 	}
 	public double getTargetArea() {
+		targetAquired = tv.getDouble(0);
 		return targetArea;
 	}
 	public double getRotation() {
+		targetSkew = ts.getDouble(0);
 		return targetSkew;
 	}
 
