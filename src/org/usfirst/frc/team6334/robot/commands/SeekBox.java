@@ -8,10 +8,12 @@ import org.usfirst.frc.team6334.robot.RobotMap;
 public class SeekBox extends CommandBase {
 
 	double KpX, min_Kp, xError, target, throttleAdjustment;
+	boolean targetLocked;
 
     public SeekBox() {
         requires(driveTrain);
         requires(vision);
+        requires(intake);
     }
 
     // Called just before this Command runs the first time
@@ -28,12 +30,22 @@ public class SeekBox extends CommandBase {
 
     	if(target == 0) {
     		throttleAdjustment = 0.3;
+    		driveTrain.driveWithControllers(0.1 - throttleAdjustment, 0.1 + throttleAdjustment);
     	}
-    	else {
+    	else if (target == 1 && !intake.hasCube()) {
     		throttleAdjustment = KpX * xError;
+    		if (!targetLocked) {
+    			//intake.openIntake();
+    			targetLocked = true;
+    		} else {
+    			//intake.setIntakePower(-1.0);
+    		}
+    		driveTrain.driveWithControllers(0.1 - throttleAdjustment, 0.1 + throttleAdjustment);
+    	} else if (target == 1 && intake.hasCube()) {
+    		//intake.closeIntake();
+    		targetLocked = false;
     	}
     	// TODO: Add code that uses the area of the target acquired to adjust throttle
-    	driveTrain.driveWithControllers(0.1 - throttleAdjustment, 0.1 + throttleAdjustment);
     }
 
     // Make this return true when this Command no longer needs to run execute()
