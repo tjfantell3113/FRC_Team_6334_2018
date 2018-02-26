@@ -41,6 +41,9 @@ public class RobotMap {
 	public final static int openIntake = 11;
 	public final static int closeIntake = 10;
 	public final static int changeCameraSource = 6;
+	public final static int intakeIn = 3;
+	public final static int intakeOut = 4;
+	public final static int changeIntakeSolenoid = 1;
 	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;

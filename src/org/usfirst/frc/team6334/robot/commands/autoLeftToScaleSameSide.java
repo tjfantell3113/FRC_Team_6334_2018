@@ -11,7 +11,7 @@ public class autoLeftToScaleSameSide extends CommandGroup {
     	System.out.println("In command");
     	addSequential(new autoResetSensors());
     	System.out.println("Sensors reset");
-        addParallel(new autoLift(30400));
+        //addParallel(new autoLift(30400));
         System.out.println("lift up");
         addSequential(new moveDistanceX(1, 0.3));
         System.out.println("move 1");
@@ -35,10 +35,14 @@ public class autoLeftToScaleSameSide extends CommandGroup {
         System.out.println("move back 2 feet");
         addSequential(new moveDistanceX(12, -0.3));
         System.out.println("move back 2 feet");
-        addParallel(new autoLift(100));
+        //addParallel(new autoLift(100));
         System.out.println("lift down");
         addSequential(new autoTurn(160, 0.35));
         System.out.println("turn");
-        addSequential(new moveDistanceX(80, 0.5));
+        addSequential(new moveDistanceX(70, 0.5));
+        System.out.println("Turning to box.");
+        //addSequential(new TurnToBox());
+        System.out.println("Moving to grab.");
+        //addSequential(new autoGrabBox());
     }
 }

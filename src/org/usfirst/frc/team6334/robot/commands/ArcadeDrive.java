@@ -12,11 +12,12 @@ public class ArcadeDrive extends CommandBase {
 
 	double throttle, turn;
 	Joystick leftStick, rightStick, arcadeStick;
-	boolean automaticShift, coastModeEnabled, shifted, turboEnabled;
+	boolean automaticShift, coastModeEnabled, shifted, turboEnabled, intakeSolenoidState;
 
 	public ArcadeDrive() {
 		super("ArcadeDrive");
 		requires(driveTrain);
+		requires(intake);
 	}
 
 	// Called just before this Command runs the first time
@@ -25,14 +26,15 @@ public class ArcadeDrive extends CommandBase {
 		coastModeEnabled = false;
 		shifted = false;
 		turboEnabled = false;
+		intakeSolenoidState = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		
-		if (arcadeStick.getRawButtonPressed(RobotMap.changeTurbo)) {
+		if (arcadeStick.getRawButtonPressed(11)) {
 			turboEnabled = true;
-		} else if (arcadeStick.getRawButtonReleased(RobotMap.changeTurbo)){
+		} else if (arcadeStick.getRawButtonReleased(11)){
 			turboEnabled = false;
 		}
 		
@@ -50,6 +52,28 @@ public class ArcadeDrive extends CommandBase {
 		if (arcadeStick.getRawButtonPressed(RobotMap.coastMode)) {
 			driveTrain.changeBrakeMode(coastModeEnabled);
 			coastModeEnabled = !coastModeEnabled;
+		}
+		
+		if (arcadeStick.getRawButton(RobotMap.intakeIn)) {
+			intake.setIntakePower(1.0);
+		}
+		
+		if (arcadeStick.getRawButton(RobotMap.intakeOut)) {
+			intake.setIntakePower(-1.0);
+		}
+		
+		if ((!arcadeStick.getRawButton(RobotMap.intakeIn)) && (!arcadeStick.getRawButton(RobotMap.intakeOut))) {
+			intake.setIntakePower(0);
+		}
+		
+		if (arcadeStick.getRawButtonPressed(RobotMap.changeIntakeSolenoid)) {
+			if (intakeSolenoidState) { // if the intake is open, close it
+				intake.closeIntake();
+				intakeSolenoidState = !intakeSolenoidState;
+			} else { // else open it
+				intake.openIntake();
+				intakeSolenoidState = !intakeSolenoidState;
+			}
 		}
 		
 		driveTrain.driveWithController(throttle, turn, turboEnabled);

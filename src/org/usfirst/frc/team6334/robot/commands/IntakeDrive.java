@@ -21,18 +21,13 @@ public class IntakeDrive extends CommandBase {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		System.out.println(intake.getRawIR());
+	protected void execute() {/*
 		double throttle = intakeStick.getY();
 		if (!intakeStick.getRawButton(RobotMap.climberButton) && !intakeStick.getRawButton(RobotMap.pivotButton)) {
 			if (intakeStick.getRawButton(RobotMap.ejectBox)) { // rawButton over rawButtonPressed because rawButton will
 																// continue to return true as long as the button is held
 																// down
 				intake.setIntakePower(1);
-			}  else if (intakeStick.getRawButtonPressed(2)) {
-				intake.openIntake();
-			} else if (intakeStick.getRawButtonPressed(3)) {
-				intake.closeIntake();
 			} else if (Math.abs(throttle) > 0.05) {
 				intake.setIntakePower(throttle);
 			} else {
@@ -42,7 +37,7 @@ public class IntakeDrive extends CommandBase {
 		} else {
 			intake.setIntakePower(0);
 		}
-		intake.updateDash();
+		intake.updateDash(); */
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

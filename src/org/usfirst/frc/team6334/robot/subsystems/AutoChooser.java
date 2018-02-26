@@ -60,8 +60,8 @@ public class AutoChooser extends Subsystem {
     		}
     	} else if (currentSide == 'L') {
     		switch (gameData) {
-				case "LLL": //choice = new autoLeftToScaleSameSide();
-							//System.out.println("correct");
+				case "LLL": choice = new autoLeftToScaleSameSide();
+							System.out.println("correct");
 					break;
 					
 				case "LRL": //choice = new autoLeftLRL();
