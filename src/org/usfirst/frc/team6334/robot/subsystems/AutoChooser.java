@@ -1,8 +1,7 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
 import org.usfirst.frc.team6334.robot.RobotMap;
-import org.usfirst.frc.team6334.robot.commands.LimeLightTest;
-import org.usfirst.frc.team6334.robot.commands.autoLeftToScaleSameSide;
+import org.usfirst.frc.team6334.robot.commands.*;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -93,9 +92,9 @@ public class AutoChooser extends Subsystem {
     	}
     }
     
-    public void testSeek() {
-    	Command LimelightTest = new LimeLightTest();
-    	LimelightTest.start();
+    public void testAuto() {
+    	Command testThisAuto = new autoLeftToScaleSameSide();
+    	testThisAuto.start();
     }
     
     public void cancelAuto() {

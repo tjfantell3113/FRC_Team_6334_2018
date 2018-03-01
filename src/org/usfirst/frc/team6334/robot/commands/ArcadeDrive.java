@@ -32,9 +32,9 @@ public class ArcadeDrive extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		
-		if (arcadeStick.getRawButtonPressed(11)) {
+		if (arcadeStick.getRawButtonPressed(RobotMap.changeTurbo) && arcadeStick.getRawButtonPressed(12)) {
 			turboEnabled = true;
-		} else if (arcadeStick.getRawButtonReleased(11)){
+		} else if (arcadeStick.getRawButtonReleased(RobotMap.changeTurbo) && arcadeStick.getRawButtonReleased(12)){
 			turboEnabled = false;
 		}
 		

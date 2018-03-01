@@ -37,7 +37,7 @@ public class RobotMap {
 	public final static int shiftUp = 7;
 	public final static int coastMode = 4;
 	public final static int resetEncoders = 11;
-	public final static int changeTurbo = 3;
+	public final static int changeTurbo = 6; // don't worry, this will only be pressed in combination with 12
 	public final static int openIntake = 11;
 	public final static int closeIntake = 10;
 	public final static int changeCameraSource = 6;
