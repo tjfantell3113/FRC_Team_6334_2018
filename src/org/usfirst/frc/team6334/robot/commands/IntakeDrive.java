@@ -21,23 +21,14 @@ public class IntakeDrive extends CommandBase {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {/*
+	protected void execute() {
 		double throttle = intakeStick.getY();
-		if (!intakeStick.getRawButton(RobotMap.climberButton) && !intakeStick.getRawButton(RobotMap.pivotButton)) {
-			if (intakeStick.getRawButton(RobotMap.ejectBox)) { // rawButton over rawButtonPressed because rawButton will
-																// continue to return true as long as the button is held
-																// down
+		if (!intakeStick.getRawButton(RobotMap.climberButton) && !intakeStick.getRawButton(RobotMap.hookArm)) {
+			if (intakeStick.getRawButton(RobotMap.ejectBox)) {
 				intake.setIntakePower(1);
-			} else if (Math.abs(throttle) > 0.05) {
-				intake.setIntakePower(throttle);
-			} else {
-				intake.setIntakePower(0);
 			}
-
-		} else {
-			intake.setIntakePower(0);
 		}
-		intake.updateDash(); */
+		intake.updateDash();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

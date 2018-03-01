@@ -128,7 +128,7 @@ public class RobotMap {
 	
 	//Climb Constants
 	public static final int climberButton = 6; // on intake stick
-	public static final int pivotButton = 7;
+	public static final int hookArm = 7;
 	
 	//Camera Constants
 	public static final int frontFacingCamera = 0;
