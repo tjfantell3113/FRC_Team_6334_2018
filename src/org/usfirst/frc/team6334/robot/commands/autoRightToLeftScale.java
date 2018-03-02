@@ -22,12 +22,13 @@ public class autoRightToLeftScale extends CommandGroup {
         addSequential(new moveDistanceX(125, 0.70));
         System.out.println("move 130");
         addSequential(new moveDistanceX(30, 0.20));
-        addSequential(new autoTurn(80, -0.3));
+        addSequential(new autoTurn(-80, -0.3, -1));
         addSequential(new moveDistanceX(178, 0.5));
-        addSequential(new autoTurn(0, 0.3));
+        addSequential(new autoTurn(0.01, 0.3, 1));
         addSequential(new moveDistanceX(6, 0.1));
         addSequential(new moveDistanceX(45, 0.5));
         addSequential(new moveDistanceX(1, 0.2));
+        addSequential(new autoTurn(90, 0.3, 1));
         //addSequential(new autoTurn(90, 0.6));
         //addSequential(new moveDistanceX(140, 0.70));
         /*

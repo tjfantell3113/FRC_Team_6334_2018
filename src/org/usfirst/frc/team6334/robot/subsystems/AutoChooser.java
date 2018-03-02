@@ -93,7 +93,7 @@ public class AutoChooser extends Subsystem {
     }
     
     public void testAuto() {
-    	Command testThisAuto = new autoLeftToScaleSameSide();
+    	Command testThisAuto = new autoRightToScaleSameSide();
     	testThisAuto.start();
     }
     

@@ -29,7 +29,7 @@ public class Climb extends CommandBase {
     	
     	if (intakeStick.getRawButton(RobotMap.climberButton)) {
     		climber.raiseClimber(throttle);
-    	} else if (intakeStick.getRawButton(RobotMap.pivotButton)) {
+    	} else if (intakeStick.getRawButton(RobotMap.hookArm)) {
     		climber.raisePivot(throttle);
     	} else {
     		climber.raiseClimber(0);

@@ -24,8 +24,8 @@ public class autoRightToRightSwitch extends CommandGroup {
         addSequential(new moveDistanceX(70, 0.70));
         System.out.println("move 130");
         addSequential(new moveDistanceX(20, 0.20));
-        addSequential(new autoTurn(80, -0.4));
-        addSequential(new moveDistanceX(6, 0.20));
+        addSequential(new autoTurn(-80, 0.3, -1));
+        addSequential(new moveDistanceX(3, 0.20));
         /*
         System.out.println("move 15");
         addSequential(new moveDistanceX(55, 0.1));
