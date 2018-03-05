@@ -30,8 +30,10 @@ public class Climber extends Subsystem {
 		pivot.setNeutralMode(NeutralMode.Brake);
 	}
 	
-	public void raiseClimber(double val) {
-		climbThrottle = -Math.abs(val);
+	public void raiseClimber(double val, boolean override) {
+		if(Math.abs(val) < 0.05) val = 0;
+		if(!override) climbThrottle = -Math.abs(val);
+		else climbThrottle = val;
 		lift1.set(climbThrottle);
 		lift2.set(climbThrottle);
 	}

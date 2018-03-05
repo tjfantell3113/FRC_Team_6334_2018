@@ -11,6 +11,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 @SuppressWarnings("static-access")
 public class Vision extends Subsystem {
+	
+	public Vision() {
+		
+	}
+	/*
 	NetworkTable visionTable;
 	NetworkTableEntry tx, ty, ta, tv, ts;
 	double xOffset, yOffset, targetArea, targetSkew, targetAquired;
@@ -58,5 +63,11 @@ public class Vision extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-    }
+    }*/
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
+	}
 }

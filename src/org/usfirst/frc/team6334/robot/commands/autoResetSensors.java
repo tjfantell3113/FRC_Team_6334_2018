@@ -21,6 +21,7 @@ public class autoResetSensors extends CommandBase {
     	lift.resetEncoderPos();
     	driveTrain.resetEncoders();
     	driveTrain.resetGyro();
+    	driveTrain.setHighGear();
     	isFinished = true;
     }
 

@@ -57,8 +57,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//CommandBase.autoChooser.chooseAuto(RobotMap.currentSide);
-		CommandBase.autoChooser.testAuto();
+		CommandBase.autoChooser.chooseAuto();
+		//CommandBase.autoChooser.testAuto();
 	}
 
 	/**

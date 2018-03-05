@@ -13,87 +13,267 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class AutoChooser extends Subsystem {
 
-	String gameData;
+	String gameData = "";
+	char currentSide = 'C';
+	boolean goForSwitch = true;
+	boolean backAlley = true;
 	Command choice;
-	DigitalInput auto0, auto1;
+	DigitalInput leftDIO, rightDIO, switchDIO;
 
     public AutoChooser() {
-    	gameData = null;
     	choice = null;
     	
-    	auto0 = new DigitalInput(RobotMap.auto0);
-    	auto1 = new DigitalInput(RobotMap.auto1);
+    	leftDIO = new DigitalInput(RobotMap.leftDIO);
+    	rightDIO = new DigitalInput(RobotMap.rightDIO);
+    	//centerDIO = new DigitalInput(RobotMap.centerDIO);
+    	switchDIO = new DigitalInput(RobotMap.switchDIO);
+    	//scaleDIO = new DigitalInput(RobotMap.scaleDIO);
     }
     
     public void grabGameData() {
-    	boolean dataCorrect;
     	
-    	//I'm apprehensive about this loop cause loops in loops suck.
-    	do {
-    		if(gameData == null) {
-    			dataCorrect = false;
-    			gameData = DriverStation.getInstance().getGameSpecificMessage();
-    		} else {
-    			dataCorrect = true;
-    		}
-    		System.out.println("in loop");
-    	} while(dataCorrect == false);
-    	System.out.println("out of loop");
+    	if(gameData.equals("")) {
+    		System.out.println("rip");
+    		gameData = DriverStation.getInstance().getGameSpecificMessage();
+    		grabGameData();
+    	} else System.out.println("Yay!");
+    	
+    	/*
+    	if(!leftDIO.get()) {
+    		currentSide = 'L';
+    		System.out.println("Left side auto...");
+    	} else if (!rightDIO.get()) {
+    		currentSide = 'R';
+    		System.out.println("Right side auto...");
+    	} else if (!rightDIO.get() && !leftDIO.get()) {
+    		currentSide = 'C';
+    		System.out.println("Center auto...");
+    	}
+    	
+    	if(!switchDIO.get()) {
+    		goForSwitch = true;
+    		System.out.println("Switch is preference!");
+    	} else {
+    		goForSwitch = false;
+    		System.out.println("Scale is preference!");
+    	} */
+    	/*else { if (!scaleDIO.get()){
+    		goForSwitch = false;
+    		System.out.println("Going for scale as preference!");
+    	}*/
+    	System.out.println(currentSide);
+    	System.out.println(goForSwitch);
+    	System.out.println(gameData);
     }
     
-    public void chooseAuto(char currentSide) {
+    public void chooseAuto() {
     	grabGameData();
     	
-    	if(currentSide == 'C') {
-    		switch (gameData) {
-    			case "LLL": //choice = new autoCenterLLL();
-    				break;
-    				
-    			case "LRL": //choice = new autoCenterLRL();
-    				break;
-    				
-    			case "RLR": //choice = new autoCenterRLR();
-    				break;
-    				
-    			case "RRR": //choice = new autoCenterRRR();
+    	System.out.println("gamedata grabbed");
+    	if(goForSwitch) {
+    		System.out.println("Going for switch");
+    		if(backAlley) {
+		    	if(currentSide == 'C') {
+		    		System.out.println("Center auto");
+		    		switch (gameData) {
+		    			case "LLL": choice = new autoCenterToLeftSwitch();
+		    				break;
+		    				
+		    			case "LRL": choice = new autoCenterToLeftSwitch();
+		    				break;
+		    				
+		    			case "RLR": choice = new autoCenterToRightSwitch();
+		    				break;
+		    				
+		    			case "RRR": choice = new autoCenterToRightSwitch();
+		    		}
+		    	} else if (currentSide == 'L') {
+		    		System.out.println("Left auto");
+		    		switch (gameData) {
+						case "LLL": choice = new autoLeftToLeftSwitch();
+							break;
+							
+						case "LRL": choice = new autoLeftToLeftSwitch();
+							break;
+							
+						case "RLR": choice = new autoLeftToRightSwitch();
+							break;
+							
+						case "RRR": choice = new autoLeftToRightSwitch();
+							break;
+		    		}
+		    	} else if (currentSide == 'R') {
+		    		System.out.println("Right auto");
+		    		switch (gameData) {
+		    		case "RRR": choice = new autoRightToRightSwitch();
+						break;
+						
+					case "RLR": choice = new autoRightToRightSwitch();
+						break;
+						
+					case "LRL": choice = new autoRightToLeftSwitch();
+						break;
+						
+					case "LLL": choice = new autoRightToLeftSwitch();
+						break;
+					}
+		    	} 
+    		} else {
+	    		if(currentSide == 'C') {
+		    		System.out.println("Center auto");
+		    		switch (gameData) {
+		    			case "LLL": choice = new autoCenterToLeftSwitch();
+		    				break;
+		    				
+		    			case "LRL": choice = new autoCenterToLeftSwitch();
+		    				break;
+		    				
+		    			case "RLR": choice = new autoCenterToRightSwitch();
+		    				break;
+		    				
+		    			case "RRR": choice = new autoCenterToRightSwitch();
+		    		}
+		    	} else if (currentSide == 'L') {
+		    		System.out.println("Left auto");
+		    		switch (gameData) {
+						case "LLL": choice = new autoLeftToLeftSwitch();
+							break;
+							
+						case "LRL": choice = new autoLeftToLeftSwitch();
+							break;
+							
+						case "RLR": choice = new autoMoveForward();
+							break;
+							
+						case "RRR": choice = new autoMoveForward();
+							break;
+		    		}
+		    	} else if (currentSide == 'R') {
+		    		System.out.println("Right auto");
+		    		switch (gameData) {
+		    		case "RRR": choice = new autoRightToRightSwitch();
+						break;
+						
+					case "RLR": choice = new autoRightToRightSwitch();
+						break;
+						
+					case "LRL": choice = new autoMoveForward();
+						break;
+						
+					case "LLL": choice = new autoMoveForward();
+						break;
+					}
+		    	}
+	    	}
+    	} else {
+    		System.out.println("Going for scale");
+    		if(backAlley) {
+    			if(currentSide == 'C') {
+        			System.out.println("Center auto");
+            		switch (gameData) {
+            			case "LLL": choice = new autoCenterToLeftSwitch();
+            				break;
+            				
+            			case "LRL": choice = new autoCenterToLeftSwitch();
+            				break;
+            				
+            			case "RLR": choice = new autoCenterToRightSwitch();
+            				break;
+            				
+            			case "RRR": choice = new autoCenterToRightSwitch();
+            		}
+            	} else if (currentSide == 'L') {
+            		System.out.println("Left auto");
+            		switch (gameData) {
+        				case "LLL": choice = new autoLeftToScaleSameSide();
+        					break;
+        					
+        				case "LRL": choice = new autoLeftToRightScale();
+        					break;
+        					
+        				case "RLR": choice = new autoLeftToScale();
+        					break;
+        					
+        				case "RRR": choice = new autoLeftToRightScale();
+        					break;
+            		}
+            	} else if (currentSide == 'R') {
+            		System.out.println("Right auto");
+            		switch (gameData) {
+            		case "RRR": choice = new autoRightToScaleSameSide();
+        				break;
+        				
+        			case "RLR": choice = new autoRightToLeftScale();
+        				break;
+        				
+        			case "LRL": choice = new autoRightToScale();
+        				break;
+        				
+        			case "LLL": choice = new autoRightToLeftScale();
+        				break;
+        			}
+            	}
+    		} else {
+    			if(currentSide == 'C') {
+        			System.out.println("Center auto");
+            		switch (gameData) {
+            			case "LLL": choice = new autoCenterToLeftSwitch();
+            				break;
+            				
+            			case "LRL": choice = new autoCenterToLeftSwitch();
+            				break;
+            				
+            			case "RLR": choice = new autoCenterToRightSwitch();
+            				break;
+            				
+            			case "RRR": choice = new autoCenterToRightSwitch();
+            		}
+            	} else if (currentSide == 'L') {
+            		System.out.println("Left auto");
+            		switch (gameData) {
+        				case "LLL": choice = new autoLeftToScaleSameSide();
+        					break;
+        					
+        				case "LRL": choice = new autoLeftToLeftSwitch();
+        					break;
+        					
+        				case "RLR": choice = new autoLeftToScale();
+        					break;
+        					
+        				case "RRR": choice = new autoMoveForward();
+        					break;
+            		}
+            	} else if (currentSide == 'R') {
+            		System.out.println("Right auto");
+            		switch (gameData) {
+            		case "RRR": choice = new autoRightToScaleSameSide();
+        				break;
+        				
+        			case "RLR": choice = new autoRightToRightSwitch();
+        				break;
+        				
+        			case "LRL": choice = new autoRightToScale();
+        				break;
+        				
+        			case "LLL": choice = new autoMoveForward();
+        				break;
+        			}
+            	}
     		}
-    	} else if (currentSide == 'L') {
-    		switch (gameData) {
-				case "LLL": choice = new autoLeftToScaleSameSide();
-							System.out.println("correct");
-					break;
-					
-				case "LRL": //choice = new autoLeftLRL();
-					break;
-					
-				case "RLR": //choice = new autoLeftRLR();
-					break;
-					
-				case "RRR": //choice = new autoLeftRRR();
-    		}
-    	} else if (currentSide == 'R') {
-    		switch (gameData) {
-				case "LLL": //choice = new autoRightLLL();
-					break;
-					
-				case "LRL": //choice = new autoRightLRL();
-					break;
-					
-				case "RLR": //choice = new autoRightRLR();
-					break;
-					
-				case "RRR": //choice = new autoRightRRR();
-			}
     	}
     	
     	if(choice != null) { 
     		choice.start();
     		System.out.println("auto chosen and started");
+    	} else {
+    		System.out.println("Null auto!!!");
+    		choice = new autoMoveForward();
+    		choice.start();
     	}
     }
     
     public void testAuto() {
-    	Command testThisAuto = new autoRightToScaleSameSide();
+    	Command testThisAuto = new moveDistanceX(100, 0.4);
     	testThisAuto.start();
     }
     

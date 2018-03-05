@@ -7,12 +7,13 @@ import org.usfirst.frc.team6334.robot.RobotMap;
  */
 public class TurnToBox extends CommandBase {
 
-	double KpX, min_Kp, xError, target, throttleAdjustment;
+	double KpX, min_Kp, xError, target, throttleAdjustment, turnDirection;
 	
-    public TurnToBox() {
+    public TurnToBox(double pturnDirection) {
         requires(driveTrain);
         requires(vision);
         requires(intake);
+        turnDirection = pturnDirection;
     }
 
     // Called just before this Command runs the first time
@@ -22,16 +23,16 @@ public class TurnToBox extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	xError = vision.getXOffset();
-    	target = vision.targetAcquired(); //gives 0 for no target, 1 for target acquired. The issue here will be making sure the robot gets the correct box.
+    	//xError = vision.getXOffset();
+    	//target = vision.targetAcquired(); //gives 0 for no target, 1 for target acquired. The issue here will be making sure the robot gets the correct box.
     	throttleAdjustment = 0;
 
     	System.out.print("xError: " + xError + " | ");
     	
     	if(target == 0) {
     		System.out.print("turning...");
-    		throttleAdjustment = 0.1;
-    		driveTrain.setMotorValues(-throttleAdjustment, throttleAdjustment);
+    		throttleAdjustment = 0.3;
+    		driveTrain.setMotorValues(throttleAdjustment * turnDirection, -throttleAdjustment * turnDirection);
     	}
     	else if (target == 1 && !intake.hasCube()) {
     		System.out.print("seeking...");

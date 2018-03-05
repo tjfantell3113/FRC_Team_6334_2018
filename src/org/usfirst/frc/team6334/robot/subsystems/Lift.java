@@ -36,7 +36,9 @@ public class Lift extends Subsystem {
 	position for the scale and low position for switches. */
     
 	public void setLiftPower(double throttle, boolean override){         
+		if(Math.abs(throttle) < 0.07) throttle = 0;
 		
+		/*
 		if(override) {
 			liftMotor1.set(-throttle);
 			liftMotor2.set(-throttle);
@@ -49,7 +51,10 @@ public class Lift extends Subsystem {
 		} else {
 			liftMotor1.set(-throttle);
 			liftMotor2.set(-throttle);
-		}
+		} */
+		
+		liftMotor1.set(-throttle);
+		liftMotor2.set(-throttle);
 	}
 
 	public void resetEncoderPos() {

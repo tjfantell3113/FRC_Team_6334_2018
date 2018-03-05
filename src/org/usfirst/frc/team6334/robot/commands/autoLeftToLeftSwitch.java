@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6334.robot.commands;
 
+import org.usfirst.frc.team6334.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -8,47 +10,21 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class autoLeftToLeftSwitch extends CommandGroup {
 
     public autoLeftToLeftSwitch() {
-    	System.out.println("In command");
-    	addSequential(new autoResetSensors());
-    	System.out.println("Sensors reset");
-        //addParallel(new autoLift(30400));
-        // System.out.println("lift up");
-    	addSequential(new moveDistanceX(1, 0.2));
-    	addSequential(new moveDistanceX(1, 0.3));
-        addSequential(new moveDistanceX(1, 0.4));
-        System.out.println("move 1");
-        addSequential(new moveDistanceX(1, 0.5));
-        System.out.println("move 1");
-        addSequential(new moveDistanceX(1, 0.6));
-        System.out.println("move 1");
-        addSequential(new moveDistanceX(70, 0.70));
-        System.out.println("move 130");
-        addSequential(new moveDistanceX(20, 0.20));
-        addSequential(new autoTurn(80, 0.4, 1));
-        addSequential(new moveDistanceX(6, 0.20));
-        /*
-        System.out.println("move 15");
-        addSequential(new moveDistanceX(55, 0.1));
-        System.out.println("move 55");
-        addSequential(new autoTurn(90, 0.35));
-        System.out.println("turn");
-        addSequential(new moveDistanceX(3, 0.2));
-        System.out.println("move 3");
-        addSequential(new autoIntake(true, 1));
-        System.out.println("intake"); 
-        addSequential(new moveDistanceX(12, -0.3));
-        System.out.println("move back 2 feet");
-        addSequential(new moveDistanceX(12, -0.3));
-        System.out.println("move back 2 feet");
-        //addParallel(new autoLift(100));
-        System.out.println("lift down");
-        addSequential(new autoTurn(160, 0.35));
-        System.out.println("turn");
-        addSequential(new moveDistanceX(70, 0.5));
-        System.out.println("Turning to box.");
-        //addSequential(new TurnToBox());
-        System.out.println("Moving to grab.");
-        //addSequential(new autoGrabBox());
-         * */
+    	addSequential(new autoResetSensors());		//Reset the sensors to zero them.
+    	addSequential(new moveDistanceX(3, 0.2));	//Accelerate
+    	addSequential(new moveDistanceX(3, 0.3));	//Accelerate
+        addSequential(new moveDistanceX(3, 0.4));	//Accelerate
+        addSequential(new moveDistanceX(72, 0.7));	//Move forward
+        addSequential(new moveDistanceX(5, -0.3));	//Decelerate
+        addSequential(new moveDistanceX(5, 0.3));	//Decelerate
+        addParallel(new autoLift(RobotMap.switchHeight));
+        addSequential(new moveDistanceX(5, -0.3));	//Decelerate
+        addSequential(new moveDistanceX(5, 0.3));	//Decelerate
+        addSequential(new autoTurn(85, 0.35, 1), 3);	//Turn to switch
+        addSequential(new moveDistanceX(36, 0.35), 2);	//Move to switch
+        addSequential(new autoIntake(true, 1), 1.1);	//Eject the box
+        addSequential(new moveDistanceX(6, -0.3)); 	//Move back to get ready to turn to be tele-op ready.
+        addSequential(new autoTurn(0.01, 0.35, -1));	//Turn to front
+        addSequential(new moveDistanceX(60, -0.3));
     }
 }

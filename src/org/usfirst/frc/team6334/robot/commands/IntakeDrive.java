@@ -18,11 +18,13 @@ public class IntakeDrive extends CommandBase {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		intakeStick = oi.getIntakeStick();
+		intake.closeIntake();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double throttle = intakeStick.getY();
+		//double throttle = intakeStick.getY();
+		
 		if (!intakeStick.getRawButton(RobotMap.climberButton) && !intakeStick.getRawButton(RobotMap.hookArm)) {
 			if (intakeStick.getRawButton(RobotMap.ejectBox)) {
 				intake.setIntakePower(1);

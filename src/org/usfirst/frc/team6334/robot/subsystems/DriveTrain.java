@@ -160,11 +160,11 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setLowGear() {                     // high gear - more speed, less power
-		gearChange.set(DoubleSolenoid.Value.kForward);
+		gearChange.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void setHighGear() {                   // low gear - more power, less speed
-		gearChange.set(DoubleSolenoid.Value.kReverse);
+		gearChange.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void automaticTransmission(double stick) {

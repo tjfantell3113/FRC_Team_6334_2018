@@ -28,11 +28,15 @@ public class Climb extends CommandBase {
     	double throttle = intakeStick.getY();
     	
     	if (intakeStick.getRawButton(RobotMap.climberButton)) {
-    		climber.raiseClimber(throttle);
-    	} else if (intakeStick.getRawButton(RobotMap.hookArm)) {
+    		climber.raiseClimber(throttle, false);
+    	} else if (intakeStick.getRawButton(4) && intakeStick.getRawButton(11)){
+    		climber.raiseClimber(throttle, true);
+    	} else if (intakeStick.getRawButton(1)) {
+    		climber.raisePivot(throttle*0.25);
+    	} else if (intakeStick.getRawButton(2)){
     		climber.raisePivot(throttle);
     	} else {
-    		climber.raiseClimber(0);
+    		climber.raiseClimber(0, false);
     		climber.raisePivot(0);
     	}
     }

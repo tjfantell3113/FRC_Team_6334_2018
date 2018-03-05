@@ -28,6 +28,8 @@ public class Intake extends Subsystem {
 	}
 	
 	public void setIntakePower(double throttle) {
+		if(Math.abs(throttle) < 0.1) throttle = 0;
+		
 		right.set(throttle);
 		left.set(throttle);
 	}

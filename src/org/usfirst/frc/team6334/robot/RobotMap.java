@@ -35,7 +35,7 @@ public class RobotMap {
 	// Joystick Buttons
 	public final static int shiftDown = 8;
 	public final static int shiftUp = 7;
-	public final static int coastMode = 4;
+	public final static int coastMode = 5;
 	public final static int resetEncoders = 11;
 	public final static int changeTurbo = 6; // don't worry, this will only be pressed in combination with 12
 	public final static int openIntake = 11;
@@ -44,6 +44,7 @@ public class RobotMap {
 	public final static int intakeIn = 3;
 	public final static int intakeOut = 4;
 	public final static int changeIntakeSolenoid = 1;
+	public final static int hookArm = 7;
 	
 	// Xbox Buttons
 	public final static int xboxAButton = 1;
@@ -123,18 +124,23 @@ public class RobotMap {
 	public static final int liftPosMax = 31250;
 	public static final int lift_kP = 0;
 	public static final int lift_kI= 0;
-	public static int liftUpperBound = 31000;
+	public static int liftUpperBound = 35000;
 	public static int liftLowerBound = 0;
+	public static int switchHeight = 15000;
+	public static int scaleHeight = 35000;
+	public static int resetHeight = 100;
 	
 	//Climb Constants
 	public static final int climberButton = 6; // on intake stick
-	public static final int hookArm = 7;
 	
 	//Camera Constants
 	public static final int frontFacingCamera = 0;
 	
 	//DIO Constants
-	public static final int auto0 = 0;
-	public static final int auto1 = 1;
+	public static final int leftDIO = 0;
+	public static final int rightDIO = 1;
+	//public static final int centerDIO = 3;
+	public static final int switchDIO = 3;
+	//public static final int scaleDIO = 5;
 	public static final int irBeam = 2;
 }

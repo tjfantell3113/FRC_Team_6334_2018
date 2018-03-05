@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LimeLightTest extends CommandGroup {
 
     public LimeLightTest() {
-        addSequential(new TurnToBox());
+        addSequential(new TurnToBox(-0.3));
         addSequential(new autoGrabBox(0.3));
     }
 }
