@@ -58,8 +58,8 @@ public class RobotMap {
 	public final static int climberLift1 = 56;
 	public final static int climberLift2 = 57;
 	public final static int hookPivot = 58;
-	public final static int liftMotor1 =  59;
-	public final static int liftMotor2 =  60;
+	public final static int liftMotor =  59;
+	//public final static int liftMotor2 =  60;
 	public final static int intakeRight =  61;
 	public final static int intakeLeft =  62;
 

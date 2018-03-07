@@ -15,19 +15,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Lift extends Subsystem {
 	
-	WPI_TalonSRX liftMotor1, liftMotor2;
+	WPI_TalonSRX liftMotor;
 	int updateBoundries;
 	
     public Lift() {
-    	liftMotor1 = new WPI_TalonSRX(RobotMap.liftMotor1);
-    	liftMotor2 = new WPI_TalonSRX(RobotMap.liftMotor2);
+    	liftMotor = new WPI_TalonSRX(RobotMap.liftMotor);
     	
-    	liftMotor1.setNeutralMode(NeutralMode.Brake);
-    	liftMotor2.setNeutralMode(NeutralMode.Brake);
+    	liftMotor.setNeutralMode(NeutralMode.Brake);
     	
-    	liftMotor2.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
-		liftMotor2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-		liftMotor2.setSelectedSensorPosition(0, 0, 10);
+    	liftMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
+		liftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
+		liftMotor.setSelectedSensorPosition(0, 0, 10);
 		updateBoundries = 0;
     }
     
@@ -53,16 +51,15 @@ public class Lift extends Subsystem {
 			liftMotor2.set(-throttle);
 		} */
 		
-		liftMotor1.set(-throttle);
-		liftMotor2.set(-throttle);
+		liftMotor.set(-throttle);
 	}
 
 	public void resetEncoderPos() {
-		liftMotor2.setSelectedSensorPosition(0, 0, 10);
+		liftMotor.setSelectedSensorPosition(0, 0, 10);
 	}
 	
 	public int getEncoderPos() {
-		return liftMotor2.getSelectedSensorPosition(0);
+		return liftMotor.getSelectedSensorPosition(0);
 	}
 	
 	public boolean inBoundries() {
@@ -79,7 +76,7 @@ public class Lift extends Subsystem {
 	}
 	
 	public double getEncoderRate() {
-		return liftMotor2.getSelectedSensorVelocity(0);
+		return liftMotor.getSelectedSensorVelocity(0);
 	}
 	
 	public void liftPosMin(){   	
