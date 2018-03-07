@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.Joystick;
 public class ArcadeDrive extends CommandBase {
 
 	double throttle, turn;
-	Joystick leftStick, rightStick, arcadeStick;
-	boolean automaticShift, coastModeEnabled, shifted, turboEnabled, intakeSolenoidState;
+	Joystick arcadeStick; //leftStick, rightStick, 
+	boolean coastModeEnabled, turboEnabled;
 
 	public ArcadeDrive() {
 		super("ArcadeDrive");
@@ -24,9 +24,7 @@ public class ArcadeDrive extends CommandBase {
 	protected void initialize() {
 		arcadeStick = oi.getArcadeStick();
 		coastModeEnabled = false;
-		shifted = false;
 		turboEnabled = false;
-		intakeSolenoidState = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -52,28 +50,6 @@ public class ArcadeDrive extends CommandBase {
 		if (arcadeStick.getRawButtonPressed(RobotMap.coastMode)) {
 			driveTrain.changeBrakeMode(coastModeEnabled);
 			coastModeEnabled = !coastModeEnabled;
-		}
-		
-		if (arcadeStick.getRawButton(RobotMap.intakeIn)) {
-			intake.setIntakePower(1.0);
-		}
-		
-		if (arcadeStick.getRawButton(RobotMap.intakeOut)) {
-			intake.setIntakePower(-1.0);
-		}
-		
-		if ((!arcadeStick.getRawButton(RobotMap.intakeIn)) && (!arcadeStick.getRawButton(RobotMap.intakeOut))) {
-			intake.setIntakePower(0);
-		}
-		
-		if (arcadeStick.getRawButtonPressed(RobotMap.changeIntakeSolenoid)) {
-			if (intakeSolenoidState) { // if the intake is open, close it
-				intake.closeIntake();
-				intakeSolenoidState = !intakeSolenoidState;
-			} else { // else open it
-				intake.openIntake();
-				intakeSolenoidState = !intakeSolenoidState;
-			}
 		}
 		
 		driveTrain.driveWithController(throttle, turn, turboEnabled);

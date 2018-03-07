@@ -7,11 +7,12 @@ import edu.wpi.first.wpilibj.Joystick;
 /**
  *
  */
-public class Climb extends CommandBase {
+public class ClimbDrive extends CommandBase {
 	
-	Joystick intakeStick;
+	Joystick climberStick;
+	boolean endTask;
 
-    public Climb() {
+    public ClimbDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	super("Climb");
@@ -20,30 +21,35 @@ public class Climb extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intakeStick = oi.getIntakeStick();
+    	climberStick = oi.getClimberStick();
+    	endTask = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double throttle = intakeStick.getY();
+    	double throttle = climberStick.getY();
     	
-    	if (intakeStick.getRawButton(RobotMap.climberButton)) {
+    	if (climberStick.getRawButton(RobotMap.climberButton)) {
     		climber.raiseClimber(throttle, false);
-    	} else if (intakeStick.getRawButton(4) && intakeStick.getRawButton(11)){
+    	} else if (climberStick.getRawButton(RobotMap.climbBackDrive1) && climberStick.getRawButton(RobotMap.climbBackDrive2)){
     		climber.raiseClimber(throttle, true);
-    	} else if (intakeStick.getRawButton(1)) {
+    	} else if (climberStick.getRawButton(RobotMap.hookArmSlowMode)) {
     		climber.raisePivot(throttle*0.25);
-    	} else if (intakeStick.getRawButton(2)){
+    	} else if (climberStick.getRawButton(RobotMap.hookArmFastMode)){
     		climber.raisePivot(throttle);
     	} else {
     		climber.raiseClimber(0, false);
     		climber.raisePivot(0);
     	}
+    	
+    	if(climberStick.getRawButton(RobotMap.endClimberTask)) {
+    		endTask = true;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return endTask;
     }
 
     // Called once after isFinished returns true

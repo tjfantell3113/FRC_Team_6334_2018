@@ -1,7 +1,7 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
 import org.usfirst.frc.team6334.robot.RobotMap;
-import org.usfirst.frc.team6334.robot.commands.Climb;
+import org.usfirst.frc.team6334.robot.commands.ClimbDrive;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -45,7 +45,7 @@ public class Climber extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new Climb());
+        setDefaultCommand(new ClimbDrive());
     }
 }
 

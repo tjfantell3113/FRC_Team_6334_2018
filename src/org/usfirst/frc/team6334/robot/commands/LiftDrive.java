@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6334.robot.commands;
  
+import org.usfirst.frc.team6334.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Joystick;
  
 /**
@@ -8,6 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class LiftDrive extends CommandBase {
   
   Joystick elevatorStick;
+  boolean endTask;
   
     public LiftDrive() {
         requires(lift);
@@ -16,6 +19,7 @@ public class LiftDrive extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
       elevatorStick = oi.getElevatorStick();
+      endTask = false;
     }
  
     // Called repeatedly when this Command is scheduled to run
@@ -28,17 +32,21 @@ public class LiftDrive extends CommandBase {
       }
       
       //override
-      if (elevatorStick.getRawButton(2)) {
+      if (elevatorStick.getRawButton(RobotMap.liftOverride)) {
     	 lift.setLiftPower(throttle, true);
     	 lift.updateBoundries();
       }
       
       lift.updateDash();
+      
+      if(elevatorStick.getRawButton(RobotMap.endLiftTask)) {
+    	  endTask = true;
+      }
     }
  
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return endTask;
     }
  
     // Called once after isFinished returns true

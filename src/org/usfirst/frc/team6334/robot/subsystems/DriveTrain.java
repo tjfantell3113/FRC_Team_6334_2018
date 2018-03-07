@@ -47,11 +47,6 @@ public class DriveTrain extends Subsystem {
 		LeftMotor1.setNeutralMode(NeutralMode.Brake);
 		LeftMotor2.setNeutralMode(NeutralMode.Brake);
 		
-		//Set the two extra Talons to mirror the main Talon (on each side).
-		RightMotor2.follow(RightMotor1);
-		LeftMotor2.follow(LeftMotor1);
-		
-		
 		//Encoders require two D/IO ports, whether the encoder is inverted or not, and the k#X is the accuracy that is obtained (4 times is the most)		
 		leftEncoder = new Encoder(RobotMap.encLeftIn, RobotMap.encLeftOut, false, Encoder.EncodingType.k4X);  //false = don't invert counting direction
 		rightEncoder = new Encoder(RobotMap.encRightIn, RobotMap.encRightOut, true, Encoder.EncodingType.k4X); //need to find correct ports
@@ -73,23 +68,13 @@ public class DriveTrain extends Subsystem {
 	 * @param left Value for left motors.
 	 */
 	public void setMotorValues(double right, double left){
-		//Sets a deadzone for the controllers (whether this is xBox or joystick)
-		if(Math.abs(left) < RobotMap.deadzone) left = 0;
-		if(Math.abs(right) < RobotMap.deadzone) right = 0;
-		
-		//Makes sure the percentage of power is not under or over the Talon's limits.
-		if(Math.abs(right) <= 0.05) right = 0;
-		
-		if(right > 1) right = 0.99;
-		if(right < -1) right = -0.99;
-		
-		if(Math.abs(left) <= 0.05) left = 0;
-		
-		if(left > 1) left = 0.99;
-		if(left < -1) left = -0.99;
+		right = checkThrottleValue(right);
+		left = checkThrottleValue(left);
 		
 		RightMotor1.set(right);
+		RightMotor2.set(right);
 		LeftMotor1.set(left);
+		LeftMotor2.set(left);
 	}
 	
 	//Tank Drive Method
@@ -215,6 +200,39 @@ public class DriveTrain extends Subsystem {
 	
     public void initDefaultCommand() {
     	setDefaultCommand(new ArcadeDrive());
+    }
+    
+    public double checkThrottleValue(double throttle) {
+    	//Sets a deadzone for the controllers (whether this is xBox or joystick)
+		if(Math.abs(throttle) < RobotMap.deadzone) throttle = 0;
+		
+		//Makes sure the percentage of power is not under or over the Talon's limits.
+		if(Math.abs(throttle) <= 0.05) throttle = 0;
+		
+		if(throttle > 1) throttle = 0.99;
+		if(throttle < -1) throttle = -0.99;
+		
+		return throttle;
+    }
+    
+    public void testRightMotor1(double throttle) {
+    	throttle = checkThrottleValue(throttle);
+    	RightMotor1.set(throttle);
+    }
+    
+    public void testRightMotor2(double throttle) {
+    	throttle = checkThrottleValue(throttle);
+    	RightMotor2.set(throttle);
+    }
+    
+    public void testLeftMotor1(double throttle) {
+    	throttle = checkThrottleValue(throttle);
+    	RightMotor1.set(throttle);
+    }
+    
+    public void testLeftMotor2(double throttle) {
+    	throttle = checkThrottleValue(throttle);
+    	RightMotor1.set(throttle);
     }
 
 }

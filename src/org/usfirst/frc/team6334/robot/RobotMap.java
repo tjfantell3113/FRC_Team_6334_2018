@@ -23,42 +23,34 @@ public class RobotMap {
 	public final static int arcadeStickPort = 0;
 	public final static int leftStick = 1;
 	public final static int rightStick = 0;
-
-	// Xbox Axis
-	public final static int xboxLeftXAxis = 0;
-	public final static int xboxLeftYAxis = 1;
-	public final static int xboxLeftTrigger = 2; // Joystick buttons must be mapped out.
-	public final static int xboxRightTrigger = 3;
-	public final static int xboxRightXAxis = 4;
-	public final static int xboxRightYAxis = 5;
 	
-	// Joystick Buttons
+	//Joystick Buttons (Hopefully soon to be categorized for each joystick)
 	public final static int shiftDown = 8;
 	public final static int shiftUp = 7;
 	public final static int coastMode = 5;
-	public final static int resetEncoders = 11;
-	public final static int changeTurbo = 6; // don't worry, this will only be pressed in combination with 12
+	public final static int resetEncoders = 11;				//remove?
+	public final static int changeTurbo = 6;				//remove?
 	public final static int openIntake = 11;
 	public final static int closeIntake = 10;
-	public final static int changeCameraSource = 6;
+	public final static int changeCameraSource = 6;			//Change
 	public final static int intakeIn = 3;
 	public final static int intakeOut = 4;
 	public final static int changeIntakeSolenoid = 1;
 	public final static int hookArm = 7;
-	
-	// Xbox Buttons
-	public final static int xboxAButton = 1;
-	public final static int xboxBButton = 2;
-	public final static int xboxXButton = 3;
-	public final static int xboxYButton = 4;
-	public final static int xboxLeftBumper = 5;
-	public final static int xboxRightBumper = 6;
-	public final static int xboxViewButton = 7;
-	public final static int xboxMenuButton = 8;
-	public final static int xboxLeftStickButton = 9;
-	public final static int xboxRightStickButton = 10;
+	public final static int liftOverride = 2;				//remove?
+	public final static int endLiftTask = 0;				//Change
+	public final static int endIntakeTask = 0;				//Change
+	public final static int endClimberTask = 0;				//Change
+	public final static int startLiftTask = 0;				//Change
+	public final static int startIntakeTask = 0;			//Change
+	public final static int startClimberTask = 0;			//Change
+	public static final int ejectBox = 1;
+	public final static int climbBackDrive1 = 4;
+	public final static int climbBackDrive2 = 11;
+	public final static int hookArmSlowMode = 1;
+	public final static int hookArmFastMode = 2;
 
-	// TalonSRX ID's and values (CAN range is 1 to 62)
+	// TalonSRX ID's and values (CAN range is 1 to 62 since PCM uses ID 0)
 	public final static int RightDrive1 = 9;
 	public final static int RightDrive2 = 8;
 	public final static int LeftDrive1 = 1;
@@ -70,27 +62,6 @@ public class RobotMap {
 	public final static int liftMotor2 =  60;
 	public final static int intakeRight =  61;
 	public final static int intakeLeft =  62;
-	
-
-	// Limelight
-	public final static double L_KpX = 0.07;
-	public final static double L_KpY = 0.05;
-	public final static double L_min_Kp = 0.05;
-	public final static int ledOn = 0;
-	public final static int ledOff = 1;
-	public final static int ledBlink = 2;
-	public final static int camVisionProccesor = 0;
-	public final static int camDriver = 1;
-	public final static int pipeline0 = 0;
-	public final static int pipeline1 = 1;
-	public final static int pipeline2 = 2;
-	public final static int pipeline3 = 3;
-	public final static int pipeline4 = 4;
-	public final static int pipeline5 = 5;
-	public final static int pipeline6 = 6;
-	public final static int pipeline7 = 7;
-	public final static int pipeline8 = 8;
-	public final static int pipeline9 = 9;
 
 	// Encoders
 	public final static int encLeftIn = 6;
@@ -119,7 +90,6 @@ public class RobotMap {
 	public final static double gyro_kD = 0;
 	
 	//Lift Constants
-	public static final int ejectBox = 1;
 	public static final int liftPosMin = -950;
 	public static final int liftPosMax = 31250;
 	public static final int lift_kP = 0;
@@ -143,4 +113,45 @@ public class RobotMap {
 	public static final int switchDIO = 3;
 	//public static final int scaleDIO = 5;
 	public static final int irBeam = 2;
+	
+
+	// Xbox Axis
+	public final static int xboxLeftXAxis = 0;
+	public final static int xboxLeftYAxis = 1;
+	public final static int xboxLeftTrigger = 2; // Joystick buttons must be mapped out.
+	public final static int xboxRightTrigger = 3;
+	public final static int xboxRightXAxis = 4;
+	public final static int xboxRightYAxis = 5;
+	
+	// Xbox Buttons
+	public final static int xboxAButton = 1;
+	public final static int xboxBButton = 2;
+	public final static int xboxXButton = 3;
+	public final static int xboxYButton = 4;
+	public final static int xboxLeftBumper = 5;
+	public final static int xboxRightBumper = 6;
+	public final static int xboxViewButton = 7;
+	public final static int xboxMenuButton = 8;
+	public final static int xboxLeftStickButton = 9;
+	public final static int xboxRightStickButton = 10;
+	
+	// Limelight
+	public final static double L_KpX = 0.07;
+	public final static double L_KpY = 0.05;
+	public final static double L_min_Kp = 0.05;
+	public final static int ledOn = 0;
+	public final static int ledOff = 1;
+	public final static int ledBlink = 2;
+	public final static int camVisionProccesor = 0;
+	public final static int camDriver = 1;
+	public final static int pipeline0 = 0;
+	public final static int pipeline1 = 1;
+	public final static int pipeline2 = 2;
+	public final static int pipeline3 = 3;
+	public final static int pipeline4 = 4;
+	public final static int pipeline5 = 5;
+	public final static int pipeline6 = 6;
+	public final static int pipeline7 = 7;
+	public final static int pipeline8 = 8;
+	public final static int pipeline9 = 9;
 }

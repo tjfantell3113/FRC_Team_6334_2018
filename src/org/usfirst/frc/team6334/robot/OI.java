@@ -7,7 +7,10 @@
  
 package org.usfirst.frc.team6334.robot;
  
+import org.usfirst.frc.team6334.robot.commands.*;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Command;
  
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -16,14 +19,25 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
  
   private Joystick elevatorStick = new Joystick(RobotMap.elevatorStick);
-  private Joystick intakeStick = new Joystick(RobotMap.intakeStick);
+  private Joystick climberStick = new Joystick(RobotMap.intakeStick);
   private Joystick arcadeStick = new Joystick(RobotMap.arcadeStickPort);
   //private Joystick leftStick = new Joystick(RobotMap.leftStick);
   //private Joystick rightStick = new Joystick(RobotMap.rightStick);
  
   // put button press events here
   public OI() {
- 
+	  if(elevatorStick.getRawButton(RobotMap.startLiftTask)) {
+		  Command lift = new LiftDrive();
+		  lift.start();
+	  }
+	  if(climberStick.getRawButton(RobotMap.startIntakeTask)) {
+		  Command intake = new LiftDrive();
+		  intake.start();
+	  }
+	  if(climberStick.getRawButton(RobotMap.startClimberTask)) {
+		  Command climber = new LiftDrive();
+		  climber.start();
+	  }
   }
  
  
@@ -31,8 +45,8 @@ public class OI {
     return elevatorStick;
   }
   
-  public Joystick getIntakeStick() {
-	return intakeStick;  
+  public Joystick getClimberStick() {
+	return climberStick;  
   }
   
   public Joystick getArcadeStick() {

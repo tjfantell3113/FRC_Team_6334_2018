@@ -38,6 +38,10 @@ public class AutoChooser extends Subsystem {
     		grabGameData();
     	} else System.out.println("Yay!");
     	
+    	System.out.println(currentSide);
+    	System.out.println(goForSwitch);
+    	System.out.println(gameData);
+
     	/*
     	if(!leftDIO.get()) {
     		currentSide = 'L';
@@ -56,14 +60,10 @@ public class AutoChooser extends Subsystem {
     	} else {
     		goForSwitch = false;
     		System.out.println("Scale is preference!");
-    	} */
-    	/*else { if (!scaleDIO.get()){
-    		goForSwitch = false;
-    		System.out.println("Going for scale as preference!");
-    	}*/
-    	System.out.println(currentSide);
-    	System.out.println(goForSwitch);
-    	System.out.println(gameData);
+    	} //else if (!scaleDIO.get()) {
+    		//goForSwitch = false;
+    		//System.out.println("Going for scale as preference!");
+    	//}*/
     }
     
     public void chooseAuto() {

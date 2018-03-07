@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class IntakeDrive extends CommandBase {
 
-	Joystick intakeStick;
+	Joystick climberStick, arcadeStick;
+	boolean endTask, intakeSolenoidState;
 
 	public IntakeDrive() {
 		requires(intake);
@@ -17,25 +18,50 @@ public class IntakeDrive extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		intakeStick = oi.getIntakeStick();
+		climberStick = oi.getClimberStick();
+		arcadeStick = oi.getArcadeStick();
 		intake.closeIntake();
+		endTask = false;
+		intakeSolenoidState = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		//double throttle = intakeStick.getY();
 		
-		if (!intakeStick.getRawButton(RobotMap.climberButton) && !intakeStick.getRawButton(RobotMap.hookArm)) {
-			if (intakeStick.getRawButton(RobotMap.ejectBox)) {
+		if (!climberStick.getRawButton(RobotMap.climberButton) && !climberStick.getRawButton(RobotMap.hookArm)) {
+			if (climberStick.getRawButton(RobotMap.ejectBox)) {
 				intake.setIntakePower(1);
 			}
 		}
 		intake.updateDash();
+		
+		if (arcadeStick.getRawButton(RobotMap.intakeIn)) {
+			intake.setIntakePower(1.0);
+		} else if (arcadeStick.getRawButton(RobotMap.intakeOut)) {
+			intake.setIntakePower(-1.0);
+		} else {
+			intake.setIntakePower(0);
+		}
+		
+		if (arcadeStick.getRawButtonPressed(RobotMap.changeIntakeSolenoid)) {
+			if (intakeSolenoidState) { // if the intake is open, close it
+				intake.closeIntake();
+				intakeSolenoidState = !intakeSolenoidState;
+			} else { // else open it
+				intake.openIntake();
+				intakeSolenoidState = !intakeSolenoidState;
+			}
+		}
+		
+		if(climberStick.getRawButton(RobotMap.endIntakeTask)) {
+			endTask = true;
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return endTask;
 	}
 
 	// Called once after isFinished returns true

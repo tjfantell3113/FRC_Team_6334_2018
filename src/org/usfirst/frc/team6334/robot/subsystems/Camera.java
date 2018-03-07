@@ -15,12 +15,12 @@ import edu.wpi.first.wpilibj.CameraServer;
  */
 public class Camera extends Subsystem {
 	
-	//UsbCamera intakeFacingCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.frontFacingCamera);
-	//VideoSink server = CameraServer.getInstance().getServer();
+	UsbCamera intakeFacingCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.frontFacingCamera);
+	VideoSink server = CameraServer.getInstance().getServer();
 	String selectedCamera;
 	
 	public Camera () {		
-		//server.setSource(intakeFacingCamera);
+		server.setSource(intakeFacingCamera);
 		selectedCamera = "intake";
 	}
 
@@ -28,18 +28,19 @@ public class Camera extends Subsystem {
     // here. Call these from Commands.
 	
 	public void setFrontCamera () {
-		//server.setSource(intakeFacingCamera);
+		server.setSource(intakeFacingCamera);
 		selectedCamera = "intake";
 	}
 	
 	public void setBackCamera () {
-		//server.setSource(intakeFacingCamera); // when second camera is added, add here as another option.
+		server.setSource(intakeFacingCamera); // when second camera is added, add here as another option.
 		selectedCamera = "behind"; // TODO: find better name
 	}
 	
 	public String getSelectedCamera () {
 		return selectedCamera;
 	}
+	
 	/*
 	public UsbCamera getIntakeCamera() { // replicate this method for other cameras
 		return intakeFacingCamera;
