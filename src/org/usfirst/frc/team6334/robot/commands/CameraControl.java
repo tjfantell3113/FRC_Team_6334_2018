@@ -17,23 +17,23 @@ public class CameraControl extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	arcadeStick = oi.getArcadeStick();
+    	//arcadeStick = oi.getArcadeStick();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (arcadeStick.getRawButtonPressed(RobotMap.changeCameraSource)) {
-    		if (camera.getSelectedCamera() == "intake") {
-    			camera.setBackCamera();
-    		} else {
-    			camera.setFrontCamera();
-    		}
-    	}
+//    	if (arcadeStick.getRawButtonPressed(RobotMap.changeCameraSource)) {
+//    		if (camera.getSelectedCamera() == "intake") {
+//    			camera.setBackCamera();
+//    		} else {
+//    			camera.setFrontCamera();
+//    		}
+//    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --- CHANGE THIS LINE --- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
     // Called once after isFinished returns true

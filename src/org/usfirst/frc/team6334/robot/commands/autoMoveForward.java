@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class autoMoveForward extends CommandGroup {
 
     public autoMoveForward() {
-        addSequential(new moveDistanceX(100, 0.3));
-        addSequential(new moveDistanceX(3, -0.1));
-        addSequential(new moveDistanceX(3, 0.1));
+        addSequential(new moveDistanceX(168, 0.3, true));
+        addSequential(new moveDistanceX(3, -0.1, true));
+        addSequential(new moveDistanceX(3, 0.1, true));
     }
 }

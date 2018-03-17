@@ -25,7 +25,6 @@ public class Lift extends Subsystem {
     	
     	liftMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 10);
 		liftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
-		liftMotor.setSelectedSensorPosition(0, 0, 10);
 		updateBoundries = 0;
     }
     
@@ -35,21 +34,19 @@ public class Lift extends Subsystem {
     
 	public void setLiftPower(double throttle, boolean override){         
 		if(Math.abs(throttle) < 0.07) throttle = 0;
-		
-		/*
 		if(override) {
-			liftMotor1.set(-throttle);
-			liftMotor2.set(-throttle);
-		} else if(getEncoderPos() < (RobotMap.liftLowerBound + updateBoundries)) {
-			liftMotor1.set(0.25);
-			liftMotor2.set(0.25);
-		} else if (getEncoderPos() > (RobotMap.liftUpperBound + updateBoundries)) {
-			liftMotor1.set(-0.25);
-			liftMotor2.set(-0.25);
+			liftMotor.set(-throttle);
+			//liftMotor2.set(-throttle);
+		} else if(getEncoderPos() < (-10 + updateBoundries)) {
+			liftMotor.set(0.1);
+			//liftMotor2.set(0.25);
+		} else if (getEncoderPos() > (24000 + updateBoundries)) {
+			liftMotor.set(-0.1);
+			//liftMotor2.set(-0.25);
 		} else {
-			liftMotor1.set(-throttle);
-			liftMotor2.set(-throttle);
-		} */
+			liftMotor.set(-throttle);
+			//liftMotor2.set(-throttle);
+		}
 		
 		liftMotor.set(-throttle);
 	}

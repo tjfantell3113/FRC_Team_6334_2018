@@ -73,6 +73,8 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		CommandBase.autoChooser.cancelAuto();
 		CommandBase.driveTrain.resetEncoders();
+		CommandBase.vision.changeLedMode(1);
+		CommandBase.vision.changeVisionMode(1);
 	}
 
 	/**

@@ -27,7 +27,7 @@ public class autoGrabBox extends CommandBase {
     protected void execute() {
     	turn_error = driveTrain.getRightEncoderPos() - (driveTrain.getLeftEncoderPos() + encoderPIDCompensation);
     	turn = (turn_error * 0.3 * RobotMap.gyro_kP);
-    	System.out.println(-throttle + turn);
+    	intake.setIntakePower(-1);
     	driveTrain.setMotorValues(-throttle + turn, -throttle - turn);
     }
 

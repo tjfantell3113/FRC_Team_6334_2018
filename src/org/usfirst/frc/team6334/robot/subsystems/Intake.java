@@ -30,6 +30,8 @@ public class Intake extends Subsystem {
 	public void setIntakePower(double throttle) {
 		if(Math.abs(throttle) < 0.1) throttle = 0;
 		
+		throttle = checkThrottleValue(throttle);
+		
 		right.set(throttle);
 		left.set(throttle);
 	}
@@ -52,6 +54,19 @@ public class Intake extends Subsystem {
     
     public void updateDash() {
     	SmartDashboard.putBoolean("Has Cube", hasCube());
+    }
+    
+    public double checkThrottleValue(double throttle) {
+    	//Sets a deadzone for the controllers (whether this is xBox or joystick)
+		if(Math.abs(throttle) < RobotMap.deadzone) throttle = 0;
+		
+		//Makes sure the percentage of power is not under or over the Talon's limits.
+		if(Math.abs(throttle) <= 0.05) throttle = 0;
+		
+		if(throttle > 0.985) throttle = 0.985;
+		if(throttle < -0.985) throttle = -0.985;
+		
+		return throttle;
     }
     
     public void initDefaultCommand() {

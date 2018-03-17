@@ -25,7 +25,7 @@ public class RobotMap {
 	public final static int rightStick = 0;
 	
 	//Joystick Buttons (Hopefully soon to be categorized for each joystick)
-	public final static int shiftDown = 8;
+	public final static int shiftDown = 9;
 	public final static int shiftUp = 7;
 	public final static int coastMode = 5;
 	public final static int resetEncoders = 11;				//remove?
@@ -36,15 +36,17 @@ public class RobotMap {
 	public final static int intakeIn = 3;
 	public final static int intakeOut = 4;
 	public final static int changeIntakeSolenoid = 1;
-	public final static int hookArm = 7;
+	public final static int hookArm = 1;
+	public final static int changeLimeLightCam = 3;
+	public final static int changeLimeLightLED = 3;
 	public final static int liftOverride = 2;				//remove?
-	public final static int endLiftTask = 0;				//Change
-	public final static int endIntakeTask = 0;				//Change
-	public final static int endClimberTask = 0;				//Change
-	public final static int startLiftTask = 0;				//Change
-	public final static int startIntakeTask = 0;			//Change
-	public final static int startClimberTask = 0;			//Change
-	public static final int ejectBox = 1;
+	public final static int endLiftTask = 8;				//Change
+	public final static int endIntakeTask = 8;				//Change
+	public final static int endClimberTask = 8;				//Change
+	public final static int startLiftTask = 9;				//Change
+	public final static int startIntakeTask = 9;			//Change
+	public final static int startClimberTask = 9;			//Change
+	public final static int ejectBox = 1;
 	public final static int climbBackDrive1 = 4;
 	public final static int climbBackDrive2 = 11;
 	public final static int hookArmSlowMode = 1;
@@ -58,8 +60,8 @@ public class RobotMap {
 	public final static int climberLift1 = 56;
 	public final static int climberLift2 = 57;
 	public final static int hookPivot = 58;
-	public final static int liftMotor =  59;
-	//public final static int liftMotor2 =  60;
+	public final static int liftMotor2 =  59;
+	public final static int liftMotor =  60;
 	public final static int intakeRight =  61;
 	public final static int intakeLeft =  62;
 
@@ -80,25 +82,28 @@ public class RobotMap {
 	public final static int intakeState2 = 3;
 
 	//Drive Train constants
-	public final static double wheelBase = 2.375;
+	public final static double wheelBase = 2.115;
 	public final static double middleOfWheelbase = 19.25;
-	public final static double wheelDiameter = 0.5; //6 inches
+	public final static double wheelDiameter = 6;
 	public final static double deadzone = 0;
 	public final static double throttleModifier = 0.25;
 	public final static double gyro_kP = 0.03;
 	public final static double gyro_kI = 0.1;
 	public final static double gyro_kD = 0;
+	public final static double highGearRate = 7;
+	public final static double lowGearRate = 1;
+	public final static double startUpThrottle = 0.25;
 	
 	//Lift Constants
-	public static final int liftPosMin = -950;
-	public static final int liftPosMax = 31250;
-	public static final int lift_kP = 0;
-	public static final int lift_kI= 0;
-	public static int liftUpperBound = 35000;
-	public static int liftLowerBound = 0;
-	public static int switchHeight = 15000;
-	public static int scaleHeight = 35000;
-	public static int resetHeight = 100;
+	public final static int liftPosMin = 0;
+	public final static int liftPosMax = 25000;
+	public final static int lift_kP = 0;
+	public final static int lift_kI= 0;
+	public final static int liftUpperBound = 23000;
+	public final static int liftLowerBound = 0;
+	public final static int switchHeight = 23000;
+	public final static int scaleHeight = 23000;
+	public final static int resetHeight = 3000;
 	
 	//Climb Constants
 	public static final int climberButton = 6; // on intake stick

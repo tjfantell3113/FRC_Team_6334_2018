@@ -106,6 +106,9 @@ public class DriveTrain extends Subsystem {
 			left += turn * turningThrottleScale;
 		}
 		
+		right = checkThrottleValue(right);
+		left = checkThrottleValue(left);
+		
 		if (turboEnabled) {
 			setMotorValues(right * RobotMap.throttleModifier, left * RobotMap.throttleModifier);
 		} else {
@@ -209,8 +212,8 @@ public class DriveTrain extends Subsystem {
 		//Makes sure the percentage of power is not under or over the Talon's limits.
 		if(Math.abs(throttle) <= 0.05) throttle = 0;
 		
-		if(throttle > 1) throttle = 0.99;
-		if(throttle < -1) throttle = -0.99;
+		if(throttle > 0.985) throttle = 0.985;
+		if(throttle < -0.985) throttle = -0.985;
 		
 		return throttle;
     }

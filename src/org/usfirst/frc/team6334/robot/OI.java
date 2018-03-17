@@ -26,18 +26,6 @@ public class OI {
  
   // put button press events here
   public OI() {
-	  if(elevatorStick.getRawButton(RobotMap.startLiftTask)) {
-		  Command lift = new LiftDrive();
-		  lift.start();
-	  }
-	  if(climberStick.getRawButton(RobotMap.startIntakeTask)) {
-		  Command intake = new LiftDrive();
-		  intake.start();
-	  }
-	  if(climberStick.getRawButton(RobotMap.startClimberTask)) {
-		  Command climber = new LiftDrive();
-		  climber.start();
-	  }
   }
  
  

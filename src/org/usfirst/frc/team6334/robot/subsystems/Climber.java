@@ -39,7 +39,7 @@ public class Climber extends Subsystem {
 	}
 	
 	public void raisePivot(double val) {
-		pivotThrottle = val;
+		pivotThrottle = -val;
 		pivot.set(pivotThrottle);
 	}
 

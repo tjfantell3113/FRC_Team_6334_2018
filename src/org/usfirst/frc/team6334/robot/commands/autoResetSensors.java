@@ -9,6 +9,8 @@ public class autoResetSensors extends CommandBase {
     public autoResetSensors() {
         requires(driveTrain);
         requires(lift);
+        requires(vision);
+        requires(intake);
     }
 
     // Called just before this Command runs the first time
@@ -18,10 +20,14 @@ public class autoResetSensors extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	intake.closeIntake();
     	lift.resetEncoderPos();
     	driveTrain.resetEncoders();
     	driveTrain.resetGyro();
     	driveTrain.setHighGear();
+    	vision.changeVisionMode(0);
+    	vision.changeLedMode(0);
+    	
     	isFinished = true;
     }
 
@@ -32,10 +38,24 @@ public class autoResetSensors extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+    	intake.closeIntake();
+    	lift.resetEncoderPos();
+    	driveTrain.resetEncoders();
+    	driveTrain.resetGyro();
+    	driveTrain.setHighGear();
+    	vision.changeVisionMode(0);
+    	vision.changeLedMode(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	intake.closeIntake();
+    	lift.resetEncoderPos();
+    	driveTrain.resetEncoders();
+    	driveTrain.resetGyro();
+    	driveTrain.setHighGear();
+    	vision.changeVisionMode(0);
+    	vision.changeLedMode(0);
     }
 }

@@ -33,7 +33,7 @@ public class autoTurn extends CommandBase {
     	driveTrain.setMotorValues(turnThrottle, -turnThrottle);
     	*/
     	
-    	driveTrain.setMotorValues(throttle * turnDirection, -throttle * turnDirection);
+    	driveTrain.setMotorValues((throttle * turnDirection), -(throttle * turnDirection));
     	
     	if ((((int) driveTrain.getChassisBearing()) - wantedAngle) > -3 && (((int) driveTrain.getChassisBearing()) - wantedAngle) < 3) {
     		isFinished = true;

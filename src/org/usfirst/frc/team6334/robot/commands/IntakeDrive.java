@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class IntakeDrive extends CommandBase {
 
-	Joystick climberStick, arcadeStick;
+	Joystick elevatorStick, arcadeStick;
 	boolean endTask, intakeSolenoidState;
 
 	public IntakeDrive() {
@@ -18,7 +18,7 @@ public class IntakeDrive extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		climberStick = oi.getClimberStick();
+		elevatorStick = oi.getElevatorStick();
 		arcadeStick = oi.getArcadeStick();
 		intake.closeIntake();
 		endTask = false;
@@ -28,11 +28,8 @@ public class IntakeDrive extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		//double throttle = intakeStick.getY();
-		
-		if (!climberStick.getRawButton(RobotMap.climberButton) && !climberStick.getRawButton(RobotMap.hookArm)) {
-			if (climberStick.getRawButton(RobotMap.ejectBox)) {
-				intake.setIntakePower(1);
-			}
+		if (elevatorStick.getRawButton(11)) {
+			intake.setIntakePower(1);
 		}
 		intake.updateDash();
 		
@@ -54,14 +51,14 @@ public class IntakeDrive extends CommandBase {
 			}
 		}
 		
-		if(climberStick.getRawButton(RobotMap.endIntakeTask)) {
+		if(elevatorStick.getRawButton(RobotMap.endIntakeTask)) {
 			endTask = true;
 		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return endTask;
+		return false;
 	}
 
 	// Called once after isFinished returns true

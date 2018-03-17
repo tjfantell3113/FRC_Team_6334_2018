@@ -17,7 +17,6 @@ public class ArcadeDrive extends CommandBase {
 	public ArcadeDrive() {
 		super("ArcadeDrive");
 		requires(driveTrain);
-		requires(intake);
 	}
 
 	// Called just before this Command runs the first time

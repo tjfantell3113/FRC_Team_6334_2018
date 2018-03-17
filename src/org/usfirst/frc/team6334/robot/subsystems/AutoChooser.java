@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class AutoChooser extends Subsystem {
 
 	String gameData = "";
-	char currentSide = 'C';
+	char currentSide = 'L';
 	boolean goForSwitch = true;
 	boolean backAlley = true;
 	Command choice;
@@ -273,7 +273,7 @@ public class AutoChooser extends Subsystem {
     }
     
     public void testAuto() {
-    	Command testThisAuto = new moveDistanceX(100, 0.4);
+    	Command testThisAuto = new autoLeftToLeftSwitch();
     	testThisAuto.start();
     }
     

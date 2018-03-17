@@ -20,6 +20,7 @@ public class LiftDrive extends CommandBase {
     protected void initialize() {
       elevatorStick = oi.getElevatorStick();
       endTask = false;
+      lift.resetEncoderPos();
     }
  
     // Called repeatedly when this Command is scheduled to run
@@ -28,13 +29,12 @@ public class LiftDrive extends CommandBase {
       if (Math.abs(throttle) > 0.05) {
         lift.setLiftPower(throttle, false);
       } else {
-        lift.setLiftPower(0, false);
+        lift.setLiftPower(-0.065, false);
       }
       
       //override
       if (elevatorStick.getRawButton(RobotMap.liftOverride)) {
-    	 lift.setLiftPower(throttle, true);
-    	 lift.updateBoundries();
+    	  lift.resetEncoderPos();
       }
       
       lift.updateDash();

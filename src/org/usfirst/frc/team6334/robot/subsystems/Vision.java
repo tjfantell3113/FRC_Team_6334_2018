@@ -1,44 +1,41 @@
 package org.usfirst.frc.team6334.robot.subsystems;
 
+import org.usfirst.frc.team6334.robot.commands.VisionDrive;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
 /**
  *
  */
-@SuppressWarnings("static-access")
 public class Vision extends Subsystem {
 	
-	public Vision() {
-		
-	}
-	/*
 	NetworkTable visionTable;
 	NetworkTableEntry tx, ty, ta, tv, ts;
 	double xOffset, yOffset, targetArea, targetSkew, targetAquired;
 	
 	public Vision() {
 		visionTable = NetworkTableInstance.getDefault().getTable("limelight");
-		tx = visionTable.getInstance().getDefault().getTable("limelight").getEntry("tx");
-		ty = visionTable.getInstance().getDefault().getTable("limelight").getEntry("ty");
-		ta = visionTable.getInstance().getDefault().getTable("limelight").getEntry("ta");
-		tv = visionTable.getInstance().getDefault().getTable("limelight").getEntry("tv");
-		ts = visionTable.getInstance().getDefault().getTable("limelight").getEntry("ts");
+		tx = visionTable.getEntry("tx");
+		ty = visionTable.getEntry("ty");
+		ta = visionTable.getEntry("ta");
+		tv = visionTable.getEntry("tv");
+		ts = visionTable.getEntry("ts");
+		visionTable.getEntry("ledMode").setDouble(1);
 	}
 	
 	public void changeLedMode(int num) {
-		visionTable.getInstance().getDefault().getTable("limelight").getEntry("ledMode").setNumber(num);
+		visionTable.getEntry("ledMode").setDouble(num);
 	}
 	
 	public void changeVisionMode(int num) {
-		visionTable.getInstance().getDefault().getTable("limelight").getEntry("camMode").setNumber(num);
+		visionTable.getEntry("camMode").setDouble(num);
 	}
 	
 	public void changePipeline(int num) {
-		visionTable.getInstance().getDefault().getTable("limelight").getEntry("pipeline").setNumber(num);
+		visionTable.getEntry("pipeline").setDouble(num);
 	}
 	
 	public double targetAcquired() {
@@ -63,11 +60,6 @@ public class Vision extends Subsystem {
 	}
 
     public void initDefaultCommand() {
-    }*/
-
-	@Override
-	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
-	}
+    	setDefaultCommand(new VisionDrive());
+    }
 }

@@ -12,7 +12,6 @@ public class autoIntake extends CommandBase {
 	
     public autoIntake(boolean eject, double time) {
         requires(intake);
-        requires(driveTrain);
         ejectBox = eject;
         runTime = time;
     }
@@ -37,11 +36,11 @@ public class autoIntake extends CommandBase {
     	
     	if (ejectBox){
     		intake.setIntakePower(-1);
-    		Timer.delay(runTime);
+    		Timer.delay((runTime/2));
     		intake.openIntake();
+    		Timer.delay((runTime/2));
     		
     	} else {
-    		driveTrain.setMotorValues(0.2, 0.2);
     		intake.openIntake();
     		intake.setIntakePower(1);
     		
@@ -67,7 +66,6 @@ public class autoIntake extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
     	intake.setIntakePower(0);
-    	driveTrain.setMotorValues(0, 0);
     	if(ejectBox)  intake.openIntake();
     	if(!ejectBox) intake.closeIntake();
     }
@@ -75,7 +73,6 @@ public class autoIntake extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	driveTrain.setMotorValues(0, 0);
     	intake.setIntakePower(0);
     }
 }

@@ -7,20 +7,28 @@ import org.usfirst.frc.team6334.robot.RobotMap;
  */
 public class moveDistanceX extends CommandBase {
 
-	int initialRight, initialLeft, moveXTicks, encoderPIDCompensation;
-	double turn_error, distance_error, initialAngle, turn, throttle, distance;
-	boolean backwards;
+	int initialRight, initialLeft, moveXTicks, encoderPIDCompensation, lastRightPos, lastLeftPos, stopCounter;
+	double turn_error, distance_error, initialAngle, turn, targetThrottle, distance, throttle;
+	boolean backwards, highGear, stopped;
 
 	
-	public moveDistanceX(int pdistance, double pthrottle) {
+	public moveDistanceX(int pdistance, double pthrottle, boolean highgear) {
         requires(driveTrain);
         distance = pdistance;
-        throttle = pthrottle;
-        if (throttle < 0) {
+        targetThrottle = pthrottle;
+        throttle = RobotMap.startUpThrottle;
+        highGear = highgear;        
+        if (targetThrottle < 0) {
         	backwards = true;
         } else {
         	backwards = false;
         }
+        
+        //if things break blame this
+        lastRightPos = 0;
+        lastLeftPos = 0;
+        stopCounter = 0;
+        stopped = false;
     }
 
     // Called just before this Command runs the first time
@@ -29,19 +37,53 @@ public class moveDistanceX extends CommandBase {
     	initialLeft = driveTrain.getLeftEncoderPos();
     	encoderPIDCompensation = initialRight - initialLeft;
     	initialAngle = driveTrain.getChassisBearing();
-    	moveXTicks = (int) ((distance*360)/(Math.PI * 6* 3));
+    	
+    	double gearRatio = 4.77;
+    	if(!highGear) gearRatio = 22.67;
+    	
+    	moveXTicks = (int) ((1440/(Math.PI * 6 * 3 * gearRatio)) * distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	turn_error = driveTrain.getRightEncoderPos() - (driveTrain.getLeftEncoderPos() + encoderPIDCompensation);
     	turn = (turn_error * 0.3 * RobotMap.gyro_kP);
+    	
+    	if(!backwards) {
+    		if(throttle < targetThrottle) {
+        		throttle += 0.03;
+        	}
+    	} else {
+    		if(Math.abs(throttle) < Math.abs(targetThrottle)) {
+        		throttle -= 0.03;
+        	}
+    	}
+    	
     	driveTrain.setMotorValues(-throttle + turn, -throttle - turn);
+    	
+    	//if things break blame this
+    	stopped = stopCheck();
+    }
+    
+    //if things break blame this
+    public boolean stopCheck() {
+    	boolean stopped = false;
+    	if((lastLeftPos == driveTrain.getLeftEncoderPos()) && (lastRightPos == driveTrain.getRightEncoderPos())) {
+    		stopCounter++;
+    		if(stopCounter >= 50) {
+    			stopped = true;
+    		}
+    	} else {
+    		stopCounter = 0;
+    	}
+    	lastLeftPos = driveTrain.getLeftEncoderPos();
+    	lastRightPos = driveTrain.getRightEncoderPos();
+    	return stopped;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return ((Math.abs((driveTrain.getRightEncoderPos()-initialRight)) > moveXTicks) && (Math.abs((driveTrain.getLeftEncoderPos()-initialLeft)) > moveXTicks));
+        return (((Math.abs((driveTrain.getRightEncoderPos()-initialRight)) >= moveXTicks) && (Math.abs((driveTrain.getLeftEncoderPos()-initialLeft)) >= moveXTicks)) || stopped);
     }
 
     // Called once after isFinished returns true

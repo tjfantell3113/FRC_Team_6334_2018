@@ -36,10 +36,10 @@ public class ClimbDrive extends CommandBase {
     	} else if (climberStick.getRawButton(RobotMap.hookArmSlowMode)) {
     		climber.raisePivot(throttle*0.25);
     	} else if (climberStick.getRawButton(RobotMap.hookArmFastMode)){
-    		climber.raisePivot(throttle);
+    		climber.raisePivot(throttle*0.5);
     	} else {
-    		climber.raiseClimber(0, false);
-    		climber.raisePivot(0);
+    		climber.raiseClimber(0.0, false);
+    		climber.raisePivot(0.0);
     	}
     	
     	if(climberStick.getRawButton(RobotMap.endClimberTask)) {
