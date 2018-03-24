@@ -43,16 +43,7 @@ public class autoIntake extends CommandBase {
     	} else {
     		intake.openIntake();
     		intake.setIntakePower(1);
-    		
-    		//Run intake for however long it take to fully acquire the cube
-    		/*
-    		for(int i = 100; i > 0; i--) {
-    			if (intake.hasCube()) {
-    				i = 0;
-    			}
-    			Timer.delay(runTime/100);
-    		}
-    		*/
+
     		Timer.delay(runTime);
     	}
     	finished = true;

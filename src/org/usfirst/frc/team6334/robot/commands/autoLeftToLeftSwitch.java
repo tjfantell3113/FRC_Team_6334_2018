@@ -11,20 +11,27 @@ public class autoLeftToLeftSwitch extends CommandGroup {
 
     public autoLeftToLeftSwitch() {
     	addSequential(new autoResetSensors());		//Reset the sensors to zero them.
-    	addSequential(new moveDistanceX(3, 0.2));	//Accelerate
-    	addSequential(new moveDistanceX(3, 0.3));	//Accelerate
-        addSequential(new moveDistanceX(3, 0.4));	//Accelerate
-        addSequential(new moveDistanceX(72, 0.7));	//Move forward
-        addSequential(new moveDistanceX(5, -0.3));	//Decelerate
-        addSequential(new moveDistanceX(5, 0.3));	//Decelerate
-        addParallel(new autoLift(RobotMap.switchHeight));
-        addSequential(new moveDistanceX(5, -0.3));	//Decelerate
-        addSequential(new moveDistanceX(5, 0.3));	//Decelerate
-        addSequential(new autoTurn(85, 0.35, 1), 3);	//Turn to switch
-        addSequential(new moveDistanceX(36, 0.35), 2);	//Move to switch
-        addSequential(new autoIntake(true, 1), 1.1);	//Eject the box
-        addSequential(new moveDistanceX(6, -0.3)); 	//Move back to get ready to turn to be tele-op ready.
-        addSequential(new autoTurn(0.01, 0.35, -1));	//Turn to front
-        addSequential(new moveDistanceX(60, -0.3));
+    	addParallel(new autoLift(RobotMap.switchHeight));
+        addSequential(new moveDistanceX(110, 0.7, true));	//Move forward
+        addSequential(new moveDistanceX(3, -0.3, true));	//Decelerate
+        addSequential(new moveDistanceX(3, 0.3, true));	//Decelerate
+        addSequential(new moveDistanceX(3, -0.3, true));	//Decelerate
+        addSequential(new autoTurn(85, 0.45, 1), 2);	//Turn to switch
+        addSequential(new moveDistanceX(24, 0.35, true), 1);	//Move to switch
+        addSequential(new autoIntake(true, 1), 1.01);	//Eject the box
+        
+        //Not tested code... please test? If not comment out or remove limelight code.
+        addSequential(new moveDistanceX(18, -0.3, true)); 	//Move back to get ready to turn to be tele-op ready.
+        addParallel(new autoLift(RobotMap.resetHeight));  //JK, go for another cube?
+        addSequential(new autoTurn(4, 0.35, -1));	//Turn to front
+        addSequential(new moveDistanceX(70, 0.6, true));
+        addSequential(new autoTurn(130, 0.4, 1), 2);	//<-------------------------------- !!!edit this angle!!!
+        addSequential(new moveDistanceX(30, 0.3, true), 2);
+        //addSequential(new TurnToBox(1));
+        addSequential(new autoIntake(false, 1), 1.01);
+        addSequential(new autoLift((RobotMap.switchHeight)));
+        addSequential(new autoTurn(140, 0.45, 1));
+        addSequential(new moveDistanceX(24, 0.5, true), 1);
+        addSequential(new autoIntake(true, 1), 1.01);
     }
 }

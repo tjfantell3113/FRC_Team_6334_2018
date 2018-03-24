@@ -18,18 +18,18 @@ public class autoLeftToRightSwitch extends CommandGroup {
         addSequential(new moveDistanceX(115, 0.7, true));			//Move forward
         addSequential(new moveDistanceX(15, 0.2, true));			//Decelerate
         addSequential(new autoTurn(175, 0.45, 1), 2);			//Turn towards switch
-        addSequential(new moveDistanceX(18, 0.3, true), 1);
+        addSequential(new moveDistanceX(22, 0.3, true), 1);
         addSequential(new autoIntake(true, 0.5));
         
         //Not tested, remove if problems arise.
         addParallel(new autoLift(RobotMap.resetHeight));
-        addSequential(new moveDistanceX(24, -0.3, true), 1);
+        addSequential(new moveDistanceX(20, -0.3, true), 1);
         addSequential(new autoTurn(165, 0.45, -1), 1);
-        addSequential(new moveDistanceX (24, 0.3, true), 1);
+        addSequential(new moveDistanceX (28, 0.3, true), 1);
         addSequential(new autoIntake(false, 1), 1.01);
         addSequential(new autoLift(RobotMap.switchHeight));
         addSequential(new autoTurn(175, 0.45, 1), 1);
-        addSequential(new moveDistanceX (12, 0.4, true), 1);
+        addSequential(new moveDistanceX (18, 0.4, true), 1);
         addSequential(new autoIntake(true, 1), 1.01);
     }
 }
