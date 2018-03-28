@@ -76,16 +76,16 @@ public class AutoChooser extends Subsystem {
 		    	if(currentSide == 'C') {
 		    		System.out.println("Center auto");
 		    		switch (gameData) {
-		    			case "LLL": choice = new autoCenterToLeftSwitch();
+		    			case "LLL": choice = new autoCenterToLeftSwitchTwoCube();
 		    				break;
 		    				
-		    			case "LRL": choice = new autoCenterToLeftSwitch();
+		    			case "LRL": choice = new autoCenterToLeftSwitchTwoCube();
 		    				break;
 		    				
-		    			case "RLR": choice = new autoCenterToRightSwitch();
+		    			case "RLR": choice = new autoCenterToRightSwitchTwoCube();
 		    				break;
 		    				
-		    			case "RRR": choice = new autoCenterToRightSwitch();
+		    			case "RRR": choice = new autoCenterToRightSwitchTwoCube();
 		    		}
 		    	} else if (currentSide == 'L') {
 		    		System.out.println("Left auto");
@@ -122,16 +122,16 @@ public class AutoChooser extends Subsystem {
 	    		if(currentSide == 'C') {
 		    		System.out.println("Center auto");
 		    		switch (gameData) {
-		    			case "LLL": choice = new autoCenterToLeftSwitch();
+		    			case "LLL": choice = new autoCenterToLeftSwitchTwoCube();
 		    				break;
 		    				
-		    			case "LRL": choice = new autoCenterToLeftSwitch();
+		    			case "LRL": choice = new autoCenterToLeftSwitchTwoCube();
 		    				break;
 		    				
-		    			case "RLR": choice = new autoCenterToRightSwitch();
+		    			case "RLR": choice = new autoCenterToRightSwitchTwoCube();
 		    				break;
 		    				
-		    			case "RRR": choice = new autoCenterToRightSwitch();
+		    			case "RRR": choice = new autoCenterToRightSwitchTwoCube();
 		    		}
 		    	} else if (currentSide == 'L') {
 		    		System.out.println("Left auto");
