@@ -13,7 +13,7 @@ public class autoLeftToRightSwitch extends CommandGroup {
     	addSequential(new autoResetSensors());				//Reset sensors to zero them
         addSequential(new moveDistanceX(180, 0.70, true));		//Move forward
         addSequential(new moveDistanceX(30, 0.20, true));			//Decelerate
-        addSequential(new autoTurn(85, 0.4, 1), 1.5);			//Turn to pass through middle
+        addSequential(new autoTurn(80, 0.4, 1), 1.5);			//Turn to pass through middle
         addParallel(new autoLift(RobotMap.switchHeight));	//Lift up
         addSequential(new moveDistanceX(115, 0.7, true));			//Move forward
         addSequential(new moveDistanceX(15, 0.2, true));			//Decelerate

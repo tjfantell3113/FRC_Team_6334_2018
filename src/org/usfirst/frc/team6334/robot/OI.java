@@ -10,7 +10,8 @@ package org.usfirst.frc.team6334.robot;
 import org.usfirst.frc.team6334.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -26,6 +27,17 @@ public class OI {
  
   // put button press events here
   public OI() {
+	  SmartDashboard.putNumber("distance1", 0);
+	  SmartDashboard.putNumber("distance2", 0);
+	  SmartDashboard.putNumber("distance3", 0);
+	  SmartDashboard.putNumber("angle1", 0);
+	  SmartDashboard.putNumber("angle2", 0);
+	  
+	  JoystickButton autoLeft = new JoystickButton(elevatorStick, 8);
+	  JoystickButton autoRight = new JoystickButton(elevatorStick, 9);
+	  
+	  //autoLeft.whenPressed(new autoThreeCubeTest(true)); 
+	  //autoRight.whenPressed(new autoThreeCubeTest(false));
   }
  
  

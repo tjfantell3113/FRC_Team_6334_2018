@@ -99,9 +99,9 @@ public class RobotMap {
 	public final static int liftPosMax = 25000;
 	public final static int lift_kP = 0;
 	public final static int lift_kI= 0;
-	public final static int liftUpperBound = 23000;
+	public final static int liftUpperBound = 25500;
 	public final static int liftLowerBound = 0;
-	public final static int switchHeight = 23000;
+	public final static int switchHeight = 25500;
 	public final static int scaleHeight = 23000;
 	public final static int resetHeight = 3000;
 	

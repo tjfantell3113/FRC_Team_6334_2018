@@ -16,7 +16,7 @@ public class autoRightToRightSwitchThreeCube extends CommandGroup {
         addSequential(new moveDistanceX(3, -0.3, true));	//Decelerate
         addSequential(new moveDistanceX(3, 0.3, true));	//Decelerate
         addSequential(new moveDistanceX(3, -0.3, true));	//Decelerate
-        addSequential(new autoTurn(-85, 0.45, -1), 2);	//Turn to switch
+        addSequential(new autoTurn(-82, 0.45, -1), 2);	//Turn to switch
         addSequential(new moveDistanceX(24, 1, true), 0.5);	//Move to switch
         addSequential(new autoIntake(true, 0.5), 0.5);	//Eject the box
         

@@ -14,9 +14,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class AutoChooser extends Subsystem {
 
 	String gameData = "";
-	char currentSide = 'R';
-	boolean goForTwoCube = true;
+	
+	char currentSide = 'C';
+	
+	boolean oneCube = false;
+	boolean twoCubes = true;
+	
+	boolean centerTwoCubes = true;
+	boolean centerThreeCubes = false;
+	boolean centerDepositThirdCube = true;
+	
+	boolean threeCubes = false;
 	boolean backAlley = true;
+	
 	Command choice;
 	DigitalInput leftDIO, rightDIO, switchDIO;
 
@@ -28,6 +38,11 @@ public class AutoChooser extends Subsystem {
     	//centerDIO = new DigitalInput(RobotMap.centerDIO);
     	switchDIO = new DigitalInput(RobotMap.switchDIO);
     	//scaleDIO = new DigitalInput(RobotMap.scaleDIO);
+    	
+    	if(oneCube) {
+    		twoCubes = false;
+    		threeCubes = false;
+    	}
     }
     
     public void grabGameData() {
@@ -39,7 +54,7 @@ public class AutoChooser extends Subsystem {
     	} else System.out.println("Yay!");
     	
     	System.out.println(currentSide);
-    	System.out.println(goForTwoCube);
+    	System.out.println(threeCubes);
     	System.out.println(gameData);
 
     	/*
@@ -70,196 +85,177 @@ public class AutoChooser extends Subsystem {
     	grabGameData();
     	
     	System.out.println("gamedata grabbed");
-    	if(goForTwoCube) {
-    		System.out.println("Going for switch");
-    		if(backAlley) {
-		    	if(currentSide == 'C') {
-		    		System.out.println("Center auto");
-		    		switch (gameData) {
-		    			case "LLL": choice = new autoCenterToLeftSwitchTwoCube();
-		    				break;
-		    				
-		    			case "LRL": choice = new autoCenterToLeftSwitchTwoCube();
-		    				break;
-		    				
-		    			case "RLR": choice = new autoCenterToRightSwitchTwoCube();
-		    				break;
-		    				
-		    			case "RRR": choice = new autoCenterToRightSwitchTwoCube();
-		    		}
-		    	} else if (currentSide == 'L') {
-		    		System.out.println("Left auto");
-		    		switch (gameData) {
-						case "LLL": choice = new autoLeftToLeftSwitch();
-							break;
-							
-						case "LRL": choice = new autoLeftToLeftSwitch();
-							break;
-							
-						case "RLR": choice = new autoLeftToRightSwitch();
-							break;
-							
-						case "RRR": choice = new autoLeftToRightSwitch();
-							break;
-		    		}
-		    	} else if (currentSide == 'R') {
-		    		System.out.println("Right auto");
-		    		switch (gameData) {
-		    		case "RRR": choice = new autoRightToRightSwitch();
+    	
+    	if(currentSide == 'C') {
+    		if(centerTwoCubes) {
+	    		switch (gameData) {
+					case "LLL": choice = new autoCenterToLeftSwitchTwoCube();
 						break;
 						
-					case "RLR": choice = new autoRightToRightSwitch();
+					case "LRL": choice = new autoCenterToLeftSwitchTwoCube();
 						break;
 						
-					case "LRL": choice = new autoRightToLeftSwitch();
+					case "RLR": choice = new autoCenterToRightSwitchTwoCube();
 						break;
 						
-					case "LLL": choice = new autoRightToLeftSwitch();
+					case "RRR": choice = new autoCenterToRightSwitchTwoCube();
 						break;
-					}
-		    	} 
+	    		}
+    		} else if (centerThreeCubes) {
+    			switch (gameData) {
+					case "LLL": choice = new autoCenterToLeftSwitchThreeCube(centerDepositThirdCube);
+						break;
+						
+					case "LRL": choice = new autoCenterToLeftSwitchThreeCube(centerDepositThirdCube);
+						break;
+						
+					case "RLR": choice = new autoCenterToRightSwitchThreeCube(centerDepositThirdCube);
+						break;
+						
+					case "RRR": choice = new autoCenterToRightSwitchThreeCube(centerDepositThirdCube);
+						break;
+    			}
     		} else {
-	    		if(currentSide == 'C') {
-		    		System.out.println("Center auto");
-		    		switch (gameData) {
-		    			case "LLL": choice = new autoCenterToLeftSwitchTwoCube();
-		    				break;
-		    				
-		    			case "LRL": choice = new autoCenterToLeftSwitchTwoCube();
-		    				break;
-		    				
-		    			case "RLR": choice = new autoCenterToRightSwitchTwoCube();
-		    				break;
-		    				
-		    			case "RRR": choice = new autoCenterToRightSwitchTwoCube();
-		    		}
-		    	} else if (currentSide == 'L') {
-		    		System.out.println("Left auto");
-		    		switch (gameData) {
-						case "LLL": choice = new autoLeftToLeftSwitch();
-							break;
-							
-						case "LRL": choice = new autoLeftToLeftSwitch();
-							break;
-							
-						case "RLR": choice = new autoMoveForward();
-							break;
-							
-						case "RRR": choice = new autoMoveForward();
-							break;
-		    		}
-		    	} else if (currentSide == 'R') {
-		    		System.out.println("Right auto");
-		    		switch (gameData) {
-		    		case "RRR": choice = new autoRightToRightSwitch();
+    			switch (gameData) {
+					case "LLL": choice = new autoCenterToLeftSwitch();
 						break;
 						
-					case "RLR": choice = new autoRightToRightSwitch();
+					case "LRL": choice = new autoCenterToLeftSwitch();
 						break;
 						
-					case "LRL": choice = new autoMoveForward();
+					case "RLR": choice = new autoCenterToRightSwitch();
 						break;
 						
-					case "LLL": choice = new autoMoveForward();
+					case "RRR": choice = new autoCenterToRightSwitch();
 						break;
-					}
-		    	}
-	    	}
-    	} else {
-    		System.out.println("Going for three cubes");
-    		if(backAlley) {
-		    	if(currentSide == 'C') {
-		    		System.out.println("Center auto");
-		    		switch (gameData) {
-		    			case "LLL": choice = new autoCenterToLeftSwitch();
-		    				break;
-		    				
-		    			case "LRL": choice = new autoCenterToLeftSwitch();
-		    				break;
-		    				
-		    			case "RLR": choice = new autoCenterToRightSwitch();
-		    				break;
-		    				
-		    			case "RRR": choice = new autoCenterToRightSwitch();
-		    		}
-		    	} else if (currentSide == 'L') {
-		    		System.out.println("Left auto");
-		    		switch (gameData) {
-						case "LLL": choice = new autoLeftToLeftSwitchThreeCube();
-							break;
-							
-						case "LRL": choice = new autoLeftToLeftSwitchThreeCube();
-							break;
-							
-						case "RLR": choice = new autoLeftToRightSwitch();
-							break;
-							
-						case "RRR": choice = new autoLeftToRightSwitch();
-							break;
-		    		}
-		    	} else if (currentSide == 'R') {
-		    		System.out.println("Right auto");
-		    		switch (gameData) {
-		    		case "RRR": choice = new autoRightToRightSwitchThreeCube();
-						break;
-						
-					case "RLR": choice = new autoRightToRightSwitchThreeCube();
-						break;
-						
-					case "LRL": choice = new autoRightToLeftSwitch();
-						break;
-						
-					case "LLL": choice = new autoRightToLeftSwitch();
-						break;
-					}
-		    	} 
-    		} else {
-	    		if(currentSide == 'C') {
-		    		System.out.println("Center auto");
-		    		switch (gameData) {
-		    			case "LLL": choice = new autoCenterToLeftSwitch();
-		    				break;
-		    				
-		    			case "LRL": choice = new autoCenterToLeftSwitch();
-		    				break;
-		    				
-		    			case "RLR": choice = new autoCenterToRightSwitch();
-		    				break;
-		    				
-		    			case "RRR": choice = new autoCenterToRightSwitch();
-		    		}
-		    	} else if (currentSide == 'L') {
-		    		System.out.println("Left auto");
-		    		switch (gameData) {
-						case "LLL": choice = new autoLeftToLeftSwitchThreeCube();
-							break;
-							
-						case "LRL": choice = new autoLeftToLeftSwitchThreeCube();
-							break;
-							
-						case "RLR": choice = new autoMoveForward();
-							break;
-							
-						case "RRR": choice = new autoMoveForward();
-							break;
-		    		}
-		    	} else if (currentSide == 'R') {
-		    		System.out.println("Right auto");
-		    		switch (gameData) {
-		    		case "RRR": choice = new autoRightToRightSwitchThreeCube();
-						break;
-						
-					case "RLR": choice = new autoRightToRightSwitchThreeCube();
-						break;
-						
-					case "LRL": choice = new autoMoveForward();
-						break;
-						
-					case "LLL": choice = new autoMoveForward();
-						break;
-					}
-		    	}
+    			}
     		}
+    	} else if (currentSide == 'L') {
+    		if(backAlley) {
+	    		if(threeCubes) {
+	    			switch (gameData) {
+						case "LLL": choice = new autoLeftToLeftSwitchThreeCube();
+							break;
+							
+						case "LRL": choice = new autoLeftToLeftSwitchThreeCube();
+							break;
+							
+						case "RLR": choice = new autoLeftToRightSwitch();
+							break;
+							
+						case "RRR": choice = new autoLeftToRightSwitch();
+							break;
+	    			}
+	    		} else {
+	    			switch (gameData) {
+						case "LLL": choice = new autoLeftToLeftSwitch(twoCubes);
+							break;
+							
+						case "LRL": choice = new autoLeftToLeftSwitch(twoCubes);
+							break;
+							
+						case "RLR": choice = new autoLeftToRightSwitch();
+							break;
+							
+						case "RRR": choice = new autoLeftToRightSwitch();
+							break;
+	    			}
+	    		}
+    		} else {
+    			if(threeCubes) {
+    				switch (gameData) {
+						case "LLL": choice = new autoLeftToLeftSwitchThreeCube();
+							break;
+							
+						case "LRL": choice = new autoLeftToLeftSwitchThreeCube();
+							break;
+							
+						case "RLR": choice = new autoMoveForward();
+							break;
+							
+						case "RRR": choice = new autoMoveForward();
+							break;
+	    			}
+    			} else {
+    				switch (gameData) {
+						case "LLL": choice = new autoLeftToLeftSwitch(twoCubes);
+							break;
+							
+						case "LRL": choice = new autoLeftToLeftSwitch(twoCubes);
+							break;
+							
+						case "RLR": choice = new autoMoveForward();
+							break;
+							
+						case "RRR": choice = new autoMoveForward();
+							break;
+	    			}
+    			}
+    		}
+    	} else if (currentSide == 'R') {
+    		if(backAlley) {
+	    		if(threeCubes) {
+	    			switch (gameData) {
+						case "RRR": choice = new autoRightToRightSwitchThreeCube();
+							break;
+							
+						case "RLR": choice = new autoRightToRightSwitchThreeCube();
+							break;
+							
+						case "LRL": choice = new autoRightToLeftSwitch();
+							break;
+							
+						case "LLL": choice = new autoRightToLeftSwitch();
+							break;
+	    			}
+	    		} else {
+	    			switch (gameData) {
+						case "RRR": choice = new autoRightToRightSwitch(twoCubes);
+							break;
+							
+						case "RLR": choice = new autoRightToRightSwitch(twoCubes);
+							break;
+							
+						case "LRL": choice = new autoRightToLeftSwitch();
+							break;
+							
+						case "LLL": choice = new autoRightToLeftSwitch();
+							break;
+	    			}
+	    		}
+    		} else {
+    			if(threeCubes) {
+    				switch (gameData) {
+						case "RRR": choice = new autoRightToRightSwitchThreeCube();
+							break;
+							
+						case "RLR": choice = new autoRightToRightSwitchThreeCube();
+							break;
+							
+						case "LRL": choice = new autoMoveForward();
+							break;
+							
+						case "LLL": choice = new autoMoveForward();
+							break;
+	    			}
+    			} else {
+    				switch (gameData) {
+						case "RRR": choice = new autoRightToRightSwitch(twoCubes);
+							break;
+							
+						case "RLR": choice = new autoRightToRightSwitch(twoCubes);
+							break;
+							
+						case "LRL": choice = new autoMoveForward();
+							break;
+							
+						case "LLL": choice = new autoMoveForward();
+							break;
+	    			}
+    			}
+    		}
+    	} else {
+    		choice = new autoMoveForward();
     	}
     	
     	if(choice != null) { 
@@ -273,7 +269,7 @@ public class AutoChooser extends Subsystem {
     }
     
     public void testAuto() {
-    	Command testThisAuto = new autoLeftToLeftSwitch();
+    	Command testThisAuto = new autoLeftToLeftSwitch(twoCubes);
     	testThisAuto.start();
     }
     

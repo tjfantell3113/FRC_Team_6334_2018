@@ -39,11 +39,9 @@ public class autoIntake extends CommandBase {
     		Timer.delay((runTime/2));
     		intake.openIntake();
     		Timer.delay((runTime/2));
-    		
     	} else {
     		intake.openIntake();
     		intake.setIntakePower(1);
-
     		Timer.delay(runTime);
     	}
     	finished = true;
