@@ -26,7 +26,7 @@ public class LiftDrive extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
       double throttle = elevatorStick.getY();
-      if (Math.abs(throttle) > 0.05) {
+      if (Math.abs(throttle) > 0.05 && !elevatorStick.getRawButton(1)) {
         lift.setLiftPower(throttle, false);
       } else {
         lift.setLiftPower(-0.065, false);

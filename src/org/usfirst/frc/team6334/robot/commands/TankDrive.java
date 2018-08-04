@@ -8,20 +8,21 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  */
 @SuppressWarnings("unused")
-public class ArcadeDrive extends CommandBase {
+public class TankDrive extends CommandBase {
 
-	double throttle, turn;
-	Joystick arcadeStick; //leftStick, rightStick, 
+	double leftThrottle, rightThrottle;
+	Joystick leftStick, rightStick;
 	boolean coastModeEnabled, turboEnabled;
 
-	public ArcadeDrive() {
-		super("ArcadeDrive");
+	public TankDrive() {
+		super("TankDrive");
 		requires(driveTrain);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		arcadeStick = oi.getArcadeStick();
+		leftStick = oi.getLeftStick();
+		rightStick = oi.getRightStick();
 		coastModeEnabled = false;
 		turboEnabled = false;
 	}
@@ -29,29 +30,29 @@ public class ArcadeDrive extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		
-		if (arcadeStick.getRawButtonPressed(RobotMap.changeTurbo) && arcadeStick.getRawButtonPressed(12)) {
+		if (leftStick.getRawButtonPressed(RobotMap.changeTurbo) && leftStick.getRawButtonPressed(12)) {
 			turboEnabled = true;
-		} else if (arcadeStick.getRawButtonReleased(RobotMap.changeTurbo) && arcadeStick.getRawButtonReleased(12)){
+		} else if (leftStick.getRawButtonReleased(RobotMap.changeTurbo) && leftStick.getRawButtonReleased(12)){
 			turboEnabled = false;
 		}
 		
-		throttle = arcadeStick.getY();
-		turn = arcadeStick.getX();
+		leftThrottle = leftStick.getY();
+		rightThrottle = rightStick.getY();
 		
-		if (arcadeStick.getRawButtonPressed(RobotMap.shiftDown)) {
+		if (leftStick.getRawButtonPressed(RobotMap.shiftDown)) {
 			driveTrain.setLowGear();
 		}
 		
-		if (arcadeStick.getRawButtonPressed(RobotMap.shiftUp)){
+		if (leftStick.getRawButtonPressed(RobotMap.shiftUp)){
 			driveTrain.setHighGear();
 		}
 		
-		if (arcadeStick.getRawButtonPressed(RobotMap.coastMode)) {
+		if (leftStick.getRawButtonPressed(RobotMap.coastMode)) {
 			driveTrain.changeBrakeMode(coastModeEnabled);
 			coastModeEnabled = !coastModeEnabled;
 		}
 		
-		driveTrain.driveWithController(throttle, turn, turboEnabled);
+		driveTrain.driveWithControllers(rightThrottle, leftThrottle);
 		//driveTrain.automaticTransmission(throttle);
 		driveTrain.updateDash();
 	}

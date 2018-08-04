@@ -22,8 +22,8 @@ public class OI {
   private Joystick elevatorStick = new Joystick(RobotMap.elevatorStick);
   private Joystick climberStick = new Joystick(RobotMap.intakeStick);
   private Joystick arcadeStick = new Joystick(RobotMap.arcadeStickPort);
-  //private Joystick leftStick = new Joystick(RobotMap.leftStick);
-  //private Joystick rightStick = new Joystick(RobotMap.rightStick);
+  private Joystick leftStick = new Joystick(RobotMap.leftStick);
+  private Joystick rightStick = new Joystick(RobotMap.rightStick);
  
   // put button press events here
   public OI() {
@@ -53,7 +53,7 @@ public class OI {
 	  return arcadeStick;
   }
   
-  /*
+  
   public Joystick getLeftStick() {
 	  return leftStick;
   }
@@ -61,5 +61,4 @@ public class OI {
   public Joystick getRightStick() {
 	  return rightStick;
   }
-  */
 }

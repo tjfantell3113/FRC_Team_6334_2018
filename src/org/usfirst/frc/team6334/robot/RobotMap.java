@@ -19,10 +19,10 @@ public class RobotMap {
 	
 	// Controller Ports
 	public final static int intakeStick = 2;
-	public final static int elevatorStick = 1;
+	public final static int elevatorStick = 2;
 	public final static int arcadeStickPort = 0;
-	public final static int leftStick = 1;
-	public final static int rightStick = 0;
+	public final static int leftStick = 0;
+	public final static int rightStick = 1;
 	
 	//Joystick Buttons (Hopefully soon to be categorized for each joystick)
 	public final static int shiftDown = 9;

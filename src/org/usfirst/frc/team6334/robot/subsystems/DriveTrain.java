@@ -8,7 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6334.robot.RobotMap;
-import org.usfirst.frc.team6334.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team6334.robot.commands.TankDrive;
 //CAN only libraries
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -202,7 +202,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new ArcadeDrive());
+    	setDefaultCommand(new TankDrive());
     }
     
     public double checkThrottleValue(double throttle) {
